@@ -228,8 +228,8 @@ const App = () =>
   const getNfcConfiguration = () => {
     let config: NfcConfiguration = {
       docNumber: "YB7606398", 
-      birthDay: "16/08/1979", 
-      expirationDay: "09/11/2030", 
+      birthDate: "16/08/1979", 
+      expirationDate: "09/11/2030", 
       extractionTimeout: 50000
     };
     return config;
