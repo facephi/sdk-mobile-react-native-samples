@@ -14,25 +14,23 @@ import { CUSTOMER_ID, MsjError, LICENSE_URL, LICENSE_APIKEY_IOS, LICENSE_APIKEY_
 
 import SdkTopBar from './components/commons/SdkTopBar';
 import ActionSheet from './components/commons/CustomActionSheet';
-import SelphIDWarning from './components/selphid/SelphIDWarning';
-
 import SdkButton from './components/commons/SdkButton';
+
 import { SdkErrorType, SdkFinishStatus, SdkOperationType } from '@facephi/sdk-core-react-native/src/SdkCoreEnums';
 import { ReticleOrientation } from '@facephi/sdk-phingers-react-native/src/RecticleOrientation';
 import { CoreResult, FlowConfiguration, InitOperationConfiguration, InitSessionConfiguration, TokenizeConfiguration } from '@facephi/sdk-core-react-native/src';
 import { PhingersConfiguration, PhingersResult } from '@facephi/sdk-phingers-react-native/src';
 import { apiPost } from './apiRest';
 import { LogBox } from 'react-native';
+import SdkWarning from './components/commons/SdkWarning';
 
 const App = () => 
 {
-  const [message, setMessage]                       = useState("");
-  const [tokenFaceImage, setTokenFaceImage]         = useState(null);
-  const [showError, setShowError]                   = useState(false);
-  const [textColorMessage, setTextColorMessage]     = useState('#777777');
-  const [bestImageApi, setBestImageApi]             = useState(null);
-  const [actionSheet, setActionSheet]               = useState(false);
-  const [darkMode, setDarkMode]                     = useState(false);
+  const [message, setMessage]                   = useState("");
+  const [showError, setShowError]               = useState(false);
+  const [textColorMessage, setTextColorMessage] = useState('#777777');
+  const [actionSheet, setActionSheet]           = useState(false);
+  const [darkMode, setDarkMode]                 = useState(false);
 
   const actionItems = [
     {
@@ -156,40 +154,6 @@ const App = () =>
     };
 
     return sdkConfiguration;
-  };
-
-  const getExtraData = async () => 
-  { 
-    try 
-    {
-      console.log("Starting getExtraData...");
-
-      return await SdkMobileCore.getExtraData()
-      .then(async (result: CoreResult) => 
-      {
-        console.log("result", result);
-        if (result.finishStatus == SdkFinishStatus.Ok)
-        {
-          const params1 = {'extraData': result.data, 'image': bestImageApi};
-          const params2 = {'documentTemplate': tokenFaceImage, 'extraData': result.data, 'image1': bestImageApi};
-          
-          let r1: any = await apiPost('/v5/api/v1/selphid/passive-liveness/evaluate', params1);
-          console.log("r1", r1);
-          let r2: any = await apiPost('/v5/api/v1/selphid/authenticate-facial/document/face-image', params2);
-          console.log("r2", r2);
-        }
-      })
-      .catch((error: any) => 
-      {
-        console.log(error);
-      })
-      .finally(()=> {
-        console.log("End getExtraData...");
-      });
-    } 
-    catch (error) {
-      setMessage(JSON.stringify(error));
-    }
   };
 
   const startPhingers = async () => 
@@ -334,14 +298,13 @@ const App = () =>
 
   const headerComponent = () => 
     <View style={{ flex: 1, alignItems: 'center' }}>
-      <SelphIDWarning stateResult={[showError, message, textColorMessage]} />
+      <SdkWarning stateResult={[showError, message, textColorMessage]} />
     </View>;
 
   const footerComponent = () => 
     <View style={{ flex: 1, alignItems: 'center' }}>
       <SdkButton onPress={startPhingers} text="Start Phingers" />
       <SdkButton onPress={getTokenize} text="Tokenize" />
-      <SdkButton onPress={getExtraData} text="ExtraData" />
       <SdkButton onPress={launchFlow} text="Launch Flow" />
       <SdkButton onPress={startInitOperation} text="Init Operation" />
       <SdkButton onPress={launchInitSession} text="Init Session" />
