@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
+import PropTypes from 'prop-types';
 
 const SdkTopBar = ({ onPress }) => {
   return (
@@ -27,5 +28,9 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
 });
+
+SdkTopBar.propTypes = {
+  onPress: PropTypes.func
+};
 
 export default SdkTopBar;

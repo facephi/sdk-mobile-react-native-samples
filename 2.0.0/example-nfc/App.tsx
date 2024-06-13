@@ -12,17 +12,12 @@ import { NativeModules, SafeAreaView, StatusBar, Platform, FlatList, View, Modal
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { CUSTOMER_ID, MsjError, LICENSE_URL, LICENSE_APIKEY_IOS, LICENSE_APIKEY_ANDROID, LICENSE_ANDROID_NEW, LICENSE_IOS_NEW, TRACKING_ERROR_LISTENER } from './constants';
 
-import SelphiImage from './components/selphi/SelphiImage';
 import SdkTopBar from './components/commons/SdkTopBar';
 import ActionSheet from './components/commons/CustomActionSheet';
-import SelphIDImage from './components/selphid/SelphIDImage';
-import SelphIDTitleText from './components/selphid/SelphIDTitleText';
-import SelphIDButtonAlert from './components/selphid/SelphIDButtonAlert';
-import SelphIDWarning from './components/selphid/SelphIDWarning';
-
+import SdkWarning from './components/commons/SdkWarning';
 import SdkButton from './components/commons/SdkButton';
-import { SdkErrorType, SdkFinishStatus, SdkOperationType } from '@facephi/sdk-core-react-native/src/SdkCoreEnums';
 
+import { SdkErrorType, SdkFinishStatus, SdkOperationType } from '@facephi/sdk-core-react-native/src/SdkCoreEnums';
 import { CoreResult, FlowConfiguration, InitOperationConfiguration, InitSessionConfiguration, TokenizeConfiguration } from '@facephi/sdk-core-react-native/src';
 import { NfcConfiguration, NfcDocumentType, NfcResult } from '@facephi/sdk-nfc-react-native/src';
 import { apiPost } from './apiRest';
@@ -30,18 +25,11 @@ import { LogBox } from 'react-native';
 
 const App = () => 
 {
-  const [message, setMessage]                       = useState("");
-  const [frontDocumentImage, setFrontDocumentImage] = useState(null);
-  const [backDocumentImage, setBackDocumentImage]   = useState(null);
-  const [faceImage, setFaceImage]                   = useState(null);
-  const [tokenFaceImage, setTokenFaceImage]         = useState(null);
-  const [showError, setShowError]                   = useState(false);
-  const [ocrContent, setOcrContent]                 = useState(null);
-  const [textColorMessage, setTextColorMessage]     = useState('#777777');
-  const [bestImage, setBestImage]                   = useState(null);
-  const [bestImageApi, setBestImageApi]             = useState(null);
-  const [actionSheet, setActionSheet]               = useState(false);
-  const [darkMode, setDarkMode]                     = useState(false);
+  const [message, setMessage]                   = useState("");
+  const [showError, setShowError]               = useState(false);
+  const [textColorMessage, setTextColorMessage] = useState('#777777');
+  const [actionSheet, setActionSheet]           = useState(false);
+  const [darkMode, setDarkMode]                 = useState(false);
 
   const actionItems = [
     {
@@ -162,40 +150,6 @@ const App = () =>
     };
 
     return sdkConfiguration;
-  };
-
-  const getExtraData = async () => 
-  { 
-    try 
-    {
-      console.log("Starting getExtraData...");
-
-      return await SdkMobileCore.getExtraData()
-      .then(async (result: CoreResult) => 
-      {
-        console.log("result", result);
-        if (result.finishStatus == SdkFinishStatus.Ok)
-        {
-          const params1 = {'extraData': result.data, 'image': bestImageApi};
-          const params2 = {'documentTemplate': tokenFaceImage, 'extraData': result.data, 'image1': bestImageApi};
-          
-          let r1: any = await apiPost('/v5/api/v1/selphid/passive-liveness/evaluate', params1);
-          console.log("r1", r1);
-          let r2: any = await apiPost('/v5/api/v1/selphid/authenticate-facial/document/face-image', params2);
-          console.log("r2", r2);
-        }
-      })
-      .catch((error: any) => 
-      {
-        console.log(error);
-      })
-      .finally(()=> {
-        console.log("End getExtraData...");
-      });
-    } 
-    catch (error) {
-      setMessage(JSON.stringify(error));
-    }
   };
 
   const startNfc = async () => 
@@ -331,43 +285,12 @@ const App = () =>
     }
   };
 
-  const processSelphiResult = (result: any) => 
-  {
-    switch (parseInt(result.finishStatus, 10)) 
-    {
-      case SdkFinishStatus.Ok: // OK
-        setMessage('Preview selfie');
-        setBestImage(result.bestImage);
-        setBestImageApi(result.bestImage);
-        setTextColorMessage('#777777');
-        setShowError(false);
-        break;
-
-      // Shows the result operation.
-      case SdkFinishStatus.Error: // Error
-        if (result.errorType) {
-          drawError(setMessage, result);
-          setBestImage(null);
-          setTextColorMessage('#DE2222');
-          setShowError(true);
-        }
-        break;
-
-      default:
-        setMessage('Unknown error');
-        setBestImage(null);
-        setTextColorMessage('#DE2222');
-        setShowError(true);
-        break;
-    }
-  };
-
   const bodyComponent = () => 
     <View style={{ flex: 1, alignItems: 'center' }}></View>;
 
   const headerComponent = () => 
     <View style={{ flex: 1, alignItems: 'center' }}>
-      <SelphIDWarning stateResult={[showError, message, textColorMessage]} />
+      <SdkWarning stateResult={[showError, message, textColorMessage]} />
     </View>;
 
   const footerComponent = () => 
@@ -376,7 +299,6 @@ const App = () =>
       <SdkButton onPress={startInitOperation} text="Init Operation" />
       <SdkButton onPress={startNfc} text="Start Nfc" />
       <SdkButton onPress={getTokenize} text="Tokenize" />
-      <SdkButton onPress={getExtraData} text="ExtraData" />
       <SdkButton onPress={launchCloseSession} text="Close Session" />
       <SdkButton onPress={launchFlow} text="Launch Flow" />
     </View>;

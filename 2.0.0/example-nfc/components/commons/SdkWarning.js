@@ -1,7 +1,8 @@
 import React from 'react';
 import { Text } from 'react-native';
+import PropTypes from 'prop-types';
 
-const SelphIDWarning = ({stateResult}) => {
+const SdkWarning = ({stateResult}) => {
   return (
     <Text 
       style={
@@ -12,4 +13,8 @@ const SelphIDWarning = ({stateResult}) => {
   );
 };
 
-export default SelphIDWarning;
+SdkWarning.propTypes = {
+  stateResult: PropTypes.any
+};
+
+export default SdkWarning;
