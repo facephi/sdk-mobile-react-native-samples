@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text } from 'react-native';
 
-const SelphIDWarning = ({stateResult}) => {
+const SdkWarning = ({stateResult}) => {
   return (
     <Text 
       style={
@@ -12,4 +12,4 @@ const SelphIDWarning = ({stateResult}) => {
   );
 };
 
-export default SelphIDWarning;
+export default SdkWarning;
