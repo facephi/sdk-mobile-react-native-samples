@@ -67,58 +67,6 @@ const App = () =>
   }
   ,[])
 
-  const getFlowConfiguration = () => 
-  {
-    const sdkConfiguration: FlowConfiguration = {
-      flow: "FLOW_B",
-      customerId: CUSTOMER_ID,
-    };
-
-    return sdkConfiguration;
-  };
-
-  const launchFlow = async () => 
-  { 
-    try 
-    {
-      console.log("Starting launchFlow...", getFlowConfiguration());
-      await SdkMobileCore.initFlow(getFlowConfiguration())
-      .then((result: CoreResult) => 
-      {
-        console.log("initFlow result", result);
-      })
-      .catch((error: any) => 
-      {
-        console.log(error);
-      })
-      .finally(()=> {
-        console.log("End launchFlow...");
-      });
-
-      await SdkMobileNfc.setNfcFlow().then((result: NfcResult) => 
-      {
-        console.log("NfcResult", result);
-      });
-
-      await SdkMobileCore.startFlow()
-      .then((result: CoreResult) => 
-      {
-        console.log("startFlow result", result);
-      })
-      .catch((error: any) => 
-      {
-        console.log(error);
-      })
-      .finally(()=> 
-      {
-        console.log("End startFlow...");
-      });
-    } 
-    catch (error) {
-      setMessage(JSON.stringify(error));
-    }
-  };
-
   const getTokenize = async () => 
   { 
     try 
@@ -300,7 +248,6 @@ const App = () =>
       <SdkButton onPress={startNfc} text="Start Nfc" />
       <SdkButton onPress={getTokenize} text="Tokenize" />
       <SdkButton onPress={launchCloseSession} text="Close Session" />
-      <SdkButton onPress={launchFlow} text="Launch Flow" />
     </View>;
 
   return (
