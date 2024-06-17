@@ -13,7 +13,7 @@ import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { CUSTOMER_ID, MsjError, LICENSE_URL, LICENSE_APIKEY_IOS, LICENSE_APIKEY_ANDROID, LICENSE_ANDROID_NEW, LICENSE_IOS_NEW } from './constants';
 
 import SdkTopBar from './components/commons/SdkTopBar';
-import SelphIDWarning from './components/selphid/SelphIDWarning';
+import SdkWarning from './components/commons/SdkWarning';
 import SdkButton from './components/commons/SdkButton';
 
 import { SdkErrorType, SdkOperationType } from '@facephi/sdk-core-react-native/src/SdkCoreEnums';
@@ -168,15 +168,15 @@ const App = () =>
   };
 
   const bodyComponent = () => 
-    <View style={{ flex: 1, alignItems: 'center', display: 'none' }}></View>;
+    <View style={{ alignItems: 'center' }}></View>;
 
   const headerComponent = () => 
-    <View style={{ flex: 1, alignItems: 'center' }}>
-      <SelphIDWarning stateResult={[showError, message, textColorMessage]} />
+    <View style={{ alignItems: 'center' }}>
+      <SdkWarning stateResult={[showError, message, textColorMessage]} />
     </View>;
 
   const footerComponent = () => 
-    <View style={{ flex: 1, alignItems: 'center' }}>
+    <View style={{ alignItems: 'center' }}>
       <SdkButton onPress={launchVideoId} text="Start VideoId" />
       <SdkButton onPress={launchInitOperation} text="Init Operation" />
       <SdkButton onPress={launchInitSession} text="Init Session" />
@@ -189,7 +189,7 @@ const App = () =>
       <SdkTopBar />
 
       <FlatList
-        contentContainerStyle={{paddingTop: '45%'}}
+        contentContainerStyle={{flex: 1, justifyContent: 'center'}}
         data={[1]}
         renderItem={ bodyComponent }
         ListHeaderComponent={ headerComponent }

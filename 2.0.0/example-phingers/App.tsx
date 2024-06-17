@@ -18,7 +18,7 @@ import SdkButton from './components/commons/SdkButton';
 
 import { SdkErrorType, SdkFinishStatus, SdkOperationType } from '@facephi/sdk-core-react-native/src/SdkCoreEnums';
 import { ReticleOrientation } from '@facephi/sdk-phingers-react-native/src/RecticleOrientation';
-import { CoreResult, FlowConfiguration, InitOperationConfiguration, InitSessionConfiguration, TokenizeConfiguration } from '@facephi/sdk-core-react-native/src';
+import { CoreResult, InitOperationConfiguration, InitSessionConfiguration, TokenizeConfiguration } from '@facephi/sdk-core-react-native/src';
 import { PhingersConfiguration, PhingersResult } from '@facephi/sdk-phingers-react-native/src';
 import { apiPost } from './apiRest';
 import { LogBox } from 'react-native';
@@ -68,60 +68,6 @@ const App = () =>
     launchInitSession();
   }
   ,[])
-
-  const getFlowConfiguration = () => 
-  {
-    const sdkConfiguration: FlowConfiguration = {
-      flow: "FLOW_B",
-      customerId: CUSTOMER_ID,
-    };
-
-    return sdkConfiguration;
-  };
-
-  const launchFlow = async () => 
-  { 
-    try 
-    {
-      console.log("Starting launchFlow...", getFlowConfiguration());
-      await SdkMobileCore.initFlow(getFlowConfiguration())
-      .then((result: CoreResult) => 
-      {
-        console.log("initFlow result", result);
-      })
-      .catch((error: any) => 
-      {
-        console.log(error);
-      })
-      .finally(()=> {
-        console.log("End launchFlow...");
-      });
-
-      await SdkMobilePhingers.setPhingersFlow().then((result: PhingersResult) => 
-      {
-        console.log("PhingersResult", result);
-      });
-      //await SdkMobileVoice.setVoiceFlow()
-      //await SdkMobileCore.setSelphidFlow()
-
-      await SdkMobileCore.startFlow()
-      .then((result: CoreResult) => 
-      {
-        console.log("startFlow result", result);
-      })
-      .catch((error: any) => 
-      {
-        console.log(error);
-      })
-      .finally(()=> 
-      {
-        console.log("End startFlow...");
-      });
-    } 
-    catch (error) {
-      setMessage(JSON.stringify(error));
-    }
-  };
 
   const getTokenize = async () => 
   { 
@@ -294,18 +240,17 @@ const App = () =>
   };
 
   const bodyComponent = () => 
-    <View style={{ flex: 1, alignItems: 'center' }}></View>;
+    <View style={{ alignItems: 'center' }}></View>;
 
   const headerComponent = () => 
-    <View style={{ flex: 1, alignItems: 'center' }}>
+    <View style={{ alignItems: 'center' }}>
       <SdkWarning stateResult={[showError, message, textColorMessage]} />
     </View>;
 
   const footerComponent = () => 
-    <View style={{ flex: 1, alignItems: 'center' }}>
+    <View style={{ alignItems: 'center' }}>
       <SdkButton onPress={startPhingers} text="Start Phingers" />
       <SdkButton onPress={getTokenize} text="Tokenize" />
-      <SdkButton onPress={launchFlow} text="Launch Flow" />
       <SdkButton onPress={startInitOperation} text="Init Operation" />
       <SdkButton onPress={launchInitSession} text="Init Session" />
       <SdkButton onPress={launchCloseSession} text="Close Session" />
@@ -324,7 +269,7 @@ const App = () =>
       </Modal>
 
       <FlatList
-        contentContainerStyle={{paddingTop: '15%'}}
+        contentContainerStyle={{flex: 1, justifyContent: 'center'}}
         data={[1]}
         renderItem={ bodyComponent }
         ListHeaderComponent={ headerComponent }

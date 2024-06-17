@@ -18,9 +18,8 @@ import SdkWarning from './components/commons/SdkWarning';
 import SdkButton from './components/commons/SdkButton';
 
 import { SdkErrorType, SdkFinishStatus, SdkOperationType } from '@facephi/sdk-core-react-native/src/SdkCoreEnums';
-import { CoreResult, FlowConfiguration, InitOperationConfiguration, InitSessionConfiguration, TokenizeConfiguration } from '@facephi/sdk-core-react-native/src';
+import { CoreResult, InitOperationConfiguration, InitSessionConfiguration, TokenizeConfiguration } from '@facephi/sdk-core-react-native/src';
 import { NfcConfiguration, NfcDocumentType, NfcResult } from '@facephi/sdk-nfc-react-native/src';
-import { apiPost } from './apiRest';
 import { LogBox } from 'react-native';
 
 const App = () => 
@@ -234,15 +233,15 @@ const App = () =>
   };
 
   const bodyComponent = () => 
-    <View style={{ flex: 1, alignItems: 'center' }}></View>;
+    <View style={{ alignItems: 'center' }}></View>;
 
   const headerComponent = () => 
-    <View style={{ flex: 1, alignItems: 'center' }}>
+    <View style={{ alignItems: 'center' }}>
       <SdkWarning stateResult={[showError, message, textColorMessage]} />
     </View>;
 
   const footerComponent = () => 
-    <View style={{ flex: 1, alignItems: 'center' }}>
+    <View style={{ alignItems: 'center' }}>
       <SdkButton onPress={launchInitSession} text="Init Session" />
       <SdkButton onPress={startInitOperation} text="Init Operation" />
       <SdkButton onPress={startNfc} text="Start Nfc" />
@@ -263,7 +262,7 @@ const App = () =>
       </Modal>
 
       <FlatList
-        contentContainerStyle={{paddingTop: '15%'}}
+        contentContainerStyle={{flex: 1, justifyContent: 'center'}}
         data={[1]}
         renderItem={ bodyComponent }
         ListHeaderComponent={ headerComponent }
