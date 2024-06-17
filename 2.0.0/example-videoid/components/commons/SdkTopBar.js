@@ -5,7 +5,7 @@ class SdkTopBar extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.textTitle}> Sdk Mobile </Text>
+        <Text style={styles.textTitle}> VideoId Example </Text>
       </View>
     );
   }
