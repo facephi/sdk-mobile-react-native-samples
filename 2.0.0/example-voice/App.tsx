@@ -100,6 +100,8 @@ const App = () =>
       phrases: "hola que tal|hola que tal prueba",
       showTutorial: true,
       vibrationEnabled: true,
+      returnAudios: true,
+      returnTokenizedAudios: true
     };
 
     return sdkConfiguration;
@@ -201,15 +203,15 @@ const App = () =>
   };
 
   const bodyComponent = () => 
-    <View style={{ flex: 1, alignItems: 'center' }}></View>;
+    <View style={{ alignItems: 'center' }}></View>;
 
   const headerComponent = () => 
-    <View style={{ flex: 1, alignItems: 'center' }}>
+    <View style={{ alignItems: 'center' }}>
       <SdkWarning stateResult={[showError, message, textColorMessage]} />
     </View>;
 
   const footerComponent = () => 
-    <View style={{ flex: 1, alignItems: 'center' }}>
+    <View style={{ alignItems: 'center' }}>
       <SdkButton onPress={launchVoice} text="Voice" />
       <SdkButton onPress={startInitOperation} text="Init Operation" />
       <SdkButton onPress={launchInitSession} text="Init Session" />
@@ -229,7 +231,7 @@ const App = () =>
       </Modal>
 
       <FlatList
-        contentContainerStyle={{paddingTop: '15%'}}
+        contentContainerStyle={{flex: 1, justifyContent: 'center'}}
         data={[1]}
         renderItem={ bodyComponent }
         ListHeaderComponent={ headerComponent }
