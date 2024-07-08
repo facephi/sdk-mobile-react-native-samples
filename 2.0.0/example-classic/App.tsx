@@ -72,10 +72,12 @@ const App = () =>
   );
   /* end listener */
 
-  useEffect(()=>{
+  useEffect(() => {
     const colorScheme = Appearance.getColorScheme(); //identify the theme of your default system light/dark
     setDarkMode(colorScheme === 'dark' ? true : false);
     console.log("dark mode:", darkMode);
+
+    launchInitSession();
   }
   ,[])
 
@@ -319,11 +321,12 @@ const App = () =>
     try 
     {
       console.log("Starting initSession...");
+      setShowError(false);
       let config: InitSessionConfiguration = {
-        license: Platform.OS === 'ios' ? LICENSE_IOS_NEW : LICENSE_ANDROID_NEW,
-        //licenseUrl: LICENSE_URL,
-        //licenseApiKey: Platform.OS === 'ios' ? LICENSE_APIKEY_IOS : LICENSE_APIKEY_ANDROID,
-        enableTracking: true
+        //license: Platform.OS === 'ios' ? LICENSE_IOS_NEW : LICENSE_ANDROID_NEW,
+        licenseUrl: LICENSE_URL,
+        licenseApiKey: Platform.OS === 'ios' ? LICENSE_APIKEY_IOS : LICENSE_APIKEY_ANDROID,
+        enableTracking: true,
       };
 
       return await SdkMobileCore.initSession(config)
@@ -378,7 +381,7 @@ const App = () =>
     try 
     {
       console.log("Starting startInitOperation...");
-
+      setShowError(false);
       return await SdkMobileCore.initOperation(getInitOperationConfiguration())
       .then((result: CoreResult) => 
       {
@@ -476,7 +479,7 @@ const App = () =>
   }
 
   const bodyComponent = () => 
-    <View style={{ flex: 1, alignItems: 'center' }}>
+    <View style={{ alignItems: 'center' }}>
       {bestImage ? <SelphIDTitleText text="BestImage" /> : null}
       <SelphiImage image={bestImage} widthImage={'55%'} />
       {frontDocumentImage ? <SelphIDTitleText text="Frente" /> : null}
@@ -489,12 +492,12 @@ const App = () =>
     </View>;
 
   const headerComponent = () => 
-    <View style={{ flex: 1, alignItems: 'center' }}>
+    <View style={{ alignItems: 'center' }}>
       <SelphIDWarning stateResult={[showError, message, textColorMessage]} />
     </View>;
 
   const footerComponent = () => 
-    <View style={{ flex: 1, alignItems: 'center' }}>
+    <View style={{ alignItems: 'center' }}>
       <SdkButton onPress={startSelphi} text="Start Selphi" />
       <SdkButton onPress={startSelphid} text="Start SelphID" />
       <SdkButton onPress={startInitOperation} text="Init Operation" />
@@ -518,7 +521,7 @@ const App = () =>
       </Modal>
 
       <FlatList
-        contentContainerStyle={{paddingTop: '15%'}}
+        contentContainerStyle={{flex: 1, justifyContent: 'center'}}
         data={[1]}
         renderItem={ bodyComponent }
         ListHeaderComponent={ headerComponent }
