@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import PropTypes from 'prop-types';
 import { Modal, StyleSheet, Text, TouchableHighlight, View, FlatList } from 'react-native';
 
 const SelphIDButtonAlert = ({content, darkMode}) => {
@@ -123,5 +124,10 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
+
+SelphIDButtonAlert.propTypes = {
+  content: PropTypes.any.isRequired,
+  darkMode: PropTypes.bool.isRequired,
+}
 
 export default SelphIDButtonAlert;

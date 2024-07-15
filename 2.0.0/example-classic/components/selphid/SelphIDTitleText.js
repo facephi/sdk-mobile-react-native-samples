@@ -1,5 +1,6 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import PropTypes from 'prop-types';
+import { StyleSheet, Text, View } from 'react-native';
 
 const styles = StyleSheet.create({
   textContent: {
@@ -22,5 +23,9 @@ const SelphIDTitleText = ({text}) => {
     </View>
   );
 };
+
+SelphIDTitleText.propTypes = {
+  text: PropTypes.string.isRequired
+}
 
 export default SelphIDTitleText;
