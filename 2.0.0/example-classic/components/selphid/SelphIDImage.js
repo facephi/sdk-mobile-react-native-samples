@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {StyleSheet, View, Image} from 'react-native';
+import { StyleSheet, View, Image } from 'react-native';
 
 const styles = StyleSheet.create({
   selphIDImageContainer: {
@@ -41,6 +41,6 @@ const SelphIDImage = ({image, widthImage}) => {
 SelphIDImage.propTypes = {
   image: PropTypes.string,
   widthImage: PropTypes.string.isRequired,
-}
+};
 
 export default SelphIDImage;

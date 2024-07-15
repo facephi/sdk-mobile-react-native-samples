@@ -26,6 +26,6 @@ const SelphIDTitleText = ({text}) => {
 
 SelphIDTitleText.propTypes = {
   text: PropTypes.string.isRequired
-}
+};
 
 export default SelphIDTitleText;

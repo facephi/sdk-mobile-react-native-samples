@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {StyleSheet, Text, View} from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
 const styles = StyleSheet.create({
   textContent: {
@@ -27,6 +27,6 @@ const SelphiTitleText = ({text, textColor}) => {
 SelphiTitleText.propTypes = {
   text: PropTypes.string.isRequired,
   textColor: PropTypes.string.isRequired,
-}
+};
 
 export default SelphiTitleText;

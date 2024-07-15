@@ -15,6 +15,6 @@ const SelphIDWarning = ({stateResult}) => {
 
 SelphIDWarning.propTypes = {
   stateResult: PropTypes.any.isRequired
-}
+};
 
 export default SelphIDWarning;

@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
 });
 
 SelphIDButtonAlert.propTypes = {
-  content: PropTypes.any.isRequired,
+  content: PropTypes.any,
   darkMode: PropTypes.bool.isRequired,
 }
 
