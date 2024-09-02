@@ -214,6 +214,7 @@ const App = () =>
       livenessMode: SdkSelphiEnums.SdkLivenessMode.PassiveMode,
       resourcesPath: "fphi-selphi-widget-resources-sdk.zip",
       enableGenerateTemplateRaw: true,
+      showResultAfterCapture: true
     };
     return config;
   };
@@ -229,7 +230,7 @@ const App = () =>
 
       console.log("Starting startSelphi...");
       clearAll();
-
+      
       return await SdkMobileSelphi.selphi(getSelphiConfiguration())
       .then((result: any) => 
       {
@@ -255,8 +256,8 @@ const App = () =>
       showResultAfterCapture: true,
       showTutorial: false,
       scanMode: SdkSelphidEnums.SdkScanMode.Search,
-      specificData: 'AR|<ALL>',
-      documentType: SdkSelphidEnums.SdkDocumentType.IdCard,
+      specificData: 'US|<ALL>',
+      documentType: SdkSelphidEnums.SdkDocumentType.DriversLicense,
       fullscreen: true,
       locale: '',
       resourcesPath: "fphi-selphid-widget-resources-sdk.zip",
@@ -275,7 +276,7 @@ const App = () =>
 
       console.log("Starting startSelphid...");
       clearAll();
- 
+      console.log(getSelphidConfiguration());
       return await SdkMobileSelphid.selphid(getSelphidConfiguration())
       .then((result: any) => 
       {
