@@ -1,4 +1,4 @@
-package com.example.newarchitecture.components;
+package com.facephi.sdk.demo.newarchitecture.components;
 
 import com.facebook.jni.HybridData;
 import com.facebook.proguard.annotations.DoNotStrip;
