@@ -1,4 +1,5 @@
 apply plugin: "com.android.application"
+apply plugin: 'kotlin-android' //ADD THIS FOR KOTLIN + COMPOSE
 
 import com.android.build.OutputFile
 import org.apache.tools.ant.taskdefs.condition.Os
@@ -130,6 +131,7 @@ def reactNativeArchitectures() {
 }
 
 android {
+    namespace "com.facephi.sdk.demo"
     /* use this if you install phingers */
     packagingOptions {
         pickFirst 'lib/x86/libc++_shared.so'
