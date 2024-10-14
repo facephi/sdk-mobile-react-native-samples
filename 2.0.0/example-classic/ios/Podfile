@@ -17,22 +17,9 @@ if linkage != nil
   use_frameworks! :linkage => linkage.to_sym
 end
 
-target 'exampleClassic' do
+target 'ExampleClassic' do
   config = use_native_modules!
-  
-  # $static_framework = ['Flipper-Boost-iOSX', 'Flipper-RSocket', 'glog', 'Yoga', 'YogaKit', 'React-logger', 'Flipper-Fmt', 'RCT-Folly', 'Flipper-Folly', 'React-jsi', 'FlipperKit', 'Flipper', 'Flipper-Glog', 'Flipper-PeerTalk', 'React-cxxreact', 'React-jsiexecutor', 'React-Core', 'React-RCTText', 'RCTTypeSafety', 'ReactCommon', 'React-Codegen', 'React-RCTVibration', 'React-RCTSettings', 'React-RCTNetwork', 'React-RCTLinking', 'React-RCTAnimation', 'React-RCTBlob', 'React-RCTImage', 'React-CoreModules', 'React-hermes']
 
-  #pre_install do |installer|
-    #Pod::Installer::Xcode::TargetValidator.send(:define_method, :verify_no_static_framework_transitive_dependencies) {}
-    #installer.pod_targets.each do |pod|
-        #if $static_framework.include?(pod.name)
-          #def pod.build_type;
-            #Pod::BuildType.static_library
-          #end
-        #end
-      #end
-  #end
-  
   dynamic_frameworks = ['zipzap', 'PromisesObjC', 'GTMSessionFetcher', 'GoogleDataTransport', 'GoogleToolboxForMac', 'Protobuf', 'GoogleUtilities', 'nanopb']
 
   pre_install do |installer|
@@ -52,7 +39,7 @@ target 'exampleClassic' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
-  target 'exampleClassicTests' do
+  target 'ExampleClassicTests' do
     inherit! :complete
     # Pods for testing
   end

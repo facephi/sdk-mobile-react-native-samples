@@ -24,7 +24,7 @@ import SdkButton from './components/commons/SdkButton';
 import * as SdkSelphiEnums from '@facephi/sdk-selphi-react-native/src/SdkSelphiEnums';
 import { SdkErrorType, SdkFinishStatus, SdkOperationType } from '@facephi/sdk-core-react-native/src/SdkCoreEnums';
 import * as SdkSelphidEnums from '@facephi/sdk-selphid-react-native/src/SdkSelphidEnums';
-import { CoreResult, FlowConfiguration, InitOperationConfiguration, InitSessionConfiguration, TokenizeConfiguration } from '@facephi/sdk-core-react-native/src';
+import { CoreResult, FlowConfiguration, InitOperationConfiguration, InitSessionConfiguration } from '@facephi/sdk-core-react-native/src';
 import { SelphiConfiguration, SelphiResult } from '@facephi/sdk-selphi-react-native/src';
 import { SelphidConfiguration, SelphidResult } from '@facephi/sdk-selphid-react-native/src';
 import { apiPost } from './apiRest';
@@ -140,39 +140,6 @@ const App = () =>
     }
   };
 
-  const getTokenize = async () => 
-  { 
-    try 
-    {
-      console.log("Starting getTokenize...", getTokenizeConfiguration());
-
-      return await SdkMobileCore.tokenize(getTokenizeConfiguration())
-      .then((result: CoreResult) => 
-      {
-        console.log("result", result);
-      })
-      .catch((error: any) => 
-      {
-        console.log(error);
-      })
-      .finally(()=> {
-        console.log("End getTokenize...");
-      });
-    } 
-    catch (error) {
-      setMessage(JSON.stringify(error));
-    }
-  };
-
-  const getTokenizeConfiguration = () => 
-  {
-    const sdkConfiguration: TokenizeConfiguration = {
-      stringToTokenize: "String to Tokenize ..."
-    };
-
-    return sdkConfiguration;
-  };
-
   const getExtraData = async () => 
   { 
     try 
@@ -214,7 +181,9 @@ const App = () =>
       livenessMode: SdkSelphiEnums.SdkLivenessMode.PassiveMode,
       resourcesPath: "fphi-selphi-widget-resources-sdk.zip",
       enableGenerateTemplateRaw: true,
-      showResultAfterCapture: true
+      showResultAfterCapture: true,
+      jpgQuality: 0.95,
+      compressFormat: SdkSelphiEnums.SdkCompressFormat.JPEG
     };
     return config;
   };
@@ -234,7 +203,9 @@ const App = () =>
       return await SdkMobileSelphi.selphi(getSelphiConfiguration())
       .then((result: any) => 
       {
-        console.log("result", result);
+        //console.log("result", result);
+        let r = result as SelphiResult
+        console.log("result", r)
         processSelphiResult(result);
       })
       .catch((error: any) => 
@@ -256,8 +227,8 @@ const App = () =>
       showResultAfterCapture: true,
       showTutorial: false,
       scanMode: SdkSelphidEnums.SdkScanMode.Search,
-      specificData: 'US|<ALL>',
-      documentType: SdkSelphidEnums.SdkDocumentType.DriversLicense,
+      specificData: 'AR|<ALL>',
+      documentType: SdkSelphidEnums.SdkDocumentType.IdCard,
       fullscreen: true,
       locale: '',
       resourcesPath: "fphi-selphid-widget-resources-sdk.zip",
@@ -502,7 +473,6 @@ const App = () =>
       <SdkButton onPress={startSelphi} text="Start Selphi" />
       <SdkButton onPress={startSelphid} text="Start SelphID" />
       <SdkButton onPress={startInitOperation} text="Init Operation" />
-      <SdkButton onPress={getTokenize} text="Tokenize" />
       <SdkButton onPress={getExtraData} text="ExtraData" />
       <SdkButton onPress={launchInitSession} text="Init Session" />
       <SdkButton onPress={launchCloseSession} text="Close Session" />

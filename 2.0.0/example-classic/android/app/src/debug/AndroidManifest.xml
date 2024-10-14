@@ -3,8 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <application
-        tools:targetApi="28"
-        tools:ignore="GoogleAppIndexingWarning"
         android:usesCleartextTraffic="true"
-        tools:replace="android:usesCleartextTraffic"/>
+        tools:targetApi="28"
+        tools:ignore="GoogleAppIndexingWarning"/>
 </manifest>
