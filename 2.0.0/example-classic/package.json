@@ -1,6 +1,6 @@
 {
   "name": "ExampleClassic",
-  "version": "0.0.1",
+  "version": "2.1.0",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
@@ -10,9 +10,6 @@
     "test": "jest"
   },
   "dependencies": {
-    "@facephi/sdk-core-react-native": "../sdk-core-2.0.6",
-    "@facephi/sdk-selphi-react-native": "../sdk-selphi-2.0.9",
-    "@facephi/sdk-selphid-react-native": "../sdk-selphid-2.0.13",
     "react": "18.3.1",
     "react-native": "0.75.2"
   },
