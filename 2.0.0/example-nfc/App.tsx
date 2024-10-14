@@ -18,7 +18,7 @@ import SdkWarning from './components/commons/SdkWarning';
 import SdkButton from './components/commons/SdkButton';
 
 import { SdkErrorType, SdkFinishStatus, SdkOperationType } from '@facephi/sdk-core-react-native/src/SdkCoreEnums';
-import { CoreResult, InitOperationConfiguration, InitSessionConfiguration, TokenizeConfiguration } from '@facephi/sdk-core-react-native/src';
+import { CoreResult, InitOperationConfiguration, InitSessionConfiguration } from '@facephi/sdk-core-react-native/src';
 import { NfcConfiguration, NfcDocumentType, NfcResult } from '@facephi/sdk-nfc-react-native/src';
 import { LogBox } from 'react-native';
 
@@ -65,39 +65,6 @@ const App = () =>
     launchInitSession();
   }
   ,[])
-
-  const getTokenize = async () => 
-  { 
-    try 
-    {
-      console.log("Starting getTokenize...", getTokenizeConfiguration());
-
-      return await SdkMobileCore.tokenize(getTokenizeConfiguration())
-      .then((result: CoreResult) => 
-      {
-        console.log("result", result);
-      })
-      .catch((error: any) => 
-      {
-        console.log(error);
-      })
-      .finally(()=> {
-        console.log("End getTokenize...");
-      });
-    } 
-    catch (error) {
-      setMessage(JSON.stringify(error));
-    }
-  };
-
-  const getTokenizeConfiguration = () => 
-  {
-    const sdkConfiguration: TokenizeConfiguration = {
-      stringToTokenize: "String to Tokenize ..."
-    };
-
-    return sdkConfiguration;
-  };
 
   const startNfc = async () => 
   { 
@@ -245,7 +212,6 @@ const App = () =>
       <SdkButton onPress={launchInitSession} text="Init Session" />
       <SdkButton onPress={startInitOperation} text="Init Operation" />
       <SdkButton onPress={startNfc} text="Start Nfc" />
-      <SdkButton onPress={getTokenize} text="Tokenize" />
       <SdkButton onPress={launchCloseSession} text="Close Session" />
     </View>;
 

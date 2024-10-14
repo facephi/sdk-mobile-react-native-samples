@@ -18,7 +18,7 @@ import SdkButton from './components/commons/SdkButton';
 
 import { SdkErrorType, SdkFinishStatus, SdkOperationType } from '@facephi/sdk-core-react-native/src/SdkCoreEnums';
 import { ReticleOrientation } from '@facephi/sdk-phingers-react-native/src/RecticleOrientation';
-import { CoreResult, InitOperationConfiguration, InitSessionConfiguration, TokenizeConfiguration } from '@facephi/sdk-core-react-native/src';
+import { CoreResult, InitOperationConfiguration, InitSessionConfiguration } from '@facephi/sdk-core-react-native/src';
 import { PhingersConfiguration, PhingersResult } from '@facephi/sdk-phingers-react-native/src';
 import { apiPost } from './apiRest';
 import { LogBox } from 'react-native';
@@ -68,39 +68,6 @@ const App = () =>
     launchInitSession();
   }
   ,[])
-
-  const getTokenize = async () => 
-  { 
-    try 
-    {
-      console.log("Starting getTokenize...", getTokenizeConfiguration());
-
-      return await SdkMobileCore.tokenize(getTokenizeConfiguration())
-      .then((result: CoreResult) => 
-      {
-        console.log("result", result);
-      })
-      .catch((error: any) => 
-      {
-        console.log(error);
-      })
-      .finally(()=> {
-        console.log("End getTokenize...");
-      });
-    } 
-    catch (error) {
-      setMessage(JSON.stringify(error));
-    }
-  };
-
-  const getTokenizeConfiguration = () => 
-  {
-    const sdkConfiguration: TokenizeConfiguration = {
-      stringToTokenize: "String to Tokenize ..."
-    };
-
-    return sdkConfiguration;
-  };
 
   const startPhingers = async () => 
   { 
@@ -250,7 +217,6 @@ const App = () =>
   const footerComponent = () => 
     <View style={{ alignItems: 'center' }}>
       <SdkButton onPress={startPhingers} text="Start Phingers" />
-      <SdkButton onPress={getTokenize} text="Tokenize" />
       <SdkButton onPress={startInitOperation} text="Init Operation" />
       <SdkButton onPress={launchInitSession} text="Init Session" />
       <SdkButton onPress={launchCloseSession} text="Close Session" />
