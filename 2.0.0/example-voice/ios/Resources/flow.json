@@ -1,0 +1,853 @@
+[
+  {
+    "id": "001",
+    "automatic": true,
+    "nameFlow": "AutomaticoFullSinExterno",
+    "operation": {
+      "enableTracking": true,
+      "operationType": "ONBOARDING",
+      "start": "1"
+    },
+    "customization": {
+      "shape": {
+        "roundedCornerShape": 32
+      },
+      "colors": {
+        "titleTextColor": {
+          "dark": "#FFFFFF",
+          "light": "#1D2C4D"
+        },
+        "errorColor": {
+          "dark": "#DD3631",
+          "light": "#DD3631"
+        },
+        "backgroundColor": {
+          "dark": "#1E1E1E",
+          "light": "#FFFFFF"
+        },
+        "topIconsColor": {
+          "dark": "#F2F2F7",
+          "light": "#243760"
+        },
+        "successColor": {
+          "dark": "#07A13A",
+          "light": "#07A13A"
+        },
+        "accentColor": {
+          "dark": "#EA7547",
+          "light": "#EA7547"
+        },
+        "neutralColor": {
+          "dark": "#202C4B",
+          "light": "#202C4B"
+        },
+        "primaryColor": {
+          "dark": "#009abf",
+          "light": "#1bbdf9"
+        },
+        "bodyTextColor": {
+          "dark": "#FFFFFF",
+          "light": "#526080"
+        },
+        "secondaryColor": {
+          "dark": "#03DAC5",
+          "light": "#03DAC5"
+        }
+      }
+    },
+    "steps": [
+      {
+        "data": "{\"debug\":false,\"output\":[],\"timeout\":\"MEDIUM\",\"scanMode\":\"MODE_SEARCH\",\"wizardMode\":true,\"documentSide\":\"FRONT\",\"documentType\":\"ID_CARD\",\"showTutorial\":false,\"specificData\":\"AR|<ALL>\",\"tutorialOnly\":false,\"resourcesPath\":\"fphi-selphid-widget-resources-sdk.zip\",\"showDiagnostic\":true,\"showPreviousTip\":true,\"generateRawImages\":false,\"showResultAfterCapture\":true,\"locale\":null,\"params\":null,\"viewsContent\":null,\"documentModels\":null,\"tokenImageQuality\":null,\"translationsContent\":null}",
+        "id": "1",
+        "key": "SELPHID_COMPONENT",
+        "nameStep": "SELPHID_COMPONENT",
+        "target": "2"
+      },
+      {
+        "data": "{\"debug\":false,\"output\":[],\"qrMode\":false,\"fullScreen\":true,\"livenessMode\":\"PASSIVE\",\"showTutorial\":false,\"resourcesPath\":\"fphi-selphi-widget-resources-sdk.zip\",\"showDiagnostic\":true,\"showPreviousTip\":true,\"stabilizationMode\":false,\"cameraFlashEnabled\":false,\"templateRawOptimized\":false,\"showResultAfterCapture\":true,\"locale\":null,\"params\":null,\"cameraId\":null,\"cropPercent\":null,\"viewsContent\":null,\"videoFilename\":null,\"translationsContent\":null}",
+        "id": "2",
+        "key": "SELPHI_COMPONENT",
+        "nameStep": "SELPHI_COMPONENT",
+        "target": "3"
+      },
+      {
+        "data": "{\"debug\":false,\"output\":[],\"vibrationEnabled\":false,\"showDiagnostic\":true,\"extractionTimeout\":60000,\"showTutorial\":false,\"showPreviousTip\":true, \"maxScannedDocs\":5}",
+        "id": "3",
+        "key": "PHACTURA_CAPTURE_COMPONENT",
+        "nameStep": "PHACTURA_CAPTURE_COMPONENT",
+        "target": "4"
+      },
+      {
+        "data": "{\"debug\":false,\"output\":[],\"phrases\":[\"En un lugar de la mancha\"],\"showTutorial\":false,\"vibrationEnabled\":true,\"showDiagnostic\":true,\"extractionTimeout\":50000,\"enableQualityCheck\":true,\"showPreviousTip\":true}",
+        "id": "4",
+        "key": "VOICE_COMPONENT",
+        "nameStep": "VOICE_COMPONENT",
+        "target": "5"
+      },
+      {
+        "data": "{\"debug\":false,\"output\":[],\"vibrationEnabled\":true,\"reticleOrientation\":\"LEFT\",\"extractionTimeout\":50000,\"showTutorial\":false,\"showDiagnostic\":false,\"useFlash\":true,\"showPreviousTip\":true,\"returnProcessedImage\":true,\"returnRawImage\":true,\"useLiveness\":true,\"returnFullFrameImage\":true,\"threshold\":0.8,\"showSpinner\":false,\"cropWidth\":null,\"cropHeight\":null,\"cropFactor\":null}",
+        "id": "5",
+        "key": "PHINGERS_COMPONENT",
+        "nameStep": "PHINGERS_COMPONENT",
+        "target": "6"
+      },
+      {
+        "data": "{\"debug\":false,\"output\":[],\"cameraSelected\":\"BACK\",\"vibrationEnabled\":true,\"cameraShape\":\"SQUARE\",\"showTutorial\":false,\"showDiagnostic\":true,\"extractionTimeout\":50000,\"showPreviousTip\":true,\"showStroke\":true,\"transparentBackground\":true}",
+        "id": "6",
+        "key": "QR_CAPTURE_COMPONENT",
+        "nameStep": "QR_CAPTURE_COMPONENT",
+        "target": "7"
+      },
+      {
+        "data": "{\"debug\":false,\"output\":[],\"sectionTime\":5000,\"showCompletedTutorial\":true,\"mode\":\"FACE_DOCUMENT_FRONT_BACK\",\"timeoutFaceDetection\":10000,\"timeoutServerConnection\":10000,\"url\":null,\"apiKey\":null,\"tenantId\":null}",
+        "id": "7",
+        "key": "VIDEO_ID_SIGNATURE_COMPONENT",
+        "nameStep": "VIDEO_ID_SIGNATURE_COMPONENT",
+        "target": "8"
+      },
+      {
+        "data": "{\"debug\":false,\"output\":[],\"qrMode\":false,\"fullScreen\":true,\"livenessMode\":\"PASSIVE\",\"showTutorial\":false,\"resourcesPath\":\"fphi-selphi-widget-resources-sdk.zip\",\"showDiagnostic\":true,\"showPreviousTip\":true,\"stabilizationMode\":false,\"cameraFlashEnabled\":false,\"templateRawOptimized\":false,\"showResultAfterCapture\":true,\"locale\":null,\"params\":null,\"cameraId\":null,\"cropPercent\":null,\"viewsContent\":null,\"videoFilename\":null,\"translationsContent\":null}",
+        "id": "8",
+        "key": "SELPHI_SIGNATURE_COMPONENT",
+        "nameStep": "SELPHI_SIGNATURE_COMPONENT",
+        "target": "9"
+      },
+      {
+        "data": "{\"debug\":false,\"output\":[],\"sectionTime\":5000,\"showCompletedTutorial\":true,\"mode\":\"FACE_DOCUMENT_FRONT_BACK\",\"timeoutFaceDetection\":10000,\"timeoutServerConnection\":10000,\"url\":null,\"apiKey\":null,\"tenantId\":null}",
+        "id": "9",
+        "key": "VIDEO_ID_COMPONENT",
+        "nameStep": "VIDEO_ID_COMPONENT",
+        "target": "10"
+      },
+      {
+        "data": "{\"birthDate\":\"16/08/1979\",\"documentNumber\":\"AAA439684\",\"expirationDate\":\"29/11/2022\",\"debug\":false,\"output\":[],\"showTutorial\":false,\"vibrationEnabled\":true,\"extractionTimeout\":50000,\"showPreviousTip\":true,\"showDiagnostic\":true,\"enableDebugMode\":false,\"skipPACE\":false,\"extractFacialImage\":true,\"extractSignatureImage\":true,\"documentType\":\"PASSPORT\"}",
+        "id": "10",
+        "key": "NFC_COMPONENT",
+        "nameStep": "NFC_COMPONENT",
+        "target": "11"
+      },
+      {
+        "data": "{\"debug\":false,\"output\":[],\"timeout\":60000,\"url\":null,\"apiKey\":null,\"tenantId\":null}",
+        "id": "11",
+        "key": "VIDEO_CALL_COMPONENT",
+        "nameStep": "VIDEO_CALL_COMPONENT",
+        "target": "12"
+      }
+    ]
+  },
+  {
+    "id": "002",
+    "automatic": true,
+    "nameFlow": "AutomaticoConExternoInicial",
+    "operation": {
+      "enableTracking": true,
+      "operationType": "ONBOARDING",
+      "start": "1"
+    },
+    "customization": {
+      "shape": {
+        "roundedCornerShape": 32
+      },
+      "colors": {
+        "titleTextColor": {
+          "dark": "#FFFFFF",
+          "light": "#1D2C4D"
+        },
+        "errorColor": {
+          "dark": "#DD3631",
+          "light": "#DD3631"
+        },
+        "backgroundColor": {
+          "dark": "#1E1E1E",
+          "light": "#FFFFFF"
+        },
+        "topIconsColor": {
+          "dark": "#F2F2F7",
+          "light": "#243760"
+        },
+        "successColor": {
+          "dark": "#07A13A",
+          "light": "#07A13A"
+        },
+        "accentColor": {
+          "dark": "#EA7547",
+          "light": "#EA7547"
+        },
+        "neutralColor": {
+          "dark": "#202C4B",
+          "light": "#202C4B"
+        },
+        "primaryColor": {
+          "dark": "#009abf",
+          "light": "#1bbdf9"
+        },
+        "bodyTextColor": {
+          "dark": "#FFFFFF",
+          "light": "#526080"
+        },
+        "secondaryColor": {
+          "dark": "#03DAC5",
+          "light": "#03DAC5"
+        }
+      }
+    },
+    "steps": [
+      {
+        "id": "1",
+        "key": "EXTERNAL_STEP",
+        "nameStep": "EXTERNAL_STEP_1",
+        "target": "2",
+        "data": ""
+      },
+      {
+        "data": "{\"debug\":false,\"output\":[],\"qrMode\":false,\"fullScreen\":true,\"livenessMode\":\"PASSIVE\",\"showTutorial\":false,\"resourcesPath\":\"resources-selphi-2-0.zip\",\"showDiagnostic\":true,\"showPreviousTip\":true,\"stabilizationMode\":false,\"cameraFlashEnabled\":false,\"templateRawOptimized\":false,\"showResultAfterCapture\":true,\"locale\":null,\"params\":null,\"cameraId\":null,\"cropPercent\":null,\"viewsContent\":null,\"videoFilename\":null,\"translationsContent\":null}",
+        "id": "2",
+        "key": "SELPHI_COMPONENT",
+        "nameStep": "SELPHI_COMPONENT",
+        "target": "3"
+      },
+      {
+        "id": "3",
+        "key": "EXTERNAL_STEP",
+        "nameStep": "EXTERNAL_STEP_2",
+        "target": "",
+        "data": ""
+      }
+    ]
+  },
+  {
+    "id": "003",
+    "automatic": false,
+    "nameFlow": "Varios Selphids Manual",
+    "operation": {
+      "enableTracking": true,
+      "operationType": "ONBOARDING",
+      "start": "1"
+    },
+    "customization": {
+      "shape": {
+        "roundedCornerShape": 32
+      },
+      "colors": {
+        "titleTextColor": {
+          "dark": "#FFFFFF",
+          "light": "#1D2C4D"
+        },
+        "errorColor": {
+          "dark": "#DD3631",
+          "light": "#DD3631"
+        },
+        "backgroundColor": {
+          "dark": "#1E1E1E",
+          "light": "#FFFFFF"
+        },
+        "topIconsColor": {
+          "dark": "#F2F2F7",
+          "light": "#243760"
+        },
+        "successColor": {
+          "dark": "#07A13A",
+          "light": "#07A13A"
+        },
+        "accentColor": {
+          "dark": "#EA7547",
+          "light": "#EA7547"
+        },
+        "neutralColor": {
+          "dark": "#202C4B",
+          "light": "#202C4B"
+        },
+        "primaryColor": {
+          "dark": "#009abf",
+          "light": "#1bbdf9"
+        },
+        "bodyTextColor": {
+          "dark": "#FFFFFF",
+          "light": "#526080"
+        },
+        "secondaryColor": {
+          "dark": "#03DAC5",
+          "light": "#03DAC5"
+        }
+      }
+    },
+    "steps": [
+      {
+        "id": "1",
+        "key": "EXTERNAL_STEP",
+        "nameStep": "EXTERNAL_STEP_1",
+        "target": "2",
+        "data": ""
+      },
+      {
+        "data": "{\"debug\":false,\"output\":[],\"timeout\":\"MEDIUM\",\"scanMode\":\"MODE_SEARCH\",\"wizardMode\":true,\"documentSide\":\"FRONT\",\"documentType\":\"ID_CARD\",\"showTutorial\":false,\"specificData\":\"ES|<ALL>\",\"tutorialOnly\":false,\"resourcesPath\":\"resources-selphid-2-0.zip\",\"showDiagnostic\":true,\"showPreviousTip\":true,\"generateRawImages\":false,\"showResultAfterCapture\":true,\"locale\":null,\"params\":null,\"viewsContent\":null,\"documentModels\":null,\"tokenImageQuality\":null,\"translationsContent\":null}",
+        "id": "2",
+        "key": "SELPHID_COMPONENT",
+        "nameStep": "SELPHID_COMPONENT",
+        "target": "3"
+      },
+      {
+        "data": "{\"debug\":false,\"output\":[],\"timeout\":\"MEDIUM\",\"scanMode\":\"MODE_GENERIC\",\"wizardMode\":true,\"documentSide\":\"FRONT\",\"documentType\":\"ID_CARD\",\"showTutorial\":false,\"specificData\":\"ES|<ALL>\",\"tutorialOnly\":true,\"resourcesPath\":\"resources-selphid-2-0.zip\",\"showDiagnostic\":true,\"showPreviousTip\":true,\"generateRawImages\":false,\"showResultAfterCapture\":true,\"locale\":null,\"params\":null,\"viewsContent\":null,\"documentModels\":null,\"tokenImageQuality\":null,\"translationsContent\":null}",
+        "id": "3",
+        "key": "SELPHID_COMPONENT",
+        "nameStep": "SELPHID_COMPONENT",
+        "target": "4"
+      },
+      {
+        "data": "{\"debug\":false,\"output\":[],\"timeout\":\"MEDIUM\",\"scanMode\":\"MODE_GENERIC\",\"wizardMode\":true,\"documentSide\":\"FRONT\",\"documentType\":\"ID_CARD\",\"showTutorial\":false,\"specificData\":\"ES|<ALL>\",\"tutorialOnly\":false,\"resourcesPath\":\"resources-selphid-2-0.zip\",\"showDiagnostic\":true,\"showPreviousTip\":true,\"generateRawImages\":false,\"showResultAfterCapture\":true,\"locale\":null,\"params\":null,\"viewsContent\":null,\"documentModels\":null,\"tokenImageQuality\":null,\"translationsContent\":null}",
+        "id": "4",
+        "key": "SELPHID_COMPONENT",
+        "nameStep": "SELPHID_COMPONENT",
+        "target": "5"
+      },
+      {
+        "id": "5",
+        "key": "EXTERNAL_STEP",
+        "nameStep": "EXTERNAL_STEP_2",
+        "target": "",
+        "data": ""
+      }
+    ]
+  },
+  {
+    "id": "004",
+    "automatic": false,
+    "nameFlow": "Onboarding Manual sin Tracking",
+    "operation": {
+      "enableTracking": false,
+      "operationType": "ONBOARDING",
+      "start": "1"
+    },
+    "customization": {
+      "shape": {
+        "roundedCornerShape": 32
+      },
+      "colors": {
+        "titleTextColor": {
+          "dark": "#FFFFFF",
+          "light": "#1D2C4D"
+        },
+        "errorColor": {
+          "dark": "#DD3631",
+          "light": "#DD3631"
+        },
+        "backgroundColor": {
+          "dark": "#1E1E1E",
+          "light": "#FFFFFF"
+        },
+        "topIconsColor": {
+          "dark": "#F2F2F7",
+          "light": "#243760"
+        },
+        "successColor": {
+          "dark": "#07A13A",
+          "light": "#07A13A"
+        },
+        "accentColor": {
+          "dark": "#EA7547",
+          "light": "#EA7547"
+        },
+        "neutralColor": {
+          "dark": "#202C4B",
+          "light": "#202C4B"
+        },
+        "primaryColor": {
+          "dark": "#009abf",
+          "light": "#1bbdf9"
+        },
+        "bodyTextColor": {
+          "dark": "#FFFFFF",
+          "light": "#526080"
+        },
+        "secondaryColor": {
+          "dark": "#03DAC5",
+          "light": "#03DAC5"
+        }
+      }
+    },
+    "steps": [
+      {
+        "data": "{\"debug\":false,\"output\":[],\"timeout\":\"MEDIUM\",\"scanMode\":\"MODE_SEARCH\",\"wizardMode\":true,\"documentSide\":\"FRONT\",\"documentType\":\"ID_CARD\",\"showTutorial\":false,\"specificData\":\"ES|<ALL>\",\"tutorialOnly\":false,\"resourcesPath\":\"resources-selphid-2-0.zip\",\"showDiagnostic\":true,\"showPreviousTip\":true,\"generateRawImages\":false,\"showResultAfterCapture\":true,\"locale\":null,\"params\":null,\"viewsContent\":null,\"documentModels\":null,\"tokenImageQuality\":null,\"translationsContent\":null}",
+        "id": "1",
+        "key": "SELPHID_COMPONENT",
+        "nameStep": "SELPHID_COMPONENT",
+        "target": "2"
+      },
+      {
+        "data": "{\"debug\":false,\"output\":[],\"qrMode\":false,\"fullScreen\":true,\"livenessMode\":\"PASSIVE\",\"showTutorial\":false,\"resourcesPath\":\"resources-selphi-2-0.zip\",\"showDiagnostic\":true,\"showPreviousTip\":true,\"stabilizationMode\":false,\"cameraFlashEnabled\":false,\"templateRawOptimized\":false,\"showResultAfterCapture\":true,\"locale\":null,\"params\":null,\"cameraId\":null,\"cropPercent\":null,\"viewsContent\":null,\"videoFilename\":null,\"translationsContent\":null}",
+        "id": "2",
+        "key": "SELPHI_COMPONENT",
+        "nameStep": "SELPHI_COMPONENT",
+        "target": ""
+      }
+
+
+    ]
+  },
+  {
+    "id": "005",
+    "automatic": true,
+    "nameFlow": "Onboarding Automatico + Firma Video",
+    "operation": {
+      "enableTracking": true,
+      "operationType": "ONBOARDING",
+      "start": "1"
+    },
+    "customization": {
+      "shape": {
+        "roundedCornerShape": 32
+      },
+      "colors": {
+        "titleTextColor": {
+          "dark": "#FFFFFF",
+          "light": "#1D2C4D"
+        },
+        "errorColor": {
+          "dark": "#DD3631",
+          "light": "#DD3631"
+        },
+        "backgroundColor": {
+          "dark": "#1E1E1E",
+          "light": "#FFFFFF"
+        },
+        "topIconsColor": {
+          "dark": "#F2F2F7",
+          "light": "#243760"
+        },
+        "successColor": {
+          "dark": "#07A13A",
+          "light": "#07A13A"
+        },
+        "accentColor": {
+          "dark": "#EA7547",
+          "light": "#EA7547"
+        },
+        "neutralColor": {
+          "dark": "#202C4B",
+          "light": "#202C4B"
+        },
+        "primaryColor": {
+          "dark": "#009abf",
+          "light": "#1bbdf9"
+        },
+        "bodyTextColor": {
+          "dark": "#FFFFFF",
+          "light": "#526080"
+        },
+        "secondaryColor": {
+          "dark": "#03DAC5",
+          "light": "#03DAC5"
+        }
+      }
+    },
+    "steps": [
+      {
+        "data": "{\"debug\":false,\"output\":[],\"timeout\":\"MEDIUM\",\"scanMode\":\"MODE_SEARCH\",\"wizardMode\":true,\"documentSide\":\"FRONT\",\"documentType\":\"ID_CARD\",\"showTutorial\":false,\"specificData\":\"ES|<ALL>\",\"tutorialOnly\":false,\"resourcesPath\":\"resources-selphid-2-0.zip\",\"showDiagnostic\":true,\"showPreviousTip\":true,\"generateRawImages\":false,\"showResultAfterCapture\":true,\"locale\":null,\"params\":null,\"viewsContent\":null,\"documentModels\":null,\"tokenImageQuality\":null,\"translationsContent\":null}",
+        "id": "1",
+        "key": "SELPHID_COMPONENT",
+        "nameStep": "SELPHID_COMPONENT",
+        "target": "2"
+      },
+      {
+        "data": "{\"debug\":false,\"output\":[],\"qrMode\":false,\"fullScreen\":true,\"livenessMode\":\"PASSIVE\",\"showTutorial\":false,\"resourcesPath\":\"resources-selphi-2-0.zip\",\"showDiagnostic\":true,\"showPreviousTip\":true,\"stabilizationMode\":false,\"cameraFlashEnabled\":false,\"templateRawOptimized\":false,\"showResultAfterCapture\":true,\"locale\":null,\"params\":null,\"cameraId\":null,\"cropPercent\":null,\"viewsContent\":null,\"videoFilename\":null,\"translationsContent\":null}",
+        "id": "2",
+        "key": "SELPHI_COMPONENT",
+        "nameStep": "SELPHI_COMPONENT",
+        "target": "3"
+      },
+      {
+        "data": "{\"debug\":false,\"output\":[],\"sectionTime\":\"5000\",\"showCompletedTutorial\":true,\"mode\":\"FACE_DOCUMENT_FRONT_BACK\",\"timeoutFaceDetection\":\"10000\",\"timeoutServerConnection\":\"10000\",\"url\":null,\"apiKey\":null,\"tenantId\":null}",
+        "id": "3",
+        "key": "VIDEO_ID_SIGNATURE_COMPONENT",
+        "nameStep": "VIDEO_ID_SIGNATURE_COMPONENT",
+        "target": ""
+      }
+    ]
+  },
+  {
+    "id": "006",
+    "automatic": false,
+    "nameFlow": "Selphid+NFC+Selphi Firma",
+    "operation": {
+      "enableTracking": true,
+      "operationType": "ONBOARDING",
+      "start": "1"
+    },
+    "customization": {
+      "shape": {
+        "roundedCornerShape": 32
+      },
+      "colors": {
+        "titleTextColor": {
+          "dark": "#FFFFFF",
+          "light": "#1D2C4D"
+        },
+        "errorColor": {
+          "dark": "#DD3631",
+          "light": "#DD3631"
+        },
+        "backgroundColor": {
+          "dark": "#1E1E1E",
+          "light": "#FFFFFF"
+        },
+        "topIconsColor": {
+          "dark": "#F2F2F7",
+          "light": "#243760"
+        },
+        "successColor": {
+          "dark": "#07A13A",
+          "light": "#07A13A"
+        },
+        "accentColor": {
+          "dark": "#EA7547",
+          "light": "#EA7547"
+        },
+        "neutralColor": {
+          "dark": "#202C4B",
+          "light": "#202C4B"
+        },
+        "primaryColor": {
+          "dark": "#009abf",
+          "light": "#1bbdf9"
+        },
+        "bodyTextColor": {
+          "dark": "#FFFFFF",
+          "light": "#526080"
+        },
+        "secondaryColor": {
+          "dark": "#03DAC5",
+          "light": "#03DAC5"
+        }
+      }
+    },
+    "steps": [
+      {
+        "data": "{\"debug\":false,\"output\":[],\"timeout\":\"MEDIUM\",\"scanMode\":\"MODE_SEARCH\",\"wizardMode\":true,\"documentSide\":\"FRONT\",\"documentType\":\"ID_CARD\",\"showTutorial\":false,\"specificData\":\"ES|<ALL>\",\"tutorialOnly\":false,\"resourcesPath\":\"resources-selphid-2-0.zip\",\"showDiagnostic\":true,\"showPreviousTip\":true,\"generateRawImages\":false,\"showResultAfterCapture\":true,\"locale\":null,\"params\":null,\"viewsContent\":null,\"documentModels\":null,\"tokenImageQuality\":null,\"translationsContent\":null}",
+        "id": "1",
+        "key": "SELPHID_COMPONENT",
+        "nameStep": "SELPHID_COMPONENT",
+        "target": "2"
+      },
+      {
+        "data": "{\"debug\":false,\"output\":[],\"showTutorial\":false,\"vibrationEnabled\":true,\"extractionTimeout\":\"50000\",\"showPreviousTip\":true,\"showDiagnostic\":true,\"enableDebugMode\":false,\"skipPACE\":false,\"extractFacialImage\":true,\"extractSignatureImage\":true,\"documentType\":\"ID_CARD\"}",
+        "id": "2",
+        "key": "NFC_COMPONENT",
+        "nameStep": "NFC_COMPONENT",
+        "target": "3"
+      },
+      {
+        "data": "{\"debug\":false,\"output\":[],\"qrMode\":false,\"fullScreen\":true,\"livenessMode\":\"PASSIVE\",\"showTutorial\":false,\"resourcesPath\":\"resources-selphi-2-0.zip\",\"showDiagnostic\":true,\"showPreviousTip\":true,\"stabilizationMode\":false,\"cameraFlashEnabled\":false,\"templateRawOptimized\":false,\"showResultAfterCapture\":true,\"locale\":null,\"params\":null,\"cameraId\":null,\"cropPercent\":null,\"viewsContent\":null,\"videoFilename\":null,\"translationsContent\":null}",
+        "id": "3",
+        "key": "SELPHI_SIGNATURE_COMPONENT",
+        "nameStep": "SELPHI_SIGNATURE_COMPONENT",
+        "target": ""
+      }
+    ]
+  },
+  {
+    "id": "007",
+    "automatic": true,
+    "nameFlow": "Voz + Phingers + QR",
+    "operation": {
+      "enableTracking": false,
+      "operationType": "ONBOARDING",
+      "start": "1"
+    },
+    "customization": {
+      "shape": {
+        "roundedCornerShape": 32
+      },
+      "colors": {
+        "titleTextColor": {
+          "dark": "#FFFFFF",
+          "light": "#1D2C4D"
+        },
+        "errorColor": {
+          "dark": "#DD3631",
+          "light": "#DD3631"
+        },
+        "backgroundColor": {
+          "dark": "#1E1E1E",
+          "light": "#FFFFFF"
+        },
+        "topIconsColor": {
+          "dark": "#F2F2F7",
+          "light": "#243760"
+        },
+        "successColor": {
+          "dark": "#07A13A",
+          "light": "#07A13A"
+        },
+        "accentColor": {
+          "dark": "#EA7547",
+          "light": "#EA7547"
+        },
+        "neutralColor": {
+          "dark": "#202C4B",
+          "light": "#202C4B"
+        },
+        "primaryColor": {
+          "dark": "#009abf",
+          "light": "#1bbdf9"
+        },
+        "bodyTextColor": {
+          "dark": "#FFFFFF",
+          "light": "#526080"
+        },
+        "secondaryColor": {
+          "dark": "#03DAC5",
+          "light": "#03DAC5"
+        }
+      }
+    },
+    "steps": [
+      {
+        "data": "{\"debug\":false,\"output\":[],\"phrases\":[\"En un lugar de la mancha\"],\"showTutorial\":false,\"vibrationEnabled\":\"true\",\"showDiagnostic\":true,\"extractionTimeout\":\"50000\",\"enableQualityCheck\":true,\"showPreviousTip\":true}",
+        "id": "1",
+        "key": "VOICE_COMPONENT",
+        "nameStep": "VOICE_COMPONENT",
+        "target": "2"
+      },
+      {
+        "data": "{\"debug\":false,\"output\":[],\"vibrationEnabled\":true,\"reticleOrientation\":\"LEFT\",\"extractionTimeout\":\"50000\",\"showTutorial\":false,\"showDiagnostic\":true,\"useFlash\":true,\"showPreviousTip\":true,\"returnProcessedImage\":true,\"returnRawImage\":true,\"useLiveness\":true,\"returnFullFrameImage\":true,\"threshold\":\"0.8\",\"showSpinner\":false,\"cropWidth\":null,\"cropHeight\":null,\"cropFactor\":null}",
+        "id": "2",
+        "key": "PHINGERS_COMPONENT",
+        "nameStep": "PHINGERS_COMPONENT",
+        "target": "3"
+      },
+      {
+        "data": "{\"debug\":false,\"output\":[],\"cameraSelected\":\"BACK\",\"vibrationEnabled\":true,\"cameraShape\":\"SQUARE\",\"showTutorial\":false,\"showDiagnostic\":true,\"extractionTimeout\":\"50000\",\"showPreviousTip\":true,\"showStroke\":true,\"transparentBackground\":true}",
+        "id": "3",
+        "key": "QR_CAPTURE_COMPONENT",
+        "nameStep": "QR_CAPTURE_COMPONENT",
+        "target": ""
+      }
+    ]
+  },
+  {
+    "id": "008",
+    "automatic": true,
+    "nameFlow": "VideoCall + Phacturas + VideoID",
+    "operation": {
+      "enableTracking": true,
+      "operationType": "ONBOARDING",
+      "start": "1"
+    },
+    "customization": {
+      "shape": {
+        "roundedCornerShape": 32
+      },
+      "colors": {
+        "titleTextColor": {
+          "dark": "#FFFFFF",
+          "light": "#1D2C4D"
+        },
+        "errorColor": {
+          "dark": "#DD3631",
+          "light": "#DD3631"
+        },
+        "backgroundColor": {
+          "dark": "#1E1E1E",
+          "light": "#FFFFFF"
+        },
+        "topIconsColor": {
+          "dark": "#F2F2F7",
+          "light": "#243760"
+        },
+        "successColor": {
+          "dark": "#07A13A",
+          "light": "#07A13A"
+        },
+        "accentColor": {
+          "dark": "#EA7547",
+          "light": "#EA7547"
+        },
+        "neutralColor": {
+          "dark": "#202C4B",
+          "light": "#202C4B"
+        },
+        "primaryColor": {
+          "dark": "#009abf",
+          "light": "#1bbdf9"
+        },
+        "bodyTextColor": {
+          "dark": "#FFFFFF",
+          "light": "#526080"
+        },
+        "secondaryColor": {
+          "dark": "#03DAC5",
+          "light": "#03DAC5"
+        }
+      }
+    },
+    "steps": [
+      {
+        "data": "{\"debug\":false,\"output\":[],\"timeout\":\"60000\",\"url\":null,\"apiKey\":null,\"tenantId\":null}",
+        "id": "1",
+        "key": "VIDEO_CALL_COMPONENT",
+        "nameStep": "VIDEO_CALL_COMPONENT",
+        "target": "2"
+      },
+      {
+        "data": "{\"debug\":false,\"output\":[],\"vibrationEnabled\":false,\"showDiagnostic\":true,\"extractionTimeout\":\"60000\",\"showTutorial\":false,\"showPreviousTip\":true, \"maxScannedDocs\":\"5\"}",
+        "id": "2",
+        "key": "PHACTURA_CAPTURE_COMPONENT",
+        "nameStep": "PHACTURA_CAPTURE_COMPONENT",
+        "target": "3"
+      },
+      {
+        "data": "{\"debug\":false,\"output\":[],\"sectionTime\":\"5000\",\"showCompletedTutorial\":true,\"mode\":\"FACE_DOCUMENT_FRONT_BACK\",\"timeoutFaceDetection\":\"10000\",\"timeoutServerConnection\":\"10000\",\"url\":null,\"apiKey\":null,\"tenantId\":null}",
+        "id": "3",
+        "key": "VIDEO_ID_COMPONENT",
+        "nameStep": "VIDEO_ID_COMPONENT",
+        "target": ""
+      }
+    ]
+  },
+  {
+    "id": "009",
+    "automatic": true,
+    "nameFlow": "Phacturas + QR",
+    "operation": {
+      "enableTracking": true,
+      "operationType": "ONBOARDING",
+      "start": "1"
+    },
+    "customization": {
+      "shape": {
+        "roundedCornerShape": 32
+      },
+      "colors": {
+        "titleTextColor": {
+          "dark": "#FFFFFF",
+          "light": "#1D2C4D"
+        },
+        "errorColor": {
+          "dark": "#DD3631",
+          "light": "#DD3631"
+        },
+        "backgroundColor": {
+          "dark": "#1E1E1E",
+          "light": "#FFFFFF"
+        },
+        "topIconsColor": {
+          "dark": "#F2F2F7",
+          "light": "#243760"
+        },
+        "successColor": {
+          "dark": "#07A13A",
+          "light": "#07A13A"
+        },
+        "accentColor": {
+          "dark": "#EA7547",
+          "light": "#EA7547"
+        },
+        "neutralColor": {
+          "dark": "#202C4B",
+          "light": "#202C4B"
+        },
+        "primaryColor": {
+          "dark": "#009abf",
+          "light": "#1bbdf9"
+        },
+        "bodyTextColor": {
+          "dark": "#FFFFFF",
+          "light": "#526080"
+        },
+        "secondaryColor": {
+          "dark": "#03DAC5",
+          "light": "#03DAC5"
+        }
+      }
+    },
+    "steps": [
+      {
+        "data": "{\"debug\":false,\"output\":[],\"vibrationEnabled\":false,\"showDiagnostic\":true,\"extractionTimeout\":\"60000\",\"showTutorial\":false,\"showPreviousTip\":true, \"maxScannedDocs\":\"5\"}",
+        "id": "1",
+        "key": "PHACTURA_CAPTURE_COMPONENT",
+        "nameStep": "PHACTURA_CAPTURE_COMPONENT",
+        "target": "2"
+      },
+      {
+        "data": "{\"debug\":false,\"output\":[],\"cameraSelected\":\"BACK\",\"vibrationEnabled\":true,\"cameraShape\":\"SQUARE\",\"showTutorial\":false,\"showDiagnostic\":true,\"extractionTimeout\":\"50000\",\"showPreviousTip\":true,\"showStroke\":true,\"transparentBackground\":true}",
+        "id": "2",
+        "key": "QR_CAPTURE_COMPONENT",
+        "nameStep": "QR_CAPTURE_COMPONENT",
+        "target": ""
+      }
+    ]
+  },
+  {
+    "id": "010",
+    "automatic": true,
+    "nameFlow": "VideoCall activateScreenSharing + QR",
+    "operation": {
+      "enableTracking": true,
+      "operationType": "ONBOARDING",
+      "start": "1"
+    },
+    "customization": {
+      "shape": {
+        "roundedCornerShape": 32
+      },
+      "colors": {
+        "titleTextColor": {
+          "dark": "#FFFFFF",
+          "light": "#1D2C4D"
+        },
+        "errorColor": {
+          "dark": "#DD3631",
+          "light": "#DD3631"
+        },
+        "backgroundColor": {
+          "dark": "#1E1E1E",
+          "light": "#FFFFFF"
+        },
+        "topIconsColor": {
+          "dark": "#F2F2F7",
+          "light": "#243760"
+        },
+        "successColor": {
+          "dark": "#07A13A",
+          "light": "#07A13A"
+        },
+        "accentColor": {
+          "dark": "#EA7547",
+          "light": "#EA7547"
+        },
+        "neutralColor": {
+          "dark": "#202C4B",
+          "light": "#202C4B"
+        },
+        "primaryColor": {
+          "dark": "#009abf",
+          "light": "#1bbdf9"
+        },
+        "bodyTextColor": {
+          "dark": "#FFFFFF",
+          "light": "#526080"
+        },
+        "secondaryColor": {
+          "dark": "#03DAC5",
+          "light": "#03DAC5"
+        }
+      }
+    },
+    "steps": [
+      {
+        "data": "{\"debug\":false,\"output\":[],\"timeout\":\"60000\",\"url\":null,\"apiKey\":null,\"tenantId\":null,\"activateScreenSharing\":true}",
+        "id": "1",
+        "key": "VIDEO_CALL_COMPONENT",
+        "nameStep": "VIDEO_CALL_COMPONENT",
+        "target": "2"
+      },
+      {
+        "data": "{\"debug\":false,\"output\":[],\"cameraSelected\":\"BACK\",\"vibrationEnabled\":true,\"cameraShape\":\"SQUARE\",\"showTutorial\":false,\"showDiagnostic\":true,\"extractionTimeout\":\"50000\",\"showPreviousTip\":true,\"showStroke\":true,\"transparentBackground\":true}",
+        "id": "2",
+        "key": "QR_CAPTURE_COMPONENT",
+        "nameStep": "QR_CAPTURE_COMPONENT",
+        "target": ""
+      }
+    ]
+  }
+]

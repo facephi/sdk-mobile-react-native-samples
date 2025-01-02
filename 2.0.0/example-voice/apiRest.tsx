@@ -5,7 +5,7 @@ const headerParams = {
     //'x-api-key': '',
     //'app-name': ''
 };
-const url = '';
+const url = 'https://external-selphid-sdk.facephi.pro';
 
 export async function apiPost (method: string, bodyParams: any)
 {

@@ -11,16 +11,14 @@ import React, { useState, useEffect } from 'react';
 import { NativeModules, SafeAreaView, StatusBar, Platform, FlatList, View, Modal, Appearance, NativeEventEmitter } from 'react-native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { CUSTOMER_ID, MsjError, LICENSE_URL, LICENSE_APIKEY_IOS, LICENSE_APIKEY_ANDROID, LICENSE_ANDROID_NEW, LICENSE_IOS_NEW, TRACKING_ERROR_LISTENER } from './constants';
-
 import SdkTopBar from './components/commons/SdkTopBar';
 import ActionSheet from './components/commons/CustomActionSheet';
-import SdkWarning from './components/commons/SdkWarning';
-
 import SdkButton from './components/commons/SdkButton';
 import { SdkErrorType, SdkFinishStatus, SdkOperationType } from '@facephi/sdk-core-react-native/src/SdkCoreEnums';
 import { CoreResult, InitOperationConfiguration, InitSessionConfiguration } from '@facephi/sdk-core-react-native/src';
 import { VoiceConfiguration, VoiceResult } from '@facephi/sdk-voice-react-native/src';
 import { LogBox } from 'react-native';
+import SdkWarning from './components/commons/SdkWarning';
 
 const App = () => 
 {
@@ -40,7 +38,7 @@ const App = () =>
 
   LogBox.ignoreLogs(['new NativeEventEmitter']); // Ignore log notification by message
   LogBox.ignoreAllLogs();
-
+  
   const backgroundStyle = { backgroundColor: darkMode ? Colors.darker : Colors.lighter };
   const { SdkMobileCore, SdkMobileVoice } = NativeModules;
   const flowEmitter     = new NativeEventEmitter(NativeModules.SdkMobileCore); // For listening events
@@ -57,11 +55,10 @@ const App = () =>
   );
   /* end listener */
 
-  useEffect(()=>{
+  useEffect(() => {
     const colorScheme = Appearance.getColorScheme(); //identify the theme of your default system light/dark
     setDarkMode(colorScheme === 'dark' ? true : false);
     console.log("dark mode:", darkMode);
-
 
     launchInitSession();
   }
@@ -122,6 +119,7 @@ const App = () =>
     try 
     {
       console.log("Starting initSession...");
+      setShowError(false);
       let config: InitSessionConfiguration = {
         //license: Platform.OS === 'ios' ? JSON.stringify(LICENSE_IOS_NEW) : JSON.stringify(LICENSE_ANDROID_NEW),
         licenseUrl: LICENSE_URL,
@@ -180,7 +178,7 @@ const App = () =>
     try 
     {
       console.log("Starting startInitOperation...");
-
+      setShowError(false);
       return await SdkMobileCore.initOperation(getInitOperationConfiguration())
       .then((result: CoreResult) => 
       {
