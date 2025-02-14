@@ -100,7 +100,7 @@ const App = () =>
   {
     let config: PhingersConfiguration = 
     {
-      reticleOrientation: ReticleOrientation.Left,
+      reticleOrientation: ReticleOrientation.LEFT,
       returnFullFrameImage: true,
       returnProcessedImage: true,
       returnRawImage: true,
