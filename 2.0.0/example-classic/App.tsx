@@ -21,9 +21,9 @@ import SelphIDButtonAlert from './components/selphid/SelphIDButtonAlert';
 import SelphIDWarning from './components/selphid/SelphIDWarning';
 
 import SdkButton from './components/commons/SdkButton';
-import * as SdkSelphiEnums from '@facephi/sdk-selphi-react-native/src/SdkSelphiEnums';
+import { SdkLivenessMode, SdkCompressFormat } from '@facephi/sdk-selphi-react-native/src/SdkSelphiEnums';
 import { SdkErrorType, SdkFinishStatus, SdkOperationType } from '@facephi/sdk-core-react-native/src/SdkCoreEnums';
-import * as SdkSelphidEnums from '@facephi/sdk-selphid-react-native/src/SdkSelphidEnums';
+import { SdkScanMode, SdkDocumentType } from '@facephi/sdk-selphid-react-native/src/SdkSelphidEnums';
 import { CoreResult, FlowConfiguration, InitOperationConfiguration, InitSessionConfiguration } from '@facephi/sdk-core-react-native/src';
 import { SelphiConfiguration, SelphiResult } from '@facephi/sdk-selphi-react-native/src';
 import { SelphidConfiguration, SelphidResult } from '@facephi/sdk-selphid-react-native/src';
@@ -178,12 +178,13 @@ const App = () =>
     let config: SelphiConfiguration = {
       debug: false,
       fullscreen: true,
-      livenessMode: SdkSelphiEnums.SdkLivenessMode.PassiveMode,
+      livenessMode: SdkLivenessMode.PassiveMode,
       resourcesPath: "fphi-selphi-widget-resources-sdk.zip",
       enableGenerateTemplateRaw: true,
       showResultAfterCapture: true,
       jpgQuality: 0.95,
-      compressFormat: SdkSelphiEnums.SdkCompressFormat.JPEG
+      compressFormat: SdkCompressFormat.JPEG,
+      showDiagnostic: true
     };
     return config;
   };
@@ -226,9 +227,9 @@ const App = () =>
       debug: false,
       showResultAfterCapture: true,
       showTutorial: false,
-      scanMode: SdkSelphidEnums.SdkScanMode.Search,
+      scanMode: SdkScanMode.Search,
       specificData: 'AR|<ALL>',
-      documentType: SdkSelphidEnums.SdkDocumentType.IdCard,
+      documentType: SdkDocumentType.IdCard,
       fullscreen: true,
       locale: '',
       resourcesPath: "fphi-selphid-widget-resources-sdk.zip",
@@ -470,7 +471,7 @@ const App = () =>
 
   const footerComponent = () => 
     <View style={{ alignItems: 'center' }}>
-      <SdkButton onPress={startSelphi} text="Start Selphi" />
+      <SdkButton onPress={startSelphi} text="Start Selphi" testID={"selphiBtn"}/>
       <SdkButton onPress={startSelphid} text="Start SelphID" />
       <SdkButton onPress={startInitOperation} text="Init Operation" />
       <SdkButton onPress={getExtraData} text="ExtraData" />

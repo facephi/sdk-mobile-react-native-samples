@@ -30,10 +30,10 @@ const styles = StyleSheet.create({
 });
 
 const SdkButton = (props: any) => {
-  const { onPress, text } = props;
+  const { onPress, text, testID } = props;
   return (
     <View style={styles.sdkButtonContainer}>
-      <TouchableOpacity style={styles.sdkButtonTouchable} onPress={onPress}>
+      <TouchableOpacity style={styles.sdkButtonTouchable} onPress={onPress} testID={testID}>
         <Text style={styles.sdkButtonText}>{text}</Text>
       </TouchableOpacity>
     </View>
@@ -43,6 +43,7 @@ const SdkButton = (props: any) => {
 SdkButton.propTypes = {
   onPress: PropTypes.func.isRequired,
   text: PropTypes.string.isRequired,
+  testID: PropTypes.string,
 }
 
 export default SdkButton;
