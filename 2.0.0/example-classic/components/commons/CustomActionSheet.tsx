@@ -117,6 +117,7 @@ ActionSheet.propTypes = {
   setDarkMode: PropTypes.func,
 }
 
+/*
 ActionSheet.defaultProps = {
   actionItems: [],
   onCancel: () => { },
@@ -124,5 +125,6 @@ ActionSheet.defaultProps = {
   darkMode: false,
   setDarkMode: () => { }
 }
+*/
 
 export default ActionSheet;

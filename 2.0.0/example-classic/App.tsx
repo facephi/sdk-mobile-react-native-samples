@@ -24,9 +24,9 @@ import SdkButton from './components/commons/SdkButton';
 import { SdkLivenessMode, SdkCompressFormat } from '@facephi/sdk-selphi-react-native/src/SdkSelphiEnums';
 import { SdkErrorType, SdkFinishStatus, SdkOperationType } from '@facephi/sdk-core-react-native/src/SdkCoreEnums';
 import { SdkScanMode, SdkDocumentType } from '@facephi/sdk-selphid-react-native/src/SdkSelphidEnums';
-import { CoreResult, FlowConfiguration, InitOperationConfiguration, InitSessionConfiguration } from '@facephi/sdk-core-react-native/src';
-import { SelphiConfiguration, SelphiResult } from '@facephi/sdk-selphi-react-native/src';
-import { SelphidConfiguration, SelphidResult } from '@facephi/sdk-selphid-react-native/src';
+import { closeSession, CoreResult, FlowConfiguration, getExtraData, initFlow, initOperation, InitOperationConfiguration, initSession, InitSessionConfiguration, startFlow } from '@facephi/sdk-core-react-native/src';
+import { selphi, SelphiConfiguration, SelphiResult, setSelphiFlow } from '@facephi/sdk-selphi-react-native/src';
+import { selphid, SelphidConfiguration, SelphidResult, setSelphidFlow } from '@facephi/sdk-selphid-react-native/src';
 import { apiPost } from './apiRest';
 
 const App = () => 
@@ -41,7 +41,7 @@ const App = () =>
   const [ocrContent, setOcrContent]                 = useState(null);
   const [textColorMessage, setTextColorMessage]     = useState('#777777');
   const [bestImage, setBestImage]                   = useState(null);
-  const [bestImageApi, setBestImageApi]             = useState(null);
+  const [bestImageApi, setBestImageApi]             = useState<string>("");
   const [actionSheet, setActionSheet]               = useState(false);
   const [darkMode, setDarkMode]                     = useState(false);
 
@@ -57,7 +57,7 @@ const App = () =>
   LogBox.ignoreAllLogs();
   
   const backgroundStyle = { backgroundColor: darkMode ? Colors.darker : Colors.lighter };
-  const { SdkMobileSelphi, SdkMobileSelphid, SdkMobileCore } = NativeModules;
+  
   const flowEmitter     = new NativeEventEmitter(NativeModules.SdkMobileCore); // For listening events
   const trackingEmitter = new NativeEventEmitter(NativeModules.SdkMobileCore); // Optional: For iOS events
   
@@ -96,7 +96,7 @@ const App = () =>
     try 
     {
       console.log("Starting launchFlow...", getFlowConfiguration());
-      await SdkMobileCore.initFlow(getFlowConfiguration())
+      await initFlow(getFlowConfiguration())
       .then((result: CoreResult) => 
       {
         console.log("initFlow result", result);
@@ -109,11 +109,11 @@ const App = () =>
         console.log("End launchFlow...");
       });
 
-      await SdkMobileSelphi.setSelphiFlow().then((result: SelphiResult) => 
+      await setSelphiFlow().then((result: SelphiResult) => 
       {
         console.log("SelphiResult", result);
       });
-      await SdkMobileSelphid.setSelphidFlow().then((result: SelphidResult) => 
+      await setSelphidFlow().then((result: SelphidResult) => 
       {
         console.log("SelphidResult", result);
       });
@@ -121,7 +121,7 @@ const App = () =>
       //await SdkMobileVoice.setVoiceFlow()
       //await SdkMobileCore.setSelphidFlow()
 
-      await SdkMobileCore.startFlow()
+      await startFlow()
       .then((result: CoreResult) => 
       {
         console.log("startFlow result", result);
@@ -140,13 +140,12 @@ const App = () =>
     }
   };
 
-  const getExtraData = async () => 
+  const callGetExtraData = async () => 
   { 
     try 
     {
       console.log("Starting getExtraData...");
-
-      return await SdkMobileCore.getExtraData()
+      return await getExtraData()
       .then(async (result: CoreResult) => 
       {
         console.log("result", result);
@@ -201,7 +200,7 @@ const App = () =>
       console.log("Starting startSelphi...");
       clearAll();
       
-      return await SdkMobileSelphi.selphi(getSelphiConfiguration())
+      return await selphi(getSelphiConfiguration())
       .then((result: any) => 
       {
         //console.log("result", result);
@@ -249,7 +248,7 @@ const App = () =>
       console.log("Starting startSelphid...");
       clearAll();
       console.log(getSelphidConfiguration());
-      return await SdkMobileSelphid.selphid(getSelphidConfiguration())
+      return await selphid(getSelphidConfiguration())
       .then((result: any) => 
       {
         let r: SelphidResult = result;
@@ -302,7 +301,7 @@ const App = () =>
         enableTracking: true,
       };
 
-      return await SdkMobileCore.initSession(config)
+      return await initSession(config)
       .then((result: CoreResult) => 
       {
         console.log("result", result);
@@ -328,7 +327,7 @@ const App = () =>
     try 
     {
       console.log("Starting closeSession...");
-      return await SdkMobileCore.closeSession()
+      return await closeSession()
       .then((result: CoreResult) => 
       {
         console.log("result", result);
@@ -355,7 +354,7 @@ const App = () =>
     {
       console.log("Starting startInitOperation...");
       setShowError(false);
-      return await SdkMobileCore.initOperation(getInitOperationConfiguration())
+      return await initOperation(getInitOperationConfiguration())
       .then((result: CoreResult) => 
       {
         console.log("result", result);
@@ -381,12 +380,13 @@ const App = () =>
 
   const processSelphiResult = (result: any) => 
   {
+    let r = result as SelphiResult;
     switch (parseInt(result.finishStatus, 10)) 
     {
       case SdkFinishStatus.Ok: // OK
         setMessage('Preview selfie');
         setBestImage(result.bestImage);
-        setBestImageApi(result.bestImage);
+        setBestImageApi((r.bestImageTemplateRaw == null) ? r.bestImage! : r.bestImageTemplateRaw);
         setTextColorMessage('#777777');
         setShowError(false);
         break;
@@ -474,7 +474,7 @@ const App = () =>
       <SdkButton onPress={startSelphi} text="Start Selphi" testID={"selphiBtn"}/>
       <SdkButton onPress={startSelphid} text="Start SelphID" />
       <SdkButton onPress={startInitOperation} text="Init Operation" />
-      <SdkButton onPress={getExtraData} text="ExtraData" />
+      <SdkButton onPress={callGetExtraData} text="ExtraData" />
       <SdkButton onPress={launchInitSession} text="Init Session" />
       <SdkButton onPress={launchCloseSession} text="Close Session" />
       <SdkButton onPress={launchFlow} text="Launch Flow" />
