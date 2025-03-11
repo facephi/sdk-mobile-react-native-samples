@@ -29,7 +29,8 @@ const styles = StyleSheet.create({
   },
 });
 
-const SdkButton = ({onPress, text}) => {
+const SdkButton = (props: any) => {
+  const { onPress, text } = props;
   return (
     <View style={styles.sdkButtonContainer}>
       <TouchableOpacity style={styles.sdkButtonTouchable} onPress={onPress}>

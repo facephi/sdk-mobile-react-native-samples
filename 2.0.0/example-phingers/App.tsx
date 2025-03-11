@@ -18,9 +18,8 @@ import SdkButton from './components/commons/SdkButton';
 
 import { SdkErrorType, SdkFinishStatus, SdkOperationType } from '@facephi/sdk-core-react-native/src/SdkCoreEnums';
 import { ReticleOrientation } from '@facephi/sdk-phingers-react-native/src/RecticleOrientation';
-import { CoreResult, InitOperationConfiguration, InitSessionConfiguration } from '@facephi/sdk-core-react-native/src';
-import { PhingersConfiguration, PhingersResult } from '@facephi/sdk-phingers-react-native/src';
-import { apiPost } from './apiRest';
+import { CoreResult, InitOperationConfiguration, InitSessionConfiguration, initSession, closeSession, initOperation } from '@facephi/sdk-core-react-native/src';
+import { PhingersConfiguration, PhingersResult, phingers } from '@facephi/sdk-phingers-react-native/src';
 import { LogBox } from 'react-native';
 import SdkWarning from './components/commons/SdkWarning';
 
@@ -44,7 +43,6 @@ const App = () =>
   LogBox.ignoreAllLogs();
 
   const backgroundStyle = { backgroundColor: darkMode ? Colors.darker : Colors.lighter };
-  const { SdkMobileCore, SdkMobilePhingers } = NativeModules;
   const flowEmitter     = new NativeEventEmitter(NativeModules.SdkMobileCore); // For listening events
   const trackingEmitter = new NativeEventEmitter(NativeModules.SdkMobileCore); // Optional: For iOS events
   
@@ -74,8 +72,7 @@ const App = () =>
     try 
     {
       console.log("Starting startPhingers...");
-
-      return await SdkMobilePhingers.phingers(getPhingersConfiguration())
+      return await phingers(getPhingersConfiguration())
       .then((result: PhingersResult) => 
       {
         console.log("result", result);
@@ -133,7 +130,7 @@ const App = () =>
         enableTracking: true
       };
 
-      return await SdkMobileCore.initSession(config)
+      return await initSession(config)
       .then((result: CoreResult) => 
       {
         console.log("result", result);
@@ -159,7 +156,7 @@ const App = () =>
     try 
     {
       console.log("Starting closeSession...");
-      return await SdkMobileCore.closeSession()
+      return await closeSession()
       .then((result: CoreResult) => 
       {
         console.log("result", result);
@@ -184,8 +181,7 @@ const App = () =>
     try 
     {
       console.log("Starting startInitOperation...");
-
-      return await SdkMobileCore.initOperation(getInitOperationConfiguration())
+      return await initOperation(getInitOperationConfiguration())
       .then((result: CoreResult) => 
       {
         console.log("result", result);

@@ -17,10 +17,10 @@ import SdkTopBar from './components/commons/SdkTopBar';
 import ActionSheet from './components/commons/CustomActionSheet';
 
 import SdkButton from './components/commons/SdkButton';
-import * as SdkSelphiEnums from '@facephi/sdk-selphi-react-native/src/SdkSelphiEnums';
+import { SdkCompressFormat, SdkLivenessMode } from '@facephi/sdk-selphi-react-native/src/SdkSelphiEnums';
 import { SdkErrorType, SdkFinishStatus, SdkOperationType } from '@facephi/sdk-core-react-native/src/SdkCoreEnums';
-import { CoreResult, FlowConfiguration, InitOperationConfiguration, InitSessionConfiguration } from '@facephi/sdk-core-react-native/src';
-import { SelphiConfiguration, SelphiResult } from '@facephi/sdk-selphi-react-native/src';
+import { closeSession, CoreResult, FlowConfiguration, getExtraData, InitOperationConfiguration, initSession, InitSessionConfiguration } from '@facephi/sdk-core-react-native/src';
+import { SelphiConfiguration, SelphiResult, selphi } from '@facephi/sdk-selphi-react-native/src';
 import { apiPost } from './apiRest';
 import SdkWarning from './components/commons/SdkWarning';
 import SdkImage from './components/commons/SdkImage';
@@ -75,13 +75,13 @@ const App = () =>
   }
   ,[])
 
-  const getExtraData = async () => 
+  const callGetExtraData = async () => 
   { 
     try 
     {
       console.log("Starting getExtraData...");
 
-      return await SdkMobileCore.getExtraData()
+      return await getExtraData()
       .then(async (result: CoreResult) => 
       {
         console.log("result", result);
@@ -113,12 +113,12 @@ const App = () =>
     let config: SelphiConfiguration = {
       debug: false,
       fullscreen: true,
-      livenessMode: SdkSelphiEnums.SdkLivenessMode.PassiveMode,
+      livenessMode: SdkLivenessMode.PassiveMode,
       resourcesPath: "fphi-selphi-widget-resources-sdk.zip",
       enableGenerateTemplateRaw: true,
       showResultAfterCapture: true,
       jpgQuality: 0.95,
-      compressFormat: SdkSelphiEnums.SdkCompressFormat.JPEG,
+      compressFormat: SdkCompressFormat.JPEG,
       showDiagnostic: true
     };
     return config;
@@ -136,7 +136,7 @@ const App = () =>
       console.log("Starting startSelphi...");
       clearAll();
       
-      return await SdkMobileSelphi.selphi(getSelphiConfiguration())
+      return await selphi(getSelphiConfiguration())
       .then((result: any) => 
       {
         //console.log("result", result);
@@ -180,7 +180,7 @@ const App = () =>
         enableTracking: true,
       };
 
-      return await SdkMobileCore.initSession(config)
+      return await initSession(config)
       .then((result: CoreResult) => 
       {
         console.log("result", result);
@@ -206,7 +206,7 @@ const App = () =>
     try 
     {
       console.log("Starting closeSession...");
-      return await SdkMobileCore.closeSession()
+      return await closeSession()
       .then((result: CoreResult) => 
       {
         console.log("result", result);
@@ -311,7 +311,7 @@ const App = () =>
     <View style={{ alignItems: 'center' }}>
       <SdkButton onPress={startSelphi} text="Start Selphi" />
       <SdkButton onPress={startInitOperation} text="Init Operation" />
-      <SdkButton onPress={getExtraData} text="ExtraData" />
+      <SdkButton onPress={callGetExtraData} text="ExtraData" />
       <SdkButton onPress={launchInitSession} text="Init Session" />
       <SdkButton onPress={launchCloseSession} text="Close Session" />
     </View>;

@@ -5,7 +5,7 @@ import { StyleSheet, Switch, Text, TouchableHighlight, View } from 'react-native
 const PRIMARY_COLOR = 'rgb(0,98,255)';
 const BORDER_COLOR = '#DBDBDB';
 
-const ActionSheet = (props) => {
+const ActionSheet = (props: any) => {
   const { actionItems, darkMode, setDarkMode } = props;
   const actionSheetItems = [
     ...actionItems,
@@ -61,7 +61,7 @@ const ActionSheet = (props) => {
                             trackColor={{false: '#767577', true: '#81b0ff'}}
                             thumbColor={darkMode ? '#fff' : '#f4f3f4'}
                             ios_backgroundColor="#3e3e3e"
-                            onValueChange={() => setDarkMode(previousState => !previousState)}
+                            onValueChange={() => setDarkMode((previousState: any) => !previousState)}
                             value={darkMode}
                         /> : null
                     }
@@ -117,7 +117,7 @@ ActionSheet.propTypes = {
   setDarkMode: PropTypes.func,
 }
 
-
+/*
 ActionSheet.defaultProps = {
   actionItems: [],
   onCancel: () => { },
@@ -125,6 +125,6 @@ ActionSheet.defaultProps = {
   darkMode: false,
   setDarkMode: () => { }
 }
-
+*/
 
 export default ActionSheet;

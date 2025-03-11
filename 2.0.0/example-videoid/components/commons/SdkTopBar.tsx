@@ -1,14 +1,18 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
+import PropTypes from 'prop-types';
 
-class SdkTopBar extends React.Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.textTitle}> VideoId Example </Text>
-      </View>
-    );
-  }
+const SdkTopBar = (props: any) => {
+  const { onPress } = props;
+  return (
+    <View style={styles.container}>
+      <Text style={styles.textTitle}> VideoId Example </Text>
+    </View>
+  );
+}
+
+SdkTopBar.propTypes = {
+  onPress: PropTypes.func.isRequired,
 }
 
 const styles = StyleSheet.create({

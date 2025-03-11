@@ -18,8 +18,8 @@ import SdkWarning from './components/commons/SdkWarning';
 import SdkButton from './components/commons/SdkButton';
 
 import { SdkErrorType, SdkFinishStatus, SdkOperationType } from '@facephi/sdk-core-react-native/src/SdkCoreEnums';
-import { CoreResult, InitOperationConfiguration, InitSessionConfiguration } from '@facephi/sdk-core-react-native/src';
-import { NfcConfiguration, NfcDocumentType, NfcResult } from '@facephi/sdk-nfc-react-native/src';
+import { CoreResult, InitOperationConfiguration, InitSessionConfiguration, initOperation, closeSession, initSession } from '@facephi/sdk-core-react-native/src';
+import { NfcConfiguration, NfcDocumentType, NfcResult, nfc } from '@facephi/sdk-nfc-react-native/src';
 import { LogBox } from 'react-native';
 
 const App = () => 
@@ -42,7 +42,6 @@ const App = () =>
   LogBox.ignoreAllLogs();
 
   const backgroundStyle = { backgroundColor: darkMode ? Colors.darker : Colors.lighter };
-  const { SdkMobileCore, SdkMobileNfc } = NativeModules;
   const flowEmitter     = new NativeEventEmitter(NativeModules.SdkMobileCore); // For listening events
   const trackingEmitter = new NativeEventEmitter(NativeModules.SdkMobileCore); // Optional: For iOS events
   
@@ -72,7 +71,7 @@ const App = () =>
     {
       console.log("Starting startNfc...");
 
-      return await SdkMobileNfc.nfc(getNfcConfiguration())
+      return await nfc(getNfcConfiguration())
       .then((result: NfcResult) => 
       {
         console.log("result", result);
@@ -126,7 +125,7 @@ const App = () =>
         enableTracking: true,
       };
 
-      return await SdkMobileCore.initSession(config)
+      return await initSession(config)
       .then((result: CoreResult) => 
       {
         console.log("result", result);
@@ -152,7 +151,7 @@ const App = () =>
     try 
     {
       console.log("Starting closeSession...");
-      return await SdkMobileCore.closeSession()
+      return await closeSession()
       .then((result: CoreResult) => 
       {
         console.log("result", result);
@@ -178,7 +177,7 @@ const App = () =>
     {
       console.log("Starting startInitOperation...");
 
-      return await SdkMobileCore.initOperation(getInitOperationConfiguration())
+      return await initOperation(getInitOperationConfiguration())
       .then((result: CoreResult) => 
       {
         console.log("result", result);

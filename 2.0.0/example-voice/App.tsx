@@ -15,8 +15,8 @@ import SdkTopBar from './components/commons/SdkTopBar';
 import ActionSheet from './components/commons/CustomActionSheet';
 import SdkButton from './components/commons/SdkButton';
 import { SdkErrorType, SdkFinishStatus, SdkOperationType } from '@facephi/sdk-core-react-native/src/SdkCoreEnums';
-import { CoreResult, InitOperationConfiguration, InitSessionConfiguration } from '@facephi/sdk-core-react-native/src';
-import { VoiceConfiguration, VoiceResult } from '@facephi/sdk-voice-react-native/src';
+import { closeSession, CoreResult, initOperation, InitOperationConfiguration, initSession, InitSessionConfiguration } from '@facephi/sdk-core-react-native/src';
+import { voice, VoiceConfiguration, VoiceResult } from '@facephi/sdk-voice-react-native/src';
 import { LogBox } from 'react-native';
 import SdkWarning from './components/commons/SdkWarning';
 
@@ -69,8 +69,7 @@ const App = () =>
     try 
     {
       console.log("Starting launchVoice...", getVoiceConfiguration());
-
-      return await SdkMobileVoice.voice(getVoiceConfiguration())
+      return await voice(getVoiceConfiguration())
       .then((result: VoiceResult) => 
       {
         console.log("result", result);
@@ -127,7 +126,7 @@ const App = () =>
         enableTracking: true
       };
 
-      return await SdkMobileCore.initSession(config)
+      return await initSession(config)
       .then((result: CoreResult) => 
       {
         console.log("result", result);
@@ -153,7 +152,7 @@ const App = () =>
     try 
     {
       console.log("Starting closeSession...");
-      return await SdkMobileCore.closeSession()
+      return await closeSession()
       .then((result: CoreResult) => 
       {
         console.log("result", result);
@@ -179,7 +178,7 @@ const App = () =>
     {
       console.log("Starting startInitOperation...");
       setShowError(false);
-      return await SdkMobileCore.initOperation(getInitOperationConfiguration())
+      return await initOperation(getInitOperationConfiguration())
       .then((result: CoreResult) => 
       {
         console.log("result", result);

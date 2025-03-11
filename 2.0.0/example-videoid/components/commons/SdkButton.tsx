@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import PropTypes from 'prop-types';
 
 const styles = StyleSheet.create({
@@ -29,7 +29,8 @@ const styles = StyleSheet.create({
   },
 });
 
-const SdkButton = ({onPress, text}) => {
+const SdkButton = (props: any) => {
+  const { onPress, text } = props;
   return (
     <View style={styles.sdkButtonContainer}>
       <TouchableOpacity style={styles.sdkButtonTouchable} onPress={onPress}>
@@ -40,8 +41,8 @@ const SdkButton = ({onPress, text}) => {
 };
 
 SdkButton.propTypes = {
-  onPress: PropTypes.func,
-  text: PropTypes.string,
-};
+  onPress: PropTypes.func.isRequired,
+  text: PropTypes.string.isRequired,
+}
 
 export default SdkButton;

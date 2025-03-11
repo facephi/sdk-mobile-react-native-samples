@@ -8,7 +8,7 @@
  * @format
  */
 import React, { useState, useEffect } from 'react';
-import { NativeModules, SafeAreaView, StatusBar, Appearance, Platform, FlatList, View } from 'react-native';
+import { SafeAreaView, StatusBar, Appearance, Platform, FlatList, View } from 'react-native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { CUSTOMER_ID, MsjError, LICENSE_URL, LICENSE_APIKEY_IOS, LICENSE_APIKEY_ANDROID, LICENSE_ANDROID_NEW, LICENSE_IOS_NEW } from './constants';
 
@@ -17,8 +17,8 @@ import SdkWarning from './components/commons/SdkWarning';
 import SdkButton from './components/commons/SdkButton';
 
 import { SdkErrorType, SdkOperationType } from '@facephi/sdk-core-react-native/src/SdkCoreEnums';
-import { CoreResult, InitSessionConfiguration, InitOperationConfiguration } from '@facephi/sdk-core-react-native/src';
-import { VideoIdConfiguration, VideoIdResult, VideoMode } from '@facephi/sdk-videoid-react-native/src';
+import { CoreResult, InitSessionConfiguration, InitOperationConfiguration, initSession, closeSession, initOperation } from '@facephi/sdk-core-react-native/src';
+import { videoid, VideoIdConfiguration, VideoIdResult, VideoMode } from '@facephi/sdk-videoid-react-native/src';
 
 const App = () => 
 {
@@ -36,7 +36,6 @@ const App = () =>
   ];
 
   const backgroundStyle = { backgroundColor: darkMode ? Colors.darker : Colors.lighter };
-  const { SdkMobileCore, SdkMobileVideoid } = NativeModules;
 
   useEffect(()=>{
     const colorScheme = Appearance.getColorScheme(); //identify the theme of your default system light/dark
@@ -52,7 +51,7 @@ const App = () =>
     try 
     {
       console.log("Starting launchVideoId...");
-      return await SdkMobileVideoid.videoid(getVideoIdConfiguration())
+      return await videoid(getVideoIdConfiguration())
       .then((result: VideoIdResult) => 
       {
         console.log("result", result);
@@ -74,7 +73,8 @@ const App = () =>
   {
     let config: VideoIdConfiguration = {
       sectionTime: 5000,
-      mode: VideoMode.FACE_DOCUMENT_FRONT,
+      mode: VideoMode.ONLY_FACE,
+      showTutorial: true
     };
     return config;
   };
@@ -101,7 +101,7 @@ const App = () =>
         enableTracking: true
       };
 
-      return await SdkMobileCore.initSession(config)
+      return await initSession(config)
       .then((result: CoreResult) => 
       {
         console.log("result", result);
@@ -124,8 +124,7 @@ const App = () =>
     try 
     {
       console.log("Starting closeSession...");
-
-      return await SdkMobileCore.closeSession()
+      return await closeSession()
       .then((result: CoreResult) => 
       {
         console.log("result", result);
@@ -148,8 +147,7 @@ const App = () =>
     try 
     {
       console.log("Starting launchInitOperation...");
-
-      return await SdkMobileCore.initOperation(getInitOperationConfiguration())
+      return await initOperation(getInitOperationConfiguration())
       .then((result: CoreResult) => 
       {
         console.log("result", result);
