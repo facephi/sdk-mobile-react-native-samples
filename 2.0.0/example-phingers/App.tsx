@@ -98,10 +98,6 @@ const App = () =>
     let config: PhingersConfiguration = 
     {
       reticleOrientation: ReticleOrientation.LEFT,
-      returnFullFrameImage: true,
-      returnProcessedImage: true,
-      returnRawImage: true,
-      useFlash: true,
       useLiveness: true,
     };
 
