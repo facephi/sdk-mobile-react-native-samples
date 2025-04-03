@@ -8,17 +8,31 @@ require Pod::Executable.execute_command('node', ['-p',
 platform :ios, min_ios_version_supported
 prepare_react_native_project!
 
+plugin 'cocoapods-art', :sources => ['cocoa-pro-fphi']
+source 'https://cdn.cocoapods.org/'
+
 linkage = ENV['USE_FRAMEWORKS']
 if linkage != nil
   Pod::UI.puts "Configuring Pod with #{linkage}ally linked Frameworks".green
   use_frameworks! :linkage => linkage.to_sym
 end
 
-plugin 'cocoapods-art', :sources => ['cocoa-pro-fphi']
-source 'https://cdn.cocoapods.org/'
 
 target 'Example' do
   config = use_native_modules!
+
+  dynamic_frameworks = ['PromisesObjC', 'Protobuf', 'nanopb', 'Starscream']
+
+  pre_install do |installer|
+    installer.pod_targets.each do |pod|
+      if dynamic_frameworks.include?(pod.name)
+        puts "Overriding the build_type to dynamic_framework for #{pod.name}"      
+          def pod.build_type;
+          Pod::BuildType.dynamic_framework      
+        end
+      end
+    end
+  end
 
   use_react_native!(
     :path => config[:reactNativePath],
@@ -34,5 +48,14 @@ target 'Example' do
       :mac_catalyst_enabled => false,
       # :ccache_enabled => true
     )
+
+    ### EVITA CAMBIAR EL IOS DEVELOPMENT TARGET DE LOS PODS.
+    installer.generated_projects.each do |project|
+      project.targets.each do |target|
+        target.build_configurations.each do |config|
+            config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '13.0'
+          end
+      end
+    end
   end
 end
