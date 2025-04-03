@@ -67,7 +67,7 @@ const App = () =>
   }
   ,[])
 
-  const startPhingers = async () => 
+  const launchPhingers = async () => 
   { 
     try 
     {
@@ -172,7 +172,7 @@ const App = () =>
     }
   };
 
-  const startInitOperation = async () => 
+  const launchInitOperation = async () => 
   { 
     try 
     {
@@ -208,14 +208,14 @@ const App = () =>
 
   const footerComponent = () => 
     <View style={{ alignItems: 'center' }}>
-      <SdkButton onPress={startPhingers} text="Start Phingers" />
-      <SdkButton onPress={startInitOperation} text="Init Operation" />
+      <SdkButton onPress={launchPhingers} text="Start Phingers" />
+      <SdkButton onPress={launchInitOperation} text="Init Operation" />
       <SdkButton onPress={launchInitSession} text="Init Session" />
       <SdkButton onPress={launchCloseSession} text="Close Session" />
     </View>;
 
   return (
-    <SafeAreaView style={[{flex: 1}, backgroundStyle]}>
+    <SafeAreaView style={[{flex: 1, paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0}, backgroundStyle]}>
       <StatusBar barStyle={darkMode ? 'dark-content' : 'light-content'} />
       <SdkTopBar onPress={() => setActionSheet(true)}/>
       <Modal 
