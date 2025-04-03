@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <network-security-config>
-    <!--
-    <base-config cleartextTrafficPermitted="false"/>
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">ocsp.digicert.com</domain>
         <domain includeSubdomains="true">crl3.digicert.com</domain>
@@ -14,8 +12,8 @@
         <domain includeSubdomains="true">ocsp.starfieldtech.com</domain>
         <domain includeSubdomains="true">http://www.lumosity.com</domain>
         <domain includeSubdomains="true">wss://identityplatform.facephi.dev</domain>
-        <domain includeSubdomains="true">identityplatform.facephi.dev</domain>
-        <domain includeSubdomains="true">identityplatform.facephi.dev/api/video-identification/identification</domain>
+        <!--<domain includeSubdomains="true">identityplatform.facephi.dev</domain>
+        <domain includeSubdomains="true">identityplatform.facephi.dev/api/video-identification/identification</domain>-->
     </domain-config>
-    -->
+    <base-config cleartextTrafficPermitted="true"/>
 </network-security-config>
