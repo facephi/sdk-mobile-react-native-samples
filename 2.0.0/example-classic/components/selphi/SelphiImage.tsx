@@ -3,33 +3,37 @@ import PropTypes from 'prop-types';
 import { StyleSheet, View, Image } from 'react-native';
 
 const styles = StyleSheet.create({
-  selphIDImageContainer: {
+  selphiImageContainer: {
     alignItems: 'center',
     justifyContent: 'center',
     margin: 5,
-    height: 120,
+    height: 130,
+    //flex: 5,
     width: '70%',
     backgroundColor: '#e8e6e6',
-    borderRadius: 5,
-
+    borderRadius: 15,
+    
   },
-  selphIDImage: {
-    height: '95%',
-    width: '90%',
-    borderRadius: 5,
+  selphiImage: {
+    height: '100%',
+    width: '100%',
+    borderRadius: 15,
   },
 });
 
-const SelphIDImage = ({image, widthImage}) => {
-  const newSelphIDImageContainer = StyleSheet.flatten([
-    styles.selphIDImageContainer,
+const SelphiImage = (props: any) => 
+{
+  const { widthImage, image } = props;
+
+  const newSelphiImageContainer = StyleSheet.flatten([
+    styles.selphiImageContainer,
     {width: widthImage},
   ]);
   return (
-    image ? <View style={newSelphIDImageContainer}>
+    image ? 
+    <View style={newSelphiImageContainer}>
       <Image
-        style={styles.selphIDImage}
-        resizeMode={'contain'}
+        style={styles.selphiImage}
         source={{
           uri: 'data:image/jpeg;base64,' + image,
         }}
@@ -38,9 +42,9 @@ const SelphIDImage = ({image, widthImage}) => {
   );
 };
 
-SelphIDImage.propTypes = {
+SelphiImage.propTypes = {
   image: PropTypes.string,
   widthImage: PropTypes.string.isRequired,
 };
 
-export default SelphIDImage;
+export default SelphiImage;

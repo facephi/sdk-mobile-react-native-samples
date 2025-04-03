@@ -57,7 +57,7 @@ const App = () =>
   LogBox.ignoreAllLogs();
   
   const backgroundStyle = { backgroundColor: darkMode ? Colors.darker : Colors.lighter };
-  
+
   const flowEmitter     = new NativeEventEmitter(NativeModules.SdkMobileCore); // For listening events
   const trackingEmitter = new NativeEventEmitter(NativeModules.SdkMobileCore); // Optional: For iOS events
   

@@ -4,28 +4,32 @@ import { StyleSheet, Text, View } from 'react-native';
 
 const styles = StyleSheet.create({
   textContent: {
+    flex: 0.25,
     alignItems: 'center',
-    height: 25,
     width: '100%',
     justifyContent: 'center',
   },
   textTitle: {
     fontFamily: 'CircularStd-Bold',
     fontSize: 20,
-    color: '#777777',
   },
 });
 
-const SelphIDTitleText = ({text}) => {
+const SelphiTitleText = (props: any) => 
+{
+  const { text, textColor } = props;
+
+  const newStyle = StyleSheet.flatten([styles.textTitle, {color: textColor}]);
   return (
     <View style={styles.textContent}>
-      <Text style={styles.textTitle}>{text}</Text>
+      <Text style={newStyle}>{text}</Text>
     </View>
   );
 };
 
-SelphIDTitleText.propTypes = {
-  text: PropTypes.string.isRequired
+SelphiTitleText.propTypes = {
+  text: PropTypes.string.isRequired,
+  textColor: PropTypes.string.isRequired,
 };
 
-export default SelphIDTitleText;
+export default SelphiTitleText;

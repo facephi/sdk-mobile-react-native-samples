@@ -2,7 +2,10 @@ import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import { Modal, StyleSheet, Text, TouchableHighlight, View, FlatList } from 'react-native';
 
-const SelphIDButtonAlert = ({content, darkMode}) => {
+const SelphIDButtonAlert = (props: any) => 
+{
+  const { content, darkMode } = props;
+
   const [modalVisible, setModalVisible] = useState(false);
   if (content == null) {
     return null;
