@@ -10,8 +10,6 @@
     "test": "jest"
   },
   "dependencies": {
-    "@facephi/sdk-core-react-native": "../sdk-core",
-    "@facephi/sdk-videoid-react-native": "../sdk-videoid",
     "@types/prop-types": "^15.7.14",
     "react": "19.0.0",
     "react-native": "0.78.2"
