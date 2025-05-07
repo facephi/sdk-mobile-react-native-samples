@@ -1,0 +1,73 @@
+# Resolve react_native_pods.rb with node to allow for hoisting
+require Pod::Executable.execute_command('node', ['-p',
+  'require.resolve(
+    "react-native/scripts/react_native_pods.rb",
+    {paths: [process.argv[1]]},
+  )', __dir__]).strip
+
+platform :ios, min_ios_version_supported
+prepare_react_native_project!
+
+plugin 'cocoapods-art', :sources => ['cocoa-pro-fphi']
+source 'https://cdn.cocoapods.org/'
+
+linkage = ENV['USE_FRAMEWORKS']
+if linkage != nil
+  Pod::UI.puts "Configuring Pod with #{linkage}ally linked Frameworks".green
+  use_frameworks! :linkage => linkage.to_sym
+end
+
+target 'Example' do
+  config = use_native_modules!
+
+  #$static_framework = ['Flipper-Boost-iOSX', 'Flipper-RSocket', 'glog', 'Yoga', 'YogaKit', 'React-logger', 'Flipper-Fmt', 'RCT-Folly', 'Flipper-Folly', 'React-jsi', 'FlipperKit', 'Flipper', 'Flipper-Glog', 'Flipper-PeerTalk', 'React-cxxreact', 'React-jsiexecutor', 'React-Core', 'React-RCTText', 'RCTTypeSafety', 'ReactCommon', 'React-Codegen', 'React-RCTVibration', 'React-RCTSettings', 'React-RCTNetwork', 'React-RCTLinking', 'React-RCTAnimation', 'React-RCTBlob', 'React-RCTImage', 'React-CoreModules', 'React-hermes']
+  dynamic_frameworks = ['zipzap', 'PromisesObjC', 'GTMSessionFetcher', 'GoogleDataTransport', 'GoogleToolboxForMac', 'Protobuf', 'GoogleUtilities', 'nanopb', 'Starscream']
+
+  pre_install do |installer|
+    installer.pod_targets.each do |pod|
+      if dynamic_frameworks.include?(pod.name)
+        puts "Overriding the build_type to dynamic_framework for #{pod.name}"      
+          def pod.build_type;
+          Pod::BuildType.dynamic_framework      
+        end
+      end
+    end
+  end
+
+  #pre_install do |installer|
+    #Pod::Installer::Xcode::TargetValidator.send(:define_method, :verify_no_static_framework_transitive_dependencies) {}
+    #installer.pod_targets.each do |pod|
+        #if $static_framework.include?(pod.name)
+          #def pod.build_type;
+            #Pod::BuildType.static_library
+          #end
+        #end
+      #end
+  #end
+  
+  use_react_native!(
+    :path => config[:reactNativePath],
+    :hermes_enabled => false,
+    # An absolute path to your application root.
+    :app_path => "#{Pod::Config.instance.installation_root}/.."
+  )
+
+  post_install do |installer|
+    # https://github.com/facebook/react-native/blob/main/packages/react-native/scripts/react_native_pods.rb#L197-L202
+    react_native_post_install(
+      installer,
+      config[:reactNativePath],
+      :mac_catalyst_enabled => false,
+      # :ccache_enabled => true
+    )
+
+    ### EVITA CAMBIAR EL IOS DEVELOPMENT TARGET DE LOS PODS.
+    installer.generated_projects.each do |project|
+      project.targets.each do |target|
+        target.build_configurations.each do |config|
+            config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '12.0'
+          end
+      end
+    end
+  end
+end

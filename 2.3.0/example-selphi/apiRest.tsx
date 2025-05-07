@@ -5,7 +5,7 @@ const headerParams = {
     //'x-api-key': '',
     //'app-name': ''
 };
-const url = '';
+const url = 'https://selphid.***.com';
 
 export async function apiPost (method: string, bodyParams: any)
 {
