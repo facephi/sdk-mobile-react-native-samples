@@ -12,7 +12,6 @@ const getSelphidConfiguration = () => {
       specificData: 'AR|<ALL>',
       documentType: SdkDocumentType.IdCard,
       fullscreen: true,
-      locale: '',
       resourcesPath: "fphi-selphid-widget-resources-sdk.zip",
     };
     return config;
