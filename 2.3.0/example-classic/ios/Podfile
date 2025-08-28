@@ -21,7 +21,8 @@ target 'Example' do
   config = use_native_modules!
   
   dynamic_frameworks = ['zipzap', 'PromisesObjC', 'GTMSessionFetcher', 'GoogleDataTransport', 'GoogleToolboxForMac', 'Protobuf', 'GoogleUtilities', 'nanopb']
-
+  #dynamic_frameworks = []
+  
   pre_install do |installer|
     installer.pod_targets.each do |pod|
       if dynamic_frameworks.include?(pod.name)
@@ -38,7 +39,7 @@ target 'Example' do
     :path => config[:reactNativePath],
     # An absolute path to your application root.
     :app_path => "#{Pod::Config.instance.installation_root}/..",
-    :hermes_enabled => true
+    :hermes_enabled => false
     # :fabric_enabled => true
   )
 

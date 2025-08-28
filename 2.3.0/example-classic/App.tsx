@@ -8,8 +8,7 @@
  * @format
  */
 import React, { useState, useEffect } from 'react';
-import { NativeModules, SafeAreaView, StatusBar, FlatList, View, Modal, Appearance, NativeEventEmitter, LogBox } from 'react-native';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
+import { StatusBar, FlatList, View, Modal, Appearance, NativeEventEmitter, LogBox, Platform, NativeModules } from 'react-native';
 import { TRACKING_ERROR_LISTENER } from './constants';
 
 import SelphiImage from './components/selphi/SelphiImage';
@@ -26,6 +25,7 @@ import { SelphidResult } from '@facephi/sdk-selphid-react-native/src';
 import { callGetExtraData, launchCloseSession, launchFlow, launchInitSession, startInitOperation } from './providers/core'
 import { startSelphi } from './providers/selphi';
 import { startSelphid } from './providers/selphid';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const App = () => 
 {
@@ -49,13 +49,13 @@ const App = () =>
   LogBox.ignoreLogs(['new NativeEventEmitter']); // Ignore log notification by message
   LogBox.ignoreAllLogs();
   
-  const backgroundStyle = { backgroundColor: darkMode ? Colors.darker : Colors.lighter };
+  const backgroundStyle = { backgroundColor: darkMode ? 'dark' : 'light' };
 
-  const flowEmitter     = new NativeEventEmitter(NativeModules.SdkMobileCore); // For listening events
-  const trackingEmitter = new NativeEventEmitter(NativeModules.SdkMobileCore); // Optional: For iOS events
+  //const flowEmitter     = new NativeEventEmitter(NativeModules.SdkMobileCore); // For listening events
+  //const trackingEmitter = new NativeEventEmitter(NativeModules.SdkMobileCore); // Optional: For iOS events
   
   /* init listener */
-  let trackingListener = trackingEmitter.addListener(
+  /*let trackingListener = trackingEmitter.addListener(
     TRACKING_ERROR_LISTENER,
     (res: any) => console.log("TRACKING_ERROR_LISTENER", res)
   );
@@ -66,6 +66,16 @@ const App = () =>
   /* end listener */
 
   useEffect(() => {
+    if (Platform.OS === 'ios') {
+      const settings = NativeModules.SettingsManager?.settings;
+      const appleLocale =
+        settings?.AppleLocale || settings?.AppleLanguages?.[0];
+      //setLocale(appleLocale || 'en_US');
+    } else if (Platform.OS === 'android') {
+      const androidLocale = NativeModules.I18nManager?.localeIdentifier;
+      //setLocale(androidLocale || 'en_US');
+    }
+    
     const colorScheme = Appearance.getColorScheme(); //identify the theme of your default system light/dark
     setDarkMode(colorScheme === 'dark' ? true : false);
     console.log("dark mode:", darkMode);
@@ -104,7 +114,7 @@ const App = () =>
     </View>;
 
   return (
-    <SafeAreaView style={[{flex: 1}, backgroundStyle]}>
+    <SafeAreaView style={[{flex: 1, paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0}, backgroundStyle]}>
       <StatusBar barStyle={darkMode ? 'dark-content' : 'light-content'} />
       <SdkTopBar onPress={() => setActionSheet(true)}/>
       <Modal 
@@ -122,7 +132,6 @@ const App = () =>
         ListHeaderComponent={ headerComponent }
         ListFooterComponent={ footerComponent }         
       />
-
     </SafeAreaView>
   );
 };

@@ -9,7 +9,7 @@ const getSelphidConfiguration = () => {
       showResultAfterCapture: true,
       showTutorial: false,
       scanMode: SdkScanMode.Search,
-      specificData: 'AR|<ALL>',
+      specificData: 'EC|<ALL>',
       documentType: SdkDocumentType.IdCard,
       fullscreen: true,
       resourcesPath: "fphi-selphid-widget-resources-sdk.zip",
@@ -38,7 +38,7 @@ export const startSelphid = async (
       return await selphid(getSelphidConfiguration())
       .then((result: any) => 
       {
-        console.log("SelphidResult", result)
+        console.log("SelphidResult", result as SelphidResult)
         setSelphidResult(result);
         processSelphidResult(
             result,

@@ -8,19 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
-		1933DB592DCB6DD70034D4C5 /* React_RCTAppDelegate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1933DB582DCB6DD70034D4C5 /* React_RCTAppDelegate.framework */; };
-		1933DB5D2DCB6E190034D4C5 /* sdk_core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1933DB5C2DCB6E190034D4C5 /* sdk_core.framework */; };
-		1933DB612DCB6E1E0034D4C5 /* sdk_core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1933DB602DCB6E1E0034D4C5 /* sdk_core.framework */; };
-		1933DB642DCB6E240034D4C5 /* sdk_selphi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1933DB632DCB6E240034D4C5 /* sdk_selphi.framework */; };
-		1933DB672DCB6E280034D4C5 /* sdk_selphid.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1933DB662DCB6E280034D4C5 /* sdk_selphid.framework */; };
-		1933DB6A2DCB6E530034D4C5 /* RCTAnimation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1933DB692DCB6E530034D4C5 /* RCTAnimation.framework */; };
-		1933DB6D2DCB6E5E0034D4C5 /* RCTLinking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1933DB6C2DCB6E5E0034D4C5 /* RCTLinking.framework */; };
-		1933DB702DCB6E6B0034D4C5 /* RCTAnimation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1933DB6F2DCB6E6B0034D4C5 /* RCTAnimation.framework */; };
-		1933DB732DCB6E740034D4C5 /* RCTSettings.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1933DB722DCB6E740034D4C5 /* RCTSettings.framework */; };
-		196FF8E42DAFA6E0003DB32D /* CircularStd-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 196FF8E32DAFA6E0003DB32D /* CircularStd-Bold.ttf */; };
+		19E345172E6064D0006F87D6 /* CircularStd-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 19E345162E6064D0006F87D6 /* CircularStd-Bold.ttf */; };
 		761780ED2CA45674006654EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761780EC2CA45674006654EE /* AppDelegate.swift */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		F3C2593A42BD375ABDC6072F /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */; };
+		9E8721938F6C7FA36CE09A5C /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,17 +19,7 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Example/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Example/Info.plist; sourceTree = "<group>"; };
 		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = Example/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		1933DB582DCB6DD70034D4C5 /* React_RCTAppDelegate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = React_RCTAppDelegate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		1933DB5C2DCB6E190034D4C5 /* sdk_core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = sdk_core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		1933DB602DCB6E1E0034D4C5 /* sdk_core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = sdk_core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		1933DB632DCB6E240034D4C5 /* sdk_selphi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = sdk_selphi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		1933DB662DCB6E280034D4C5 /* sdk_selphid.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = sdk_selphid.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		1933DB692DCB6E530034D4C5 /* RCTAnimation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RCTAnimation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		1933DB6C2DCB6E5E0034D4C5 /* RCTLinking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RCTLinking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		1933DB6F2DCB6E6B0034D4C5 /* RCTAnimation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RCTAnimation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		1933DB722DCB6E740034D4C5 /* RCTSettings.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RCTSettings.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		196FF8E32DAFA6E0003DB32D /* CircularStd-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CircularStd-Bold.ttf"; sourceTree = "<group>"; };
-		196FF8E52DAFA806003DB32D /* Example.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = Example.entitlements; path = Example/Example.entitlements; sourceTree = "<group>"; };
+		19E345162E6064D0006F87D6 /* CircularStd-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CircularStd-Bold.ttf"; sourceTree = "<group>"; };
 		761780EC2CA45674006654EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Example/AppDelegate.swift; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Example/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -49,15 +30,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1933DB612DCB6E1E0034D4C5 /* sdk_core.framework in Frameworks */,
-				1933DB6A2DCB6E530034D4C5 /* RCTAnimation.framework in Frameworks */,
-				1933DB702DCB6E6B0034D4C5 /* RCTAnimation.framework in Frameworks */,
-				1933DB5D2DCB6E190034D4C5 /* sdk_core.framework in Frameworks */,
-				1933DB732DCB6E740034D4C5 /* RCTSettings.framework in Frameworks */,
-				1933DB592DCB6DD70034D4C5 /* React_RCTAppDelegate.framework in Frameworks */,
-				1933DB6D2DCB6E5E0034D4C5 /* RCTLinking.framework in Frameworks */,
-				1933DB642DCB6E240034D4C5 /* sdk_selphi.framework in Frameworks */,
-				1933DB672DCB6E280034D4C5 /* sdk_selphid.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -67,7 +39,6 @@
 		13B07FAE1A68108700A75B9A /* Example */ = {
 			isa = PBXGroup;
 			children = (
-				196FF8E52DAFA806003DB32D /* Example.entitlements */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				761780EC2CA45674006654EE /* AppDelegate.swift */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
@@ -77,10 +48,10 @@
 			name = Example;
 			sourceTree = "<group>";
 		};
-		196FF8E22DAFA6B6003DB32D /* Resources */ = {
+		19E345152E6064A0006F87D6 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				196FF8E32DAFA6E0003DB32D /* CircularStd-Bold.ttf */,
+				19E345162E6064D0006F87D6 /* CircularStd-Bold.ttf */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -88,15 +59,6 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				1933DB722DCB6E740034D4C5 /* RCTSettings.framework */,
-				1933DB6F2DCB6E6B0034D4C5 /* RCTAnimation.framework */,
-				1933DB6C2DCB6E5E0034D4C5 /* RCTLinking.framework */,
-				1933DB692DCB6E530034D4C5 /* RCTAnimation.framework */,
-				1933DB662DCB6E280034D4C5 /* sdk_selphid.framework */,
-				1933DB632DCB6E240034D4C5 /* sdk_selphi.framework */,
-				1933DB602DCB6E1E0034D4C5 /* sdk_core.framework */,
-				1933DB5C2DCB6E190034D4C5 /* sdk_core.framework */,
-				1933DB582DCB6DD70034D4C5 /* React_RCTAppDelegate.framework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 			);
 			name = Frameworks;
@@ -112,7 +74,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				196FF8E22DAFA6B6003DB32D /* Resources */,
+				19E345152E6064A0006F87D6 /* Resources */,
 				13B07FAE1A68108700A75B9A /* Example */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				83CBBA001A601CBA00E9B192 /* Products */,
@@ -198,8 +160,8 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				196FF8E42DAFA6E0003DB32D /* CircularStd-Bold.ttf in Resources */,
-				F3C2593A42BD375ABDC6072F /* PrivacyInfo.xcprivacy in Resources */,
+				19E345172E6064D0006F87D6 /* CircularStd-Bold.ttf in Resources */,
+				9E8721938F6C7FA36CE09A5C /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -241,7 +203,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = Example/Example.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -273,7 +234,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = Example/Example.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -351,6 +311,8 @@
 					"$(inherited)",
 					"${PODS_CONFIGURATION_BUILD_DIR}/ReactCommon/ReactCommon.framework/Headers",
 					"${PODS_CONFIGURATION_BUILD_DIR}/ReactCommon/ReactCommon.framework/Headers/react/nativemodule/core",
+					"${PODS_CONFIGURATION_BUILD_DIR}/React-runtimeexecutor/React_runtimeexecutor.framework/Headers",
+					"${PODS_CONFIGURATION_BUILD_DIR}/React-runtimeexecutor/React_runtimeexecutor.framework/Headers/platform/ios",
 					"${PODS_CONFIGURATION_BUILD_DIR}/ReactCommon-Samples/ReactCommon_Samples.framework/Headers",
 					"${PODS_CONFIGURATION_BUILD_DIR}/ReactCommon-Samples/ReactCommon_Samples.framework/Headers/platform/ios",
 					"${PODS_CONFIGURATION_BUILD_DIR}/React-Fabric/React_Fabric.framework/Headers/react/renderer/components/view/platform/cxx",
@@ -377,10 +339,6 @@
 					"-DFOLLY_USE_LIBCPP=1",
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 					"-DFOLLY_HAVE_CLOCK_GETTIME=1",
-				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
 				);
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
@@ -435,6 +393,8 @@
 					"$(inherited)",
 					"${PODS_CONFIGURATION_BUILD_DIR}/ReactCommon/ReactCommon.framework/Headers",
 					"${PODS_CONFIGURATION_BUILD_DIR}/ReactCommon/ReactCommon.framework/Headers/react/nativemodule/core",
+					"${PODS_CONFIGURATION_BUILD_DIR}/React-runtimeexecutor/React_runtimeexecutor.framework/Headers",
+					"${PODS_CONFIGURATION_BUILD_DIR}/React-runtimeexecutor/React_runtimeexecutor.framework/Headers/platform/ios",
 					"${PODS_CONFIGURATION_BUILD_DIR}/ReactCommon-Samples/ReactCommon_Samples.framework/Headers",
 					"${PODS_CONFIGURATION_BUILD_DIR}/ReactCommon-Samples/ReactCommon_Samples.framework/Headers/platform/ios",
 					"${PODS_CONFIGURATION_BUILD_DIR}/React-Fabric/React_Fabric.framework/Headers/react/renderer/components/view/platform/cxx",
@@ -460,10 +420,6 @@
 					"-DFOLLY_USE_LIBCPP=1",
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 					"-DFOLLY_HAVE_CLOCK_GETTIME=1",
-				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
 				);
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;

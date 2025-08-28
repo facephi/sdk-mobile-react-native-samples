@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Alert, Modal, Text, View, TextInput, TouchableOpacity, Platform } from "react-native";
 import { Picker, PickerIOS } from '@react-native-picker/picker';
-import { SelphidConfiguration } from "@facephi/sdk-selphid-react-native/src";
+import { SelphidConfiguration } from "@facephi/sdk-selphid-mbsdr-react-native/src";
 import { ActionSheetStyles } from "./ActionSheetStyles";
 
 interface Props {
