@@ -78,9 +78,6 @@ const App = () =>
       sectionTime: 5000,
       mode: VideoMode.ONLY_FACE,
       showTutorial: true
-      //url: 'wss://identityplatform.facephi.dev/api/video-identification/identification',
-      //apiKey: 'dqeqD9Yu4ebJfFrUN3fXXUF94CnRYw9PugtS6GYu',
-      //tenantId: 'e9b039fa-0a2f-4149-9acc-a7e20a46464e',
     };
     return config;
   };
