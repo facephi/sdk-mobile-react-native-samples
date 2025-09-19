@@ -24,9 +24,9 @@ export const callGetExtraData = async (
           const params1 = {'extraData': result.data, 'image': selphiResult.bestImageTemplateRaw};
           const params2 = {'documentTemplate': selphidResult?.tokenFaceImage, 'extraData': result.data, 'image1': selphiResult.bestImageTemplateRaw};
           
-          let r1: any = await apiPost('/v5/api/v1/selphid/passive-liveness/evaluate', params1);
+          let r1: any = await apiPost('/', params1);
           console.log("r1", r1);
-          let r2: any = await apiPost('/v5/api/v1/selphid/authenticate-facial/document/face-image', params2);
+          let r2: any = await apiPost('/', params2);
           console.log("r2", r2);
         }
       })
