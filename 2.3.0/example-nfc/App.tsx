@@ -121,7 +121,6 @@ const App = () =>
         //license: Platform.OS === 'ios' ? JSON.stringify(LICENSE_IOS_NEW) : JSON.stringify(LICENSE_ANDROID_NEW),
         licenseUrl: LICENSE_URL,
         licenseApiKey: Platform.OS === 'ios' ? LICENSE_APIKEY_IOS : LICENSE_APIKEY_ANDROID,
-        enableFlow: false,
         enableTracking: true,
       };
 
