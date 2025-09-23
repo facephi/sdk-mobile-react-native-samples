@@ -114,7 +114,7 @@ const App = () =>
     </View>;
 
   return (
-    <SafeAreaView style={[{flex: 1, paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0}, backgroundStyle]}>
+    <SafeAreaView style={[{flex: 1}, backgroundStyle]}>
       <StatusBar barStyle={darkMode ? 'dark-content' : 'light-content'} />
       <SdkTopBar onPress={() => setActionSheet(true)}/>
       <Modal 
