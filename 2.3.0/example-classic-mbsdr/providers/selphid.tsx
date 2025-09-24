@@ -13,6 +13,7 @@ const getSelphidConfiguration = () => {
       documentType: SdkDocumentType.IdCard,
       fullscreen: true,
       resourcesPath: "fphi-selphid-widget-resources-sdk.zip",
+      wizardMode: true
     };
     return config;
 };

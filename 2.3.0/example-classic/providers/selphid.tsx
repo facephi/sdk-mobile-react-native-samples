@@ -9,10 +9,11 @@ const getSelphidConfiguration = () => {
       showResultAfterCapture: true,
       showTutorial: false,
       scanMode: SdkScanMode.Search,
-      specificData: 'EC|<ALL>',
+      specificData: 'AR|<ALL>',
       documentType: SdkDocumentType.IdCard,
       fullscreen: true,
       resourcesPath: "fphi-selphid-widget-resources-sdk.zip",
+      wizardMode: true
     };
     return config;
 };
