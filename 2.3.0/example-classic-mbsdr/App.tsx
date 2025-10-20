@@ -2,14 +2,10 @@
  * Sample React Native App
  * https://github.com/facebook/react-native
  *
- * Generated with the TypeScript template
- * https://github.com/react-native-community/react-native-template-typescript
- *
  * @format
  */
 import React, { useState, useEffect } from 'react';
-import { NativeModules, SafeAreaView, StatusBar, FlatList, View, Modal, Appearance, NativeEventEmitter, LogBox } from 'react-native';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
+import { NativeModules, StatusBar, FlatList, View, Modal, Appearance, NativeEventEmitter, LogBox, Platform } from 'react-native';
 import { TRACKING_ERROR_LISTENER } from './constants';
 
 import SelphiImage from './components/selphi/SelphiImage';
@@ -26,6 +22,7 @@ import { SelphidResult } from '@facephi/sdk-selphid-mbsdr-react-native/src';
 import { callGetExtraData, launchCloseSession, launchFlow, launchInitSession, startInitOperation } from './providers/core'
 import { startSelphi } from './providers/selphi';
 import { startSelphid } from './providers/selphid';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const App = () => 
 {
@@ -49,7 +46,7 @@ const App = () =>
   LogBox.ignoreLogs(['new NativeEventEmitter']); // Ignore log notification by message
   LogBox.ignoreAllLogs();
   
-  const backgroundStyle = { backgroundColor: darkMode ? Colors.darker : Colors.lighter };
+  const backgroundStyle = { backgroundColor: darkMode ? '#000' : '#fff' };
 
   const flowEmitter     = new NativeEventEmitter(NativeModules.SdkMobileCore); // For listening events
   const trackingEmitter = new NativeEventEmitter(NativeModules.SdkMobileCore); // Optional: For iOS events
@@ -104,7 +101,7 @@ const App = () =>
     </View>;
 
   return (
-    <SafeAreaView style={[{flex: 1}, backgroundStyle]}>
+    <SafeAreaView style={[{flex: 1, paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0}, backgroundStyle]}>
       <StatusBar barStyle={darkMode ? 'dark-content' : 'light-content'} />
       <SdkTopBar onPress={() => setActionSheet(true)}/>
       <Modal 
