@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Text } from 'react-native';
 
-const SdkWarning = (props: any) => {
+const SelphIDWarning = (props: any) => 
+{
   const { stateResult } = props;
   return (
     <Text 
@@ -13,8 +14,9 @@ const SdkWarning = (props: any) => {
     </Text>
   );
 };
-SdkWarning.propTypes = {
-  stateResult: PropTypes.any.isRequired
-}
 
-export default SdkWarning;
+SelphIDWarning.propTypes = {
+  stateResult: PropTypes.any.isRequired
+};
+
+export default SelphIDWarning;

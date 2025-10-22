@@ -20,14 +20,14 @@ const styles = StyleSheet.create({
   },
 });
 
-const SdkImage = (props: any) => 
+const SelphIDImage = (props: any) => 
 {
   const { image, widthImage } = props;
-  
   const newSelphIDImageContainer = StyleSheet.flatten([
     styles.selphIDImageContainer,
     {width: widthImage},
   ]);
+  
   return (
     image ? <View style={newSelphIDImageContainer}>
       <Image
@@ -41,9 +41,9 @@ const SdkImage = (props: any) =>
   );
 };
 
-SdkImage.propTypes = {
+SelphIDImage.propTypes = {
   image: PropTypes.string,
   widthImage: PropTypes.string.isRequired,
 };
 
-export default SdkImage;
+export default SelphIDImage;

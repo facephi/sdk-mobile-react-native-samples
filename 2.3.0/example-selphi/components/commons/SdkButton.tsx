@@ -29,8 +29,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const SdkButton = (props: any) => 
-{
+const SdkButton = (props: any) => {
   const { onPress, text } = props;
   return (
     <View style={styles.sdkButtonContainer}>

@@ -8,7 +8,7 @@ require Pod::Executable.execute_command('node', ['-p',
 platform :ios, min_ios_version_supported
 prepare_react_native_project!
 
-plugin 'cocoapods-art', :sources => ['cocoa-pro-fphi']
+plugin 'cocoapods-art', :sources => ['cocoa-dev-fphi']
 source 'https://cdn.cocoapods.org/'
 
 linkage = ENV['USE_FRAMEWORKS']
@@ -17,10 +17,12 @@ if linkage != nil
   use_frameworks! :linkage => linkage.to_sym
 end
 
-target 'ExampleClassic' do
-  config = use_native_modules!
+use_frameworks! :linkage => :static
 
-  dynamic_frameworks = ['zipzap', 'PromisesObjC', 'GTMSessionFetcher', 'GoogleDataTransport', 'GoogleToolboxForMac', 'Protobuf', 'GoogleUtilities', 'nanopb']
+target 'Example' do
+  config = use_native_modules!
+  
+  dynamic_frameworks = ['zipzap']
 
   pre_install do |installer|
     installer.pod_targets.each do |pod|
@@ -33,19 +35,16 @@ target 'ExampleClassic' do
     end
   end
 
+  # use_frameworks! # NEEDED IF SIM.
   use_react_native!(
     :path => config[:reactNativePath],
     # An absolute path to your application root.
-    :app_path => "#{Pod::Config.instance.installation_root}/.."
+    :app_path => "#{Pod::Config.instance.installation_root}/..",
+    :hermes_enabled => false
+    # :fabric_enabled => true
   )
 
-  target 'ExampleClassicTests' do
-    inherit! :complete
-    # Pods for testing
-  end
-
   post_install do |installer|
-    # https://github.com/facebook/react-native/blob/main/packages/react-native/scripts/react_native_pods.rb#L197-L202
     react_native_post_install(
       installer,
       config[:reactNativePath],

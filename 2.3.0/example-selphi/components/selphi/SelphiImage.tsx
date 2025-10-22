@@ -24,7 +24,6 @@ const styles = StyleSheet.create({
 const SelphiImage = (props: any) => 
 {
   const { image, widthImage } = props;
-  
   const newSelphiImageContainer = StyleSheet.flatten([
     styles.selphiImageContainer,
     {width: widthImage},

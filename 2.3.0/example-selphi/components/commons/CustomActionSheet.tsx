@@ -11,7 +11,7 @@ const ActionSheet = (props: any) => {
     ...actionItems,
     {
       id: '#cancel',
-      label: 'Cancel',
+      label: 'Close',
       onPress: props?.onCancel
     }
   ]
@@ -117,6 +117,7 @@ ActionSheet.propTypes = {
   setDarkMode: PropTypes.func,
 }
 
+/*
 ActionSheet.defaultProps = {
   actionItems: [],
   onCancel: () => { },
@@ -124,5 +125,5 @@ ActionSheet.defaultProps = {
   darkMode: false,
   setDarkMode: () => { }
 }
-
+*/
 export default ActionSheet;
