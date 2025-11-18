@@ -10,9 +10,6 @@
     "test": "jest"
   },
   "dependencies": {
-    "@facephi/sdk-core-react-native": "file:../2.3.0/sdk-core",
-    "@facephi/sdk-selphi-react-native": "file:../2.3.0/sdk-selphi",
-    "@facephi/sdk-selphid-mbsdr-react-native": "file:../2.3.0/sdk-selphid-mbsdr",
     "@react-native/new-app-screen": "0.82.0",
     "react": "19.1.1",
     "react-native": "0.82.0",
