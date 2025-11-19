@@ -8,7 +8,7 @@
  * @format
  */
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, StatusBar, Appearance, Platform, FlatList, View, NativeModules } from 'react-native';
+import { SafeAreaView, StatusBar, Appearance, Platform, FlatList, View } from 'react-native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { CUSTOMER_ID, MsjError, LICENSE_URL, LICENSE_APIKEY_IOS, LICENSE_APIKEY_ANDROID } from './constants';
 
@@ -52,7 +52,7 @@ const App = () =>
     try 
     {
       console.log("Starting launchVideoId...");
-      return await  NativeModules.SdkMobileVideoid.videoid(getVideoIdConfiguration())
+      return await videoid(getVideoIdConfiguration())
       .then((result: VideoIdResult) => 
       {
         console.log("result", result);
