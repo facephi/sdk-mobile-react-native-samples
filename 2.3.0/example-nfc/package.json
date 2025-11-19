@@ -1,6 +1,6 @@
 {
   "name": "Example",
-  "version": "2.3.0",
+  "version": "2.4.0",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
@@ -10,7 +10,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "@react-native-picker/picker": "^2.11.0",
+    "@react-native-picker/picker": "^2.11.4",
     "react": "19.0.0",
     "react-native": "0.79.1"
   },
