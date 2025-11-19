@@ -8,7 +8,7 @@
  * @format
  */
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, StatusBar, Appearance, Platform, FlatList, View } from 'react-native';
+import { SafeAreaView, StatusBar, Appearance, Platform, FlatList, View, NativeModules } from 'react-native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { CUSTOMER_ID, MsjError, LICENSE_URL, LICENSE_APIKEY_IOS, LICENSE_APIKEY_ANDROID } from './constants';
 
@@ -17,8 +17,9 @@ import SdkWarning from './components/commons/SdkWarning';
 import SdkButton from './components/commons/SdkButton';
 
 import { CoreResult, InitSessionConfiguration, InitOperationConfiguration, initSession, closeSession, initOperation } from '@facephi/sdk-core-react-native/src';
-import { videoid, VideoIdConfiguration, VideoIdResult, VideoMode } from '@facephi/sdk-videoid-react-native/src';
+import { videoid, VideoIdConfiguration, VideoIdResult } from '@facephi/sdk-videoid-react-native/src';
 import { SdkErrorType, SdkFinishStatus, SdkOperationType } from '@facephi/sdk-core-react-native/src/SdkCoreEnums';
+//import { VideoMode } from '@facephi/sdk-videoid-react-native/src/VideoIdEnums';
 
 const App = () => 
 {
@@ -51,7 +52,7 @@ const App = () =>
     try 
     {
       console.log("Starting launchVideoId...");
-      return await videoid(getVideoIdConfiguration())
+      return await  NativeModules.SdkMobileVideoid.videoid(getVideoIdConfiguration())
       .then((result: VideoIdResult) => 
       {
         console.log("result", result);
@@ -76,7 +77,7 @@ const App = () =>
   {
     let config: VideoIdConfiguration = {
       sectionTime: 5000,
-      mode: VideoMode.ONLY_FACE,
+      //mode: VideoMode.ONLY_FACE,
       showTutorial: true
     };
     return config;
