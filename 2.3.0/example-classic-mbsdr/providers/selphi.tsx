@@ -1,6 +1,6 @@
 import { SdkFinishStatus } from "@facephi/sdk-core-react-native/src/SdkCoreEnums";
-import { selphi, SelphiConfiguration, SelphiResult } from "@facephi/sdk-selphi-react-native/src";
-import { SdkCompressFormat, SdkLivenessMode } from "@facephi/sdk-selphi-react-native/src/SdkSelphiEnums";
+import { selphi, SelphiConfiguration, SelphiResult } from "@facephi/sdk-selphi-iad-react-native/src";
+import { SdkCompressFormat, SdkLivenessMode } from "@facephi/sdk-selphi-iad-react-native/src/SdkSelphiEnums";
 import { drawError } from "./core";
 
   const getSelphiConfiguration = () => {

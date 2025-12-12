@@ -4,7 +4,7 @@ import { closeSession, CoreResult, FlowConfiguration, getExtraData, initFlow, in
 import { SdkErrorType, SdkFinishStatus, SdkOperationType } from "@facephi/sdk-core-react-native/src/SdkCoreEnums";
 import { Platform } from "react-native";
 import { apiPost } from "../apiRest";
-import { SelphiResult, setSelphiFlow } from "@facephi/sdk-selphi-react-native/src";
+import { SelphiResult, setSelphiFlow } from "@facephi/sdk-selphi-iad-react-native/src";
 import { SelphidResult, setSelphidFlow } from "@facephi/sdk-selphid-mbsdr-react-native/src";
 
 export const callGetExtraData = async (

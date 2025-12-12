@@ -17,7 +17,7 @@ import SelphIDButtonAlert from './components/selphid/SelphIDButtonAlert';
 import SelphIDWarning from './components/selphid/SelphIDWarning';
 
 import SdkButton from './components/commons/SdkButton';
-import { SelphiResult } from '@facephi/sdk-selphi-react-native/src';
+import { SelphiResult } from '@facephi/sdk-selphi-iad-react-native/src';
 import { SelphidResult } from '@facephi/sdk-selphid-mbsdr-react-native/src';
 import { callGetExtraData, launchCloseSession, launchFlow, launchInitSession, startInitOperation } from './providers/core'
 import { startSelphi } from './providers/selphi';
