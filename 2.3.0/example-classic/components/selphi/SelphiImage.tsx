@@ -4,40 +4,31 @@ import { StyleSheet, View, Image } from 'react-native';
 
 const styles = StyleSheet.create({
   selphiImageContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    margin: 5,
-    height: 130,
-    //flex: 5,
-    width: '70%',
+    aspectRatio: 1,        // 👈 cuadrada (ajústalo si quieres)
+    maxHeight: 300,
+    marginVertical: 8,
     backgroundColor: '#e8e6e6',
-    borderRadius: 15,
-    
+    borderRadius: 10,
+    overflow: 'hidden',
+    flexShrink: 0,
   },
   selphiImage: {
-    height: '100%',
     width: '100%',
-    borderRadius: 15,
+    height: '100%',
+    resizeMode: 'contain',
   },
 });
 
-const SelphiImage = (props: any) => 
-{
-  const { image, widthImage } = props;
-  const newSelphiImageContainer = StyleSheet.flatten([
-    styles.selphiImageContainer,
-    {width: widthImage},
-  ]);
+const SelphiImage = ({ image, widthImage }: any) => {
+  if (!image) return null;
+
   return (
-    image ? 
-    <View style={newSelphiImageContainer}>
+    <View style={[styles.selphiImageContainer, { width: widthImage }]}>
       <Image
         style={styles.selphiImage}
-        source={{
-          uri: 'data:image/jpeg;base64,' + image,
-        }}
+        source={{ uri: `data:image/jpeg;base64,${image}` }}
       />
-    </View> : null
+    </View>
   );
 };
 
