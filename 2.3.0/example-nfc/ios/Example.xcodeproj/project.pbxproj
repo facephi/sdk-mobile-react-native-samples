@@ -8,10 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
-		196FF8E42DAFA6E0003DB32D /* CircularStd-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 196FF8E32DAFA6E0003DB32D /* CircularStd-Bold.ttf */; };
+		19E345142E605DC9006F87D6 /* CircularStd-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 19E345132E605DC9006F87D6 /* CircularStd-Bold.ttf */; };
 		761780ED2CA45674006654EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761780EC2CA45674006654EE /* AppDelegate.swift */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		F3C2593A42BD375ABDC6072F /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */; };
+		DA51C15F1C16CF9392267ECC /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,17 +19,8 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Example/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Example/Info.plist; sourceTree = "<group>"; };
 		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = Example/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		1933DB582DCB6DD70034D4C5 /* React_RCTAppDelegate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = React_RCTAppDelegate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		1933DB5C2DCB6E190034D4C5 /* sdk_core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = sdk_core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		1933DB602DCB6E1E0034D4C5 /* sdk_core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = sdk_core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		1933DB632DCB6E240034D4C5 /* sdk_selphi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = sdk_selphi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		1933DB662DCB6E280034D4C5 /* sdk_selphid.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = sdk_selphid.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		1933DB692DCB6E530034D4C5 /* RCTAnimation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RCTAnimation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		1933DB6C2DCB6E5E0034D4C5 /* RCTLinking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RCTLinking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		1933DB6F2DCB6E6B0034D4C5 /* RCTAnimation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RCTAnimation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		1933DB722DCB6E740034D4C5 /* RCTSettings.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RCTSettings.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		196FF8E32DAFA6E0003DB32D /* CircularStd-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CircularStd-Bold.ttf"; sourceTree = "<group>"; };
-		196FF8E52DAFA806003DB32D /* Example.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = Example.entitlements; path = Example/Example.entitlements; sourceTree = "<group>"; };
+		19DFD8872F4F1A2900E02364 /* Example.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = Example.entitlements; path = Example/Example.entitlements; sourceTree = "<group>"; };
+		19E345132E605DC9006F87D6 /* CircularStd-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CircularStd-Bold.ttf"; sourceTree = "<group>"; };
 		761780EC2CA45674006654EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Example/AppDelegate.swift; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Example/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -49,7 +40,7 @@
 		13B07FAE1A68108700A75B9A /* Example */ = {
 			isa = PBXGroup;
 			children = (
-				196FF8E52DAFA806003DB32D /* Example.entitlements */,
+				19DFD8872F4F1A2900E02364 /* Example.entitlements */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				761780EC2CA45674006654EE /* AppDelegate.swift */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
@@ -59,10 +50,10 @@
 			name = Example;
 			sourceTree = "<group>";
 		};
-		196FF8E22DAFA6B6003DB32D /* Resources */ = {
+		19E345122E605D8F006F87D6 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				196FF8E32DAFA6E0003DB32D /* CircularStd-Bold.ttf */,
+				19E345132E605DC9006F87D6 /* CircularStd-Bold.ttf */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -70,15 +61,6 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				1933DB722DCB6E740034D4C5 /* RCTSettings.framework */,
-				1933DB6F2DCB6E6B0034D4C5 /* RCTAnimation.framework */,
-				1933DB6C2DCB6E5E0034D4C5 /* RCTLinking.framework */,
-				1933DB692DCB6E530034D4C5 /* RCTAnimation.framework */,
-				1933DB662DCB6E280034D4C5 /* sdk_selphid.framework */,
-				1933DB632DCB6E240034D4C5 /* sdk_selphi.framework */,
-				1933DB602DCB6E1E0034D4C5 /* sdk_core.framework */,
-				1933DB5C2DCB6E190034D4C5 /* sdk_core.framework */,
-				1933DB582DCB6DD70034D4C5 /* React_RCTAppDelegate.framework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 			);
 			name = Frameworks;
@@ -94,7 +76,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				196FF8E22DAFA6B6003DB32D /* Resources */,
+				19E345122E605D8F006F87D6 /* Resources */,
 				13B07FAE1A68108700A75B9A /* Example */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				83CBBA001A601CBA00E9B192 /* Products */,
@@ -178,10 +160,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				19E345142E605DC9006F87D6 /* CircularStd-Bold.ttf in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				196FF8E42DAFA6E0003DB32D /* CircularStd-Bold.ttf in Resources */,
-				F3C2593A42BD375ABDC6072F /* PrivacyInfo.xcprivacy in Resources */,
+				DA51C15F1C16CF9392267ECC /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -352,6 +334,7 @@
 				);
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = "$(inherited)";
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-DFOLLY_NO_CONFIG",
@@ -360,14 +343,10 @@
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 					"-DFOLLY_HAVE_CLOCK_GETTIME=1",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
-				USE_HERMES = false;
+				USE_HERMES = true;
 			};
 			name = Debug;
 		};
@@ -435,6 +414,7 @@
 					"\"$(inherited)\"",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_CFLAGS = "$(inherited)";
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-DFOLLY_NO_CONFIG",
@@ -443,13 +423,9 @@
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 					"-DFOLLY_HAVE_CLOCK_GETTIME=1",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
-				USE_HERMES = false;
+				USE_HERMES = true;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

@@ -73,11 +73,6 @@ def enableProguardInReleaseBuilds = false
 def jscFlavor = 'io.github.react-native-community:jsc-android:2026004.+'
 
 android {
-    packagingOptions {
-        pickFirst("**/*.so") // SELPHI + VOICE
-        pickFirst("META-INF/versions/9/OSGI-INF/MANIFEST.MF") // NFC
-    }
-
     ndkVersion rootProject.ext.ndkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
@@ -85,7 +80,6 @@ android {
     namespace "com.example"
     defaultConfig {
         applicationId "com.facephi.sdk.demo"
-        //applicationId "com.facephi.demo.fingerprint"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

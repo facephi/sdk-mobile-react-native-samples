@@ -19,39 +19,16 @@ end
 
 target 'Example' do
   config = use_native_modules!
-
-  #$static_framework = ['Flipper-Boost-iOSX', 'Flipper-RSocket', 'glog', 'Yoga', 'YogaKit', 'React-logger', 'Flipper-Fmt', 'RCT-Folly', 'Flipper-Folly', 'React-jsi', 'FlipperKit', 'Flipper', 'Flipper-Glog', 'Flipper-PeerTalk', 'React-cxxreact', 'React-jsiexecutor', 'React-Core', 'React-RCTText', 'RCTTypeSafety', 'ReactCommon', 'React-Codegen', 'React-RCTVibration', 'React-RCTSettings', 'React-RCTNetwork', 'React-RCTLinking', 'React-RCTAnimation', 'React-RCTBlob', 'React-RCTImage', 'React-CoreModules', 'React-hermes']
-  dynamic_frameworks = ['zipzap', 'PromisesObjC', 'GTMSessionFetcher', 'GoogleDataTransport', 'GoogleToolboxForMac', 'Protobuf', 'GoogleUtilities', 'nanopb', 'Starscream']
-
-  pre_install do |installer|
-    installer.pod_targets.each do |pod|
-      if dynamic_frameworks.include?(pod.name)
-        puts "Overriding the build_type to dynamic_framework for #{pod.name}"      
-          def pod.build_type;
-          Pod::BuildType.dynamic_framework      
-        end
-      end
-    end
-  end
-
-  #pre_install do |installer|
-    #Pod::Installer::Xcode::TargetValidator.send(:define_method, :verify_no_static_framework_transitive_dependencies) {}
-    #installer.pod_targets.each do |pod|
-        #if $static_framework.include?(pod.name)
-          #def pod.build_type;
-            #Pod::BuildType.static_library
-          #end
-        #end
-      #end
-  #end
   
   use_react_native!(
     :path => config[:reactNativePath],
-    :hermes_enabled => false,
     # An absolute path to your application root.
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
+  # Flipper: use_frameworks is not compatible with Flipper. 
+  # You must disable Flipper by commenting out the :flipper_configuration line in your Podfile. 
+  # Flipper is deprecated in the react-native community and this will not be fixed.
   post_install do |installer|
     # https://github.com/facebook/react-native/blob/main/packages/react-native/scripts/react_native_pods.rb#L197-L202
     react_native_post_install(
@@ -65,7 +42,7 @@ target 'Example' do
     installer.generated_projects.each do |project|
       project.targets.each do |target|
         target.build_configurations.each do |config|
-            config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '12.0'
+            config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '13.0'
           end
       end
     end
