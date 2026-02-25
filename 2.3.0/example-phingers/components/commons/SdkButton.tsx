@@ -1,30 +1,26 @@
 import React from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import PropTypes from 'prop-types';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 const styles = StyleSheet.create({
   sdkButtonContainer: {
+    width: '100%',
     alignItems: 'center',
-    //flex: 0.55,
-    height: 50,
-    width: '80%',
-    justifyContent: 'center',
+    marginVertical: 7,
   },
   sdkButtonTouchable: {
-    alignItems: 'center',
-    //flex: 0.55,
-    height: '75%',
-    width: '80%',
-    borderRadius: 20,
-    borderColor: '#0099af',
+    width: '70%',          // 👈 70% del ancho de pantalla
+    height: 45,            // 👈 todos iguales
+    borderRadius: 10,
     backgroundColor: '#0099af',
     justifyContent: 'center',
+    alignItems: 'center',
+    flexShrink: 0,
   },
   sdkButtonText: {
     fontFamily: 'CircularStd-Bold',
     fontSize: 18,
     color: '#ffffff',
-    alignSelf: 'center',
     textTransform: 'capitalize',
   },
 });
@@ -41,8 +37,8 @@ const SdkButton = (props: any) => {
 };
 
 SdkButton.propTypes = {
-  onPress: PropTypes.func,
-  text: PropTypes.string,
-};
+  onPress: PropTypes.func.isRequired,
+  text: PropTypes.string.isRequired,
+}
 
 export default SdkButton;

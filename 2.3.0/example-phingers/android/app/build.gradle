@@ -79,8 +79,7 @@ android {
 
     namespace "com.example"
     defaultConfig {
-        //applicationId "com.facephi.sdk.demo"
-        applicationId "com.facephi.demo.fingerprint"
+        applicationId "com.facephi.sdk.demo"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

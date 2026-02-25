@@ -8,28 +8,26 @@
  * @format
  */
 import React, { useState, useEffect } from 'react';
-import { NativeModules, SafeAreaView, StatusBar, Platform, FlatList, View, Modal, Appearance, NativeEventEmitter } from 'react-native';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
+import { NativeModules, StatusBar, Platform, View, Modal, Appearance, NativeEventEmitter, ScrollView } from 'react-native';
 import { CUSTOMER_ID, MsjError, LICENSE_URL, LICENSE_APIKEY_IOS, LICENSE_APIKEY_ANDROID, LICENSE_ANDROID_NEW, LICENSE_IOS_NEW, TRACKING_ERROR_LISTENER } from './constants';
-
 import SdkTopBar from './components/commons/SdkTopBar';
 import ActionSheet from './components/commons/CustomActionSheet';
 import SdkButton from './components/commons/SdkButton';
-
 import { SdkErrorType, SdkFinishStatus, SdkOperationType } from '@facephi/sdk-core-react-native/src/SdkCoreEnums';
+import { closeSession, CoreResult, initOperation, InitOperationConfiguration, initSession, InitSessionConfiguration } from '@facephi/sdk-core-react-native/src';
+import { phingers, PhingersConfiguration, PhingersResult } from '@facephi/sdk-phingers-react-native/src';
 import { ReticleOrientation } from '@facephi/sdk-phingers-react-native/src/RecticleOrientation';
-import { CoreResult, InitOperationConfiguration, InitSessionConfiguration, initSession, closeSession, initOperation } from '@facephi/sdk-core-react-native/src';
-import { PhingersConfiguration, PhingersResult, phingers } from '@facephi/sdk-phingers-react-native/src';
 import { LogBox } from 'react-native';
 import SdkWarning from './components/commons/SdkWarning';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 const App = () => 
 {
-  const [message, setMessage]                   = useState("");
-  const [showError, setShowError]               = useState(false);
-  const [textColorMessage, setTextColorMessage] = useState('#777777');
-  const [actionSheet, setActionSheet]           = useState(false);
-  const [darkMode, setDarkMode]                 = useState(false);
+  const [message, setMessage]                       = useState("");
+  const [showError, setShowError]                   = useState(false);
+  const [textColorMessage, setTextColorMessage]     = useState('#777777');
+  const [actionSheet, setActionSheet]               = useState(false);
+  const [darkMode, setDarkMode]                     = useState(false);
 
   const actionItems = [
     {
@@ -41,8 +39,8 @@ const App = () =>
 
   LogBox.ignoreLogs(['new NativeEventEmitter']); // Ignore log notification by message
   LogBox.ignoreAllLogs();
-
-  const backgroundStyle = { backgroundColor: darkMode ? Colors.darker : Colors.lighter };
+  
+  const backgroundStyle = { backgroundColor: darkMode ? "dark-content" : "light-content" };
   const flowEmitter     = new NativeEventEmitter(NativeModules.SdkMobileCore); // For listening events
   const trackingEmitter = new NativeEventEmitter(NativeModules.SdkMobileCore); // Optional: For iOS events
   
@@ -61,7 +59,6 @@ const App = () =>
     const colorScheme = Appearance.getColorScheme(); //identify the theme of your default system light/dark
     setDarkMode(colorScheme === 'dark' ? true : false);
     console.log("dark mode:", darkMode);
-
 
     launchInitSession();
   }
@@ -119,6 +116,7 @@ const App = () =>
     try 
     {
       console.log("Starting initSession...");
+      setShowError(false);
       let config: InitSessionConfiguration = {
         //license: Platform.OS === 'ios' ? JSON.stringify(LICENSE_IOS_NEW) : JSON.stringify(LICENSE_ANDROID_NEW),
         licenseUrl: LICENSE_URL,
@@ -172,11 +170,12 @@ const App = () =>
     }
   };
 
-  const launchInitOperation = async () => 
+  const startInitOperation = async () => 
   { 
     try 
     {
       console.log("Starting startInitOperation...");
+      setShowError(false);
       return await initOperation(getInitOperationConfiguration())
       .then((result: CoreResult) => 
       {
@@ -207,33 +206,51 @@ const App = () =>
     </View>;
 
   const footerComponent = () => 
-    <View style={{ alignItems: 'center' }}>
-      <SdkButton onPress={launchPhingers} text="Start Phingers" />
-      <SdkButton onPress={launchInitOperation} text="Init Operation" />
+    <View style={{ alignItems: 'center', width: '100%' }}>
+      <SdkButton onPress={launchPhingers} text="Phingers" />
+      <SdkButton onPress={startInitOperation} text="Init Operation" />
       <SdkButton onPress={launchInitSession} text="Init Session" />
       <SdkButton onPress={launchCloseSession} text="Close Session" />
     </View>;
 
-  return (
-    <SafeAreaView style={[{flex: 1, paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0}, backgroundStyle]}>
-      <StatusBar barStyle={darkMode ? 'dark-content' : 'light-content'} />
-      <SdkTopBar onPress={() => setActionSheet(true)}/>
-      <Modal 
-        transparent={ true }
-        visible={ actionSheet } 
-        style={[{ margin: 0, justifyContent: 'flex-end' }]}
-        >
-          <ActionSheet actionItems={actionItems} onCancel={() => setActionSheet(false)} darkMode={ darkMode } setDarkMode={ setDarkMode }/>
-      </Modal>
+  const actionSheetComponent = () =>
+    <Modal
+      transparent={true}
+      visible={actionSheet}
+      style={[{ margin: 0, justifyContent: 'flex-end' }]}
+    >
+      <ActionSheet
+        actionItems={actionItems}
+        onCancel={() => setActionSheet(false)}
+        darkMode={darkMode}
+        setDarkMode={setDarkMode} />
+    </Modal>;
 
-      <FlatList
-        contentContainerStyle={{flex: 1, justifyContent: 'center'}}
-        data={[1]}
-        renderItem={ bodyComponent }
-        ListHeaderComponent={ headerComponent }
-        ListFooterComponent={ footerComponent }         
+  return (
+    <SafeAreaProvider>
+      <StatusBar 
+        barStyle={darkMode ? 'dark-content' : 'light-content'} 
       />
-    </SafeAreaView>
+      <SafeAreaView style={[{flex: 1}, backgroundStyle]}>
+        <SdkTopBar 
+          onPress={() => setActionSheet(true)}
+        />
+        { actionSheetComponent() }
+        <ScrollView
+          contentContainerStyle={{ width: '100%', flexGrow: 1, paddingBottom: 24 }}
+          showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps="handled"
+        >
+          <View
+            style={{ flex: 1, width: '100%', alignItems: 'center', justifyContent: 'center' }}
+          >
+            { headerComponent() }
+            { bodyComponent() }
+            { footerComponent() }
+          </View>
+        </ScrollView>
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 };
 

@@ -11,7 +11,7 @@ const ActionSheet = (props: any) => {
     ...actionItems,
     {
       id: '#cancel',
-      label: 'Cancel',
+      label: 'Close',
       onPress: props?.onCancel
     }
   ]
@@ -61,7 +61,7 @@ const ActionSheet = (props: any) => {
                             trackColor={{false: '#767577', true: '#81b0ff'}}
                             thumbColor={darkMode ? '#fff' : '#f4f3f4'}
                             ios_backgroundColor="#3e3e3e"
-                            onValueChange={() => setDarkMode((previousState: any) => !previousState)}
+                            onValueChange={() => setDarkMode((previousState: boolean) => !previousState)}
                             value={darkMode}
                         /> : null
                     }
@@ -117,7 +117,7 @@ ActionSheet.propTypes = {
   setDarkMode: PropTypes.func,
 }
 
-
+/*
 ActionSheet.defaultProps = {
   actionItems: [],
   onCancel: () => { },
@@ -125,6 +125,5 @@ ActionSheet.defaultProps = {
   darkMode: false,
   setDarkMode: () => { }
 }
-
-
+*/
 export default ActionSheet;
