@@ -1,8 +1,8 @@
-import React from 'react';
-import { Text } from 'react-native';
 import PropTypes from 'prop-types';
+import { Text } from 'react-native';
 
-const SdkWarning = (props: any) => {
+const SdkWarning = (props: any) => 
+{
   const { stateResult } = props;
   return (
     <Text 
@@ -13,8 +13,9 @@ const SdkWarning = (props: any) => {
     </Text>
   );
 };
+
 SdkWarning.propTypes = {
   stateResult: PropTypes.any.isRequired
-}
+};
 
 export default SdkWarning;

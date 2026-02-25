@@ -8,25 +8,26 @@
  * @format
  */
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, StatusBar, Appearance, Platform, FlatList, View } from 'react-native';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
-import { CUSTOMER_ID, MsjError, LICENSE_URL, LICENSE_APIKEY_IOS, LICENSE_APIKEY_ANDROID } from './constants';
-
+import { NativeModules, StatusBar, Platform, View, Modal, Appearance, NativeEventEmitter, ScrollView } from 'react-native';
+import { CUSTOMER_ID, MsjError, LICENSE_URL, LICENSE_APIKEY_IOS, LICENSE_APIKEY_ANDROID, LICENSE_ANDROID_NEW, LICENSE_IOS_NEW, TRACKING_ERROR_LISTENER } from './constants';
 import SdkTopBar from './components/commons/SdkTopBar';
-import SdkWarning from './components/commons/SdkWarning';
+import ActionSheet from './components/commons/CustomActionSheet';
 import SdkButton from './components/commons/SdkButton';
-
-import { CoreResult, InitSessionConfiguration, InitOperationConfiguration, initSession, closeSession, initOperation } from '@facephi/sdk-core-react-native/src';
-import { videoid, VideoIdConfiguration, VideoIdResult } from '@facephi/sdk-videoid-react-native/src';
 import { SdkErrorType, SdkFinishStatus, SdkOperationType } from '@facephi/sdk-core-react-native/src/SdkCoreEnums';
+import { closeSession, CoreResult, initOperation, InitOperationConfiguration, initSession, InitSessionConfiguration } from '@facephi/sdk-core-react-native/src';
+import { videoid, VideoIdConfiguration, VideoIdResult } from '@facephi/sdk-videoid-react-native/src';
 import { VideoMode } from '@facephi/sdk-videoid-react-native/src/VideoIdEnums';
+import { LogBox } from 'react-native';
+import SdkWarning from './components/commons/SdkWarning';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 const App = () => 
 {
-  const [message, setMessage]                   = useState("");
-  const [showError, setShowError]               = useState(false);
-  const [textColorMessage, setTextColorMessage] = useState('#777777');
-  const [darkMode, setDarkMode]                 = useState(false);
+  const [message, setMessage]                       = useState("");
+  const [showError, setShowError]                   = useState(false);
+  const [textColorMessage, setTextColorMessage]     = useState('#777777');
+  const [actionSheet, setActionSheet]               = useState(false);
+  const [darkMode, setDarkMode]                     = useState(false);
 
   const actionItems = [
     {
@@ -36,9 +37,25 @@ const App = () =>
     }
   ];
 
-  const backgroundStyle = { backgroundColor: darkMode ? Colors.darker : Colors.lighter };
+  LogBox.ignoreLogs(['new NativeEventEmitter']); // Ignore log notification by message
+  LogBox.ignoreAllLogs();
+  
+  const backgroundStyle = { backgroundColor: darkMode ? "dark-content" : "light-content" };
+  const flowEmitter     = new NativeEventEmitter(NativeModules.SdkMobileCore); // For listening events
+  const trackingEmitter = new NativeEventEmitter(NativeModules.SdkMobileCore); // Optional: For iOS events
+  
+  /* init listener */
+  let trackingListener = trackingEmitter.addListener(
+    TRACKING_ERROR_LISTENER,
+    (res: any) => console.log("TRACKING_ERROR_LISTENER", res)
+  );
+  let flowListener = flowEmitter.addListener(
+    "core.flow",
+    (res: any) => console.log("FLOW_LISTENER", res)
+  );
+  /* end listener */
 
-  useEffect(()=>{
+  useEffect(() => {
     const colorScheme = Appearance.getColorScheme(); //identify the theme of your default system light/dark
     setDarkMode(colorScheme === 'dark' ? true : false);
     console.log("dark mode:", darkMode);
@@ -99,6 +116,7 @@ const App = () =>
     try 
     {
       console.log("Starting initSession...");
+      setShowError(false);
       let config: InitSessionConfiguration = {
         //license: Platform.OS === 'ios' ? JSON.stringify(LICENSE_IOS_NEW) : JSON.stringify(LICENSE_ANDROID_NEW),
         licenseUrl: LICENSE_URL,
@@ -119,7 +137,7 @@ const App = () =>
         console.log(error);
       })
       .finally(()=> {
-        console.log("End closeSession...");
+        console.log("End initSession...");
       });
     } 
     catch (error) {
@@ -136,15 +154,14 @@ const App = () =>
       .then((result: CoreResult) => 
       {
         console.log("result", result);
-        /*if (result.finishStatus == SdkFinishStatus.Error) {
-          drawError(setMessage, result);
-        }*/
       })
       .catch((error: any) => 
       {
         console.log(error);
       })
       .finally(()=> {
+        trackingListener.remove();
+        flowListener.remove();
         console.log("End closeSession...");
       });
     } 
@@ -153,11 +170,12 @@ const App = () =>
     }
   };
 
-  const launchInitOperation = async () => 
+  const startInitOperation = async () => 
   { 
     try 
     {
-      console.log("Starting launchInitOperation...");
+      console.log("Starting startInitOperation...");
+      setShowError(false);
       return await initOperation(getInitOperationConfiguration())
       .then((result: CoreResult) => 
       {
@@ -171,7 +189,7 @@ const App = () =>
         console.log(error);
       })
       .finally(()=> {
-        console.log("End launchInitOperation...");
+        console.log("End startInitOperation...");
       });
     } 
     catch (error) {
@@ -188,28 +206,51 @@ const App = () =>
     </View>;
 
   const footerComponent = () => 
-    <View style={{ alignItems: 'center' }}>
-      <SdkButton onPress={launchVideoId} text="Start VideoId" />
-      <SdkButton onPress={launchInitOperation} text="Init Operation" />
+    <View style={{ alignItems: 'center', width: '100%' }}>
+      <SdkButton onPress={launchVideoId} text="VideoId" />
+      <SdkButton onPress={startInitOperation} text="Init Operation" />
       <SdkButton onPress={launchInitSession} text="Init Session" />
       <SdkButton onPress={launchCloseSession} text="Close Session" />
     </View>;
 
-  return (
-    <SafeAreaView style={[{flex: 1, paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0}, backgroundStyle]}>
-      <StatusBar 
-        animated={true}
-        barStyle={darkMode ? 'light-content' : 'dark-content'} />
-      <SdkTopBar />
+  const actionSheetComponent = () =>
+    <Modal
+      transparent={true}
+      visible={actionSheet}
+      style={[{ margin: 0, justifyContent: 'flex-end' }]}
+    >
+      <ActionSheet
+        actionItems={actionItems}
+        onCancel={() => setActionSheet(false)}
+        darkMode={darkMode}
+        setDarkMode={setDarkMode} />
+    </Modal>;
 
-      <FlatList
-        contentContainerStyle={{flex: 1, justifyContent: 'center'}}
-        data={[1]}
-        renderItem={ bodyComponent }
-        ListHeaderComponent={ headerComponent }
-        ListFooterComponent={ footerComponent }         
+  return (
+    <SafeAreaProvider>
+      <StatusBar 
+        barStyle={darkMode ? 'dark-content' : 'light-content'} 
       />
-    </SafeAreaView>
+      <SafeAreaView style={[{flex: 1}, backgroundStyle]}>
+        <SdkTopBar 
+          onPress={() => setActionSheet(true)}
+        />
+        { actionSheetComponent() }
+        <ScrollView
+          contentContainerStyle={{ width: '100%', flexGrow: 1, paddingBottom: 24 }}
+          showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps="handled"
+        >
+          <View
+            style={{ flex: 1, width: '100%', alignItems: 'center', justifyContent: 'center' }}
+          >
+            { headerComponent() }
+            { bodyComponent() }
+            { footerComponent() }
+          </View>
+        </ScrollView>
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 };
 

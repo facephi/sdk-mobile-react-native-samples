@@ -2,12 +2,18 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>UIAppFonts</key>
+	<array>
+		<string>CircularStd-Bold.ttf</string>
+	</array>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>The App need this permission to work properly.</string>
+	<string>Need this to work property.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Need this to work property.</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>VideoID Example</string>
+	<string>VideoId Example</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -33,14 +39,10 @@
 		<key>NSAllowsLocalNetworking</key>
 		<true/>
 	</dict>
-	<key>NSCameraUsageDescription</key>
-	<string>The App need this permission to work properly.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>The App need this permission to work properly.</string>
-	<key>UIAppFonts</key>
-	<array>
-		<string>CircularStd-Bold.ttf</string>
-	</array>
+	<string></string>
+	<key>RCTNewArchEnabled</key>
+	<true/>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>

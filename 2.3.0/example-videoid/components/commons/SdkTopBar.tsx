@@ -1,18 +1,17 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
 import PropTypes from 'prop-types';
+import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 
 const SdkTopBar = (props: any) => {
   const { onPress } = props;
   return (
     <View style={styles.container}>
       <Text style={styles.textTitle}> VideoId Example </Text>
+      <View style={{ position: "absolute", right: 10 }} testID='Configuration'>
+        <TouchableOpacity onPress={ onPress } ><Image source={require('../../assets/images/icons-settings-24.png')}/></TouchableOpacity>
+      </View>
     </View>
   );
-}
-
-SdkTopBar.propTypes = {
-  onPress: PropTypes.func.isRequired,
 }
 
 const styles = StyleSheet.create({
@@ -21,7 +20,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#0099af',
     alignItems: 'center',
     width: '100%',
-    height: '5.5%',
+    height: '7.5%',
     justifyContent: 'center', // center, space-around
   },
   textTitle: {
@@ -30,5 +29,9 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
 });
+
+SdkTopBar.propTypes = {
+  onPress: PropTypes.func.isRequired,
+}
 
 export default SdkTopBar;
