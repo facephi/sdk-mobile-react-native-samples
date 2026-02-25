@@ -7,7 +7,7 @@ const SdkTopBar = (props: any) => {
   return (
     <View style={styles.container}>
       <Text style={styles.textTitle}> Voice Example </Text>
-      <View style={{ position: "absolute", right: 10 }}>
+      <View style={{ position: "absolute", right: 10 }} testID='Configuration'>
         <TouchableOpacity onPress={ onPress } ><Image source={require('../../assets/images/icons-settings-24.png')}/></TouchableOpacity>
       </View>
     </View>

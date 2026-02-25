@@ -1,10 +1,14 @@
 export const TRACKING_ERROR_LISTENER    = "tracking.error.listener";
 export const CUSTOMER_ID                = "reactnative@facephi.com";
-export const LICENSE_APIKEY_ANDROID     = "";
-export const LICENSE_APIKEY_IOS         = "";
-export const LICENSE_URL                = "https://license.identity-platform.io";
-export const LICENSE_IOS_NEW            = {};
-export const LICENSE_ANDROID_NEW        = {};
+
+export const LICENSE_APIKEY_ANDROID     = ""; // PROD
+export const LICENSE_APIKEY_IOS         = ""; //PROD
+
+export const LICENSE_URL                = "https://license.identity-***.io";
+
+
+export const LICENSE_IOS_NEW        = {};
+export const LICENSE_ANDROID_NEW    = {};
 
 // ERROR TYPE MESSAGES
 export const MsjError = {

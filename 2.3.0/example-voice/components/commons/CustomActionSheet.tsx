@@ -11,7 +11,7 @@ const ActionSheet = (props: any) => {
     ...actionItems,
     {
       id: '#cancel',
-      label: 'Cancel',
+      label: 'Close',
       onPress: props?.onCancel
     }
   ]

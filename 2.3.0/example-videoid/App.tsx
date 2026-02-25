@@ -19,7 +19,7 @@ import SdkButton from './components/commons/SdkButton';
 import { CoreResult, InitSessionConfiguration, InitOperationConfiguration, initSession, closeSession, initOperation } from '@facephi/sdk-core-react-native/src';
 import { videoid, VideoIdConfiguration, VideoIdResult } from '@facephi/sdk-videoid-react-native/src';
 import { SdkErrorType, SdkFinishStatus, SdkOperationType } from '@facephi/sdk-core-react-native/src/SdkCoreEnums';
-//import { VideoMode } from '@facephi/sdk-videoid-react-native/src/VideoIdEnums';
+import { VideoMode } from '@facephi/sdk-videoid-react-native/src/VideoIdEnums';
 
 const App = () => 
 {
@@ -76,9 +76,10 @@ const App = () =>
   const getVideoIdConfiguration = () => 
   {
     let config: VideoIdConfiguration = {
-      sectionTime: 5000,
-      //mode: VideoMode.ONLY_FACE,
-      showTutorial: true
+      sectionTime: 50000,
+      mode: VideoMode.ONLY_FACE,
+      showTutorial: true,
+      autoFaceDetection: true
     };
     return config;
   };
