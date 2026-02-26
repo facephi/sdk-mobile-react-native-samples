@@ -4,40 +4,40 @@ import { StyleSheet, View, Image } from 'react-native';
 
 const styles = StyleSheet.create({
   selphIDImageContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    margin: 5,
-    height: 120,
-    width: '70%',
+    width: '70%',           // default
+    aspectRatio: 4 / 3,     // 👈 documento horizontal
+    marginVertical: 8,
     backgroundColor: '#e8e6e6',
     borderRadius: 5,
-
+    overflow: 'hidden',
+    flexShrink: 0,
   },
   selphIDImage: {
-    height: '95%',
-    width: '90%',
-    borderRadius: 5,
+    width: '100%',
+    height: '100%',
+    resizeMode: 'contain',
   },
 });
 
 const SelphIDImage = (props: any) => 
 {
-  const { image, widthImage } = props;
-  const newSelphIDImageContainer = StyleSheet.flatten([
+  const { image, widthImage, backgroundColor } = props;
+  const viewStyle = StyleSheet.flatten([
     styles.selphIDImageContainer,
-    {width: widthImage},
+    { width: widthImage, backgroundColor },
   ]);
   
+  if (!image) return null;
   return (
-    image ? <View style={newSelphIDImageContainer}>
+    <View style={viewStyle}>
       <Image
-        style={styles.selphIDImage}
+        style={[styles.selphIDImage]}
         resizeMode={'contain'}
         source={{
           uri: 'data:image/jpeg;base64,' + image,
         }}
       />
-    </View> : null
+    </View>
   );
 };
 

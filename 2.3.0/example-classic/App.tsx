@@ -22,7 +22,7 @@ import SelphIDWarning from './components/selphid/SelphIDWarning';
 import SdkButton from './components/commons/SdkButton';
 import { SelphiResult } from '@facephi/sdk-selphi-react-native/src';
 import { SelphidResult } from '@facephi/sdk-selphid-react-native/src';
-import { callGetExtraData, launchCloseSession, launchFlow, launchInitSession, startInitOperation } from './providers/core'
+import { callGetExtraData, getOperationIdInfo, getSessionIdInfo, launchCloseSession, launchFlow, launchInitSession, startInitOperation } from './providers/core'
 import { startSelphi } from './providers/selphi';
 import { startSelphid } from './providers/selphid';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
@@ -100,6 +100,12 @@ const App = () =>
         <SdkButton onPress={() => callGetExtraData(setMessage, selphidResult, selphiResult)} text="ExtraData" />
         <SdkButton onPress={() => launchInitSession(setMessage, setTextColorMessage, setShowError)} text="Init Session" />
         <SdkButton onPress={() => launchCloseSession(setOperationId, setSelphiResult, setSelphidResult)} text="Close Session" />
+        {operationId !== "" && (
+          <>
+            <SdkButton onPress={() => getSessionIdInfo(setMessage, setTextColorMessage, setShowError)} text="Get SessionId Info" />
+            <SdkButton onPress={() => getOperationIdInfo(setMessage, setTextColorMessage, setShowError, setOperationId)} text="Get OperationId Info" />
+          </>
+        )}
         <SdkButton onPress={() => launchFlow(setMessage)} text="Launch Flow" />
       </View>;
 

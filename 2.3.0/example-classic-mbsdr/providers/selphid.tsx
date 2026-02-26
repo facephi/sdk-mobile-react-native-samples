@@ -39,7 +39,7 @@ export const startSelphid = async (
       return await selphid(getSelphidConfiguration())
       .then((result: any) => 
       {
-        console.log("SelphidResult", result)
+        console.log("SelphidResult", result as SelphidResult)
         setSelphidResult(result);
         processSelphidResult(
             result,

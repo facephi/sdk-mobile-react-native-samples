@@ -18,13 +18,14 @@ const SelphIDButtonAlert = (props: any) =>
           animationType="slide"
           transparent={true}
           visible={modalVisible}
-          onRequestClose={() => {}}>
+          onRequestClose={() => {}}
+        >
           <View style={styles.centeredView}>
             <View style={[{backgroundColor: darkMode ? "black" : "white"}, styles.modalView]}>
               <FlatList
                 ItemSeparatorComponent={renderSeparator}
                 data={Object.keys(JSON.parse(content))}
-                keyExtractor={(item, index) => index.toString()}
+                keyExtractor={(index) => index.toString()}
                 renderItem={({item}) => (
                   <View>
                     <Text style={[{color: darkMode ? '#FFFFFF' : '#333333'}, styles.keyText]}>{item}</Text>
@@ -72,7 +73,8 @@ const styles = StyleSheet.create({
   centeredView: {
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 12,
+    marginTop: 11,
+    marginBottom: 11,
     width: '100%',
   },
   modalView: {
@@ -94,10 +96,10 @@ const styles = StyleSheet.create({
   },
   openButton: {
     alignItems: 'center',
-    width: '65%',
+    width: '100%',
     padding: 6,
     //marginTop: 16,
-    borderRadius: 20,
+    borderRadius: 10,
     borderColor: '#e01985',
     backgroundColor: '#e01985',
   },

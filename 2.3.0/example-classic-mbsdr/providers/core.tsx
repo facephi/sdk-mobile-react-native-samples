@@ -1,6 +1,6 @@
 
 import { CUSTOMER_ID, LICENSE_APIKEY_ANDROID, LICENSE_APIKEY_IOS, LICENSE_URL, MsjError } from "../constants";
-import { closeSession, CoreResult, FlowConfiguration, getExtraData, initFlow, initOperation, InitOperationConfiguration, initSession, InitSessionConfiguration, startFlow } from "@facephi/sdk-core-react-native/src";
+import { closeSession, CoreResult, FlowConfiguration, getExtraData, initFlow, initOperation, InitOperationConfiguration, initSession, InitSessionConfiguration, startFlow, getOperationId, getSessionId } from "@facephi/sdk-core-react-native/src";
 import { SdkErrorType, SdkFinishStatus, SdkOperationType } from "@facephi/sdk-core-react-native/src/SdkCoreEnums";
 import { Platform } from "react-native";
 import { apiPost } from "../apiRest";
@@ -74,6 +74,41 @@ const getInitOperationConfiguration = () =>
     return config;
 };
 
+export const getOperationIdInfo = async (
+    setMessage: React.Dispatch<React.SetStateAction<string>>,
+    setTextColorMessage: React.Dispatch<React.SetStateAction<string>>, 
+    setShowError: React.Dispatch<React.SetStateAction<boolean>>,
+    setOperationId: React.Dispatch<React.SetStateAction<string>>
+) => { 
+    try 
+    {
+      console.log("Starting getOperationIdInfo...");
+
+      return await getOperationId()
+      .then((result: CoreResult) => 
+      {
+        console.log("result", result);
+        switch (result.finishStatus) 
+        {
+          case SdkFinishStatus.Ok: // OK
+            setShowError(false);
+            setOperationId(result.data!);
+            break;
+    
+          case SdkFinishStatus.Error: // Error
+            drawError(setMessage, setTextColorMessage, setShowError, result);
+            break;
+        }
+      })
+      .finally(()=> {
+        console.log("End getOperationIdInfo...");
+      });
+    } 
+    catch (error) {
+        console.log(error);
+    }
+};
+
 export const startInitOperation = async (
     setMessage: React.Dispatch<React.SetStateAction<string>>,
     setTextColorMessage: React.Dispatch<React.SetStateAction<string>>, 
@@ -109,6 +144,39 @@ export const startInitOperation = async (
     }
 };
 
+export const getSessionIdInfo = async (
+    setMessage: React.Dispatch<React.SetStateAction<string>>,
+    setTextColorMessage: React.Dispatch<React.SetStateAction<string>>, 
+    setShowError: React.Dispatch<React.SetStateAction<boolean>>) => 
+{ 
+    try 
+    {
+      console.log("Starting getSessionIdInfo...");
+
+      return await getSessionId()
+      .then((result: CoreResult) => 
+      {
+        console.log("result", result);
+        switch (result.finishStatus) 
+        {
+          case SdkFinishStatus.Ok: // OK
+            setShowError(false);
+            break;
+
+          case SdkFinishStatus.Error: // Error
+            drawError(setMessage, setTextColorMessage, setShowError, result);
+            break;
+        }
+      })
+      .finally(()=> {
+        console.log("End getSessionIdInfo...");
+      });
+    } 
+    catch (error) {
+        console.log(error);
+    }
+};
+
 export const launchInitSession = async (
     setMessage: React.Dispatch<React.SetStateAction<string>>,
     setTextColorMessage: React.Dispatch<React.SetStateAction<string>>, 
@@ -123,6 +191,7 @@ export const launchInitSession = async (
         licenseUrl: LICENSE_URL,
         licenseApiKey: Platform.OS === 'ios' ? LICENSE_APIKEY_IOS : LICENSE_APIKEY_ANDROID,
         enableTracking: true,
+        //enableDebugMode: true
       };
 
       return await initSession(config)
