@@ -2,9 +2,6 @@
  * Sample React Native App
  * https://github.com/facebook/react-native
  *
- * Generated with the TypeScript template
- * https://github.com/react-native-community/react-native-template-typescript
- *
  * @format
  */
 import React, { useState, useEffect } from 'react';
@@ -49,7 +46,7 @@ const App = () =>
   LogBox.ignoreLogs(['new NativeEventEmitter']); // Ignore log notification by message
   LogBox.ignoreAllLogs();
   
-  const backgroundStyle = { backgroundColor: darkMode ? 'dark-content' : 'light-content' };
+  const backgroundStyle = { backgroundColor: darkMode ? '#000000' : '#ffffff' };
 
   //const flowEmitter     = new NativeEventEmitter(NativeModules.SdkMobileCore); // For listening events
   //const trackingEmitter = new NativeEventEmitter(NativeModules.SdkMobileCore); // Optional: For iOS events
@@ -124,8 +121,8 @@ const App = () =>
 
     return (
       <SafeAreaProvider>
-        <StatusBar 
-          barStyle={darkMode ? 'dark-content' : 'light-content'} 
+        <StatusBar
+          barStyle={darkMode ? 'light-content' : 'dark-content'}
         />
         <SafeAreaView style={[{flex: 1}, backgroundStyle]}>
           <SdkTopBar 

@@ -5,7 +5,6 @@ import { drawError } from "./core";
 
   const getSelphiConfiguration = () => {
     let config: SelphiConfiguration = {
-      debug: false,
       fullscreen: true,
       livenessMode: SdkLivenessMode.PassiveMode,
       resourcesPath: "fphi-selphi-widget-resources-sdk.zip",
