@@ -5,7 +5,6 @@ import { drawError } from "./core";
 
 const getSelphidConfiguration = () => {
     let config: SelphidConfiguration = {
-      debug: false,
       showResultAfterCapture: true,
       showTutorial: false,
       scanMode: SdkScanMode.Search,

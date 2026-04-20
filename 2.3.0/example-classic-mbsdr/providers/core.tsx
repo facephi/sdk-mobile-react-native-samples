@@ -191,7 +191,8 @@ export const launchInitSession = async (
         licenseUrl: LICENSE_URL,
         licenseApiKey: Platform.OS === 'ios' ? LICENSE_APIKEY_IOS : LICENSE_APIKEY_ANDROID,
         enableTracking: true,
-        //enableDebugMode: true
+        //enableDebugMode: true,
+        //internalOptions: {"key": "value"}
       };
 
       return await initSession(config)
