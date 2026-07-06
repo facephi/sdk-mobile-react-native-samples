@@ -8,7 +8,7 @@ require Pod::Executable.execute_command('node', ['-p',
 platform :ios, min_ios_version_supported
 prepare_react_native_project!
 
-plugin 'cocoapods-art', :sources => ['cocoa-dev-fphi']
+plugin 'cocoapods-art', :sources => ['cocoa-pro-fphi']
 source 'https://cdn.cocoapods.org/'
 
 linkage = ENV['USE_FRAMEWORKS']
