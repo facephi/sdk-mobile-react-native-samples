@@ -10,7 +10,6 @@
     "test": "jest"
   },
   "dependencies": {
-    "@fip360/widget-behavior-react-native": "../../widget-behavior-react-native",
     "@react-native/new-app-screen": "0.85.1",
     "react": "19.2.3",
     "react-native": "0.85.1",
