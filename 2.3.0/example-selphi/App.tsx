@@ -16,7 +16,7 @@ import SelphIDWarning from './components/selphid/SelphIDWarning';
 
 import SdkButton from './components/commons/SdkButton';
 import { SelphiResult } from '@facephi/sdk-selphi-react-native/src';
-import { callGetExtraData, launchCloseSession, launchFlow, launchInitSession, startInitOperation } from './providers/core'
+import { callGetExtraData, launchCloseSession, launchInitSession, startInitOperation } from './providers/core'
 import { startSelphi } from './providers/selphi';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -42,18 +42,12 @@ const App = () =>
   LogBox.ignoreAllLogs();
   
   const backgroundStyle = { backgroundColor: darkMode ? '#000' : '#fff' };
-
-  const flowEmitter     = new NativeEventEmitter(NativeModules.SdkMobileCore); // For listening events
   const trackingEmitter = new NativeEventEmitter(NativeModules.SdkMobileCore); // Optional: For iOS events
   
   /* init listener */
   let trackingListener = trackingEmitter.addListener(
     TRACKING_ERROR_LISTENER,
     (res: any) => console.log("TRACKING_ERROR_LISTENER", res)
-  );
-  let flowListener = flowEmitter.addListener(
-    "core.flow",
-    (res: any) => console.log("FLOW_LISTENER", res)
   );
   /* end listener */
 
@@ -80,11 +74,10 @@ const App = () =>
   const footerComponent = () => 
     <View style={{ alignItems: 'center' }}>
       <SdkButton onPress={() => startSelphi(operationId, setMessage, setTextColorMessage, setShowError, setSelphiResult)} text="Start Selphi" testID={"selphiBtn"}/>
+      <SdkButton onPress={() => callGetExtraData(setMessage, selphiResult)} text="Get Extra Data" />
       <SdkButton onPress={() => startInitOperation(setMessage, setTextColorMessage, setShowError, setOperationId)} text="Init Operation" />
-      <SdkButton onPress={() => callGetExtraData(setMessage, selphiResult)} text="ExtraData" />
       <SdkButton onPress={() => launchInitSession(setMessage, setTextColorMessage, setShowError)} text="Init Session" />
       <SdkButton onPress={() => launchCloseSession(setOperationId, setSelphiResult)} text="Close Session" />
-      <SdkButton onPress={() => launchFlow(setMessage)} text="Launch Flow" />
     </View>;
 
   return (
