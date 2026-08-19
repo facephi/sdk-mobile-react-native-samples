@@ -13,7 +13,7 @@ import { launchInitialize, launchSetPosition, launchSetUserId } from './provider
 import LoginScreen from './screens/LoginScreen';
 import HomeScreen from './screens/HomeScreen';
 import DashboardScreen from './screens/DashboardScreen';
-import { BehaviorResult } from '@facephi/widget-behavior-react-native';
+import { BehaviorResult } from '@fip360/widget-behavior-react-native';
 
 type Screen = 'login' | 'home' | 'dashboard';
 
