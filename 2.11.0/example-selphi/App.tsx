@@ -1,0 +1,107 @@
+/**
+ * Sample React Native App
+ * https://github.com/facebook/react-native
+ *
+ * @format
+ */
+import React, { useState, useEffect } from 'react';
+import { NativeModules, StatusBar, FlatList, View, Modal, Appearance, NativeEventEmitter, LogBox, Platform } from 'react-native';
+import { TRACKING_ERROR_LISTENER } from './constants';
+
+import SelphiImage from './components/selphi/SelphiImage';
+import SdkTopBar from './components/commons/SdkTopBar';
+import ActionSheet from './components/commons/CustomActionSheet';
+import SelphIDTitleText from './components/selphid/SelphIDTitleText';
+import SelphIDWarning from './components/selphid/SelphIDWarning';
+
+import SdkButton from './components/commons/SdkButton';
+import { SelphiResult } from '@facephi/sdk-selphi-react-native/src';
+import { callGetExtraData, launchCloseSession, launchInitSession, startInitOperation } from './providers/core'
+import { startSelphi } from './providers/selphi';
+import { SafeAreaView } from 'react-native-safe-area-context';
+
+const App = () => 
+{
+  const [operationId, setOperationId]               = useState("");
+  const [message, setMessage]                       = useState("");
+  const [showError, setShowError]                   = useState(false);
+  const [textColorMessage, setTextColorMessage]     = useState('#777777');
+  const [actionSheet, setActionSheet]               = useState(false);
+  const [darkMode, setDarkMode]                     = useState(false);
+  const [selphiResult, setSelphiResult]             = useState<SelphiResult|null>(null);
+
+  const actionItems = [
+    {
+      id: 1,
+      label: 'Theme Mode',
+      onPress: () => {}
+    }
+  ];
+
+  LogBox.ignoreLogs(['new NativeEventEmitter']); // Ignore log notification by message
+  LogBox.ignoreAllLogs();
+  
+  const backgroundStyle = { backgroundColor: darkMode ? '#000' : '#fff' };
+  const trackingEmitter = new NativeEventEmitter(NativeModules.SdkMobileCore); // Optional: For iOS events
+  
+  /* init listener */
+  let trackingListener = trackingEmitter.addListener(
+    TRACKING_ERROR_LISTENER,
+    (res: any) => console.log("TRACKING_ERROR_LISTENER", res)
+  );
+  /* end listener */
+
+  useEffect(() => {
+    const colorScheme = Appearance.getColorScheme(); //identify the theme of your default system light/dark
+    setDarkMode(colorScheme === 'dark' ? true : false);
+    console.log("dark mode:", darkMode);
+
+    launchInitSession(setMessage, setTextColorMessage, setShowError);
+  }
+  ,[])
+
+  const bodyComponent = () => 
+    <View style={{ alignItems: 'center', paddingTop: selphiResult?.bestImage ? '25%' : '0%' }}>
+      { selphiResult?.bestImage ? <SelphIDTitleText text="BestImage" /> : null }
+      <SelphiImage image={selphiResult?.bestImage} widthImage={'55%'} />
+    </View>;
+
+  const headerComponent = () => 
+    <View style={{ alignItems: 'center' }}>
+      <SelphIDWarning stateResult={[showError, message, textColorMessage]} />
+    </View>;
+
+  const footerComponent = () => 
+    <View style={{ alignItems: 'center' }}>
+      <SdkButton onPress={() => startSelphi(operationId, setMessage, setTextColorMessage, setShowError, setSelphiResult)} text="Start Selphi" testID={"selphiBtn"}/>
+      <SdkButton onPress={() => callGetExtraData(setMessage, selphiResult)} text="Get Extra Data" />
+      <SdkButton onPress={() => startInitOperation(setMessage, setTextColorMessage, setShowError, setOperationId)} text="Init Operation" />
+      <SdkButton onPress={() => launchInitSession(setMessage, setTextColorMessage, setShowError)} text="Init Session" />
+      <SdkButton onPress={() => launchCloseSession(setOperationId, setSelphiResult)} text="Close Session" />
+    </View>;
+
+  return (
+    <SafeAreaView style={[{flex: 1, paddingTop: 0}, backgroundStyle]}>
+      <StatusBar barStyle={darkMode ? 'dark-content' : 'light-content'} />
+      <SdkTopBar onPress={() => setActionSheet(true)}/>
+      <Modal 
+        transparent={ true }
+        visible={ actionSheet } 
+        style={[{ margin: 0, justifyContent: 'flex-end' }]}
+        >
+          <ActionSheet actionItems={actionItems} onCancel={() => setActionSheet(false)} darkMode={ darkMode } setDarkMode={ setDarkMode }/>
+      </Modal>
+
+      <FlatList
+        contentContainerStyle={{flex: (selphiResult != null) ? 0 : 1, justifyContent: 'center'}}
+        data={[1]}
+        renderItem={ bodyComponent }
+        ListHeaderComponent={ headerComponent }
+        ListFooterComponent={ footerComponent }         
+      />
+
+    </SafeAreaView>
+  );
+};
+
+export default App;

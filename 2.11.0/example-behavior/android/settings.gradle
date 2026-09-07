@@ -1,0 +1,17 @@
+pluginManagement { includeBuild("../node_modules/@react-native/gradle-plugin") }
+plugins { id("com.facebook.react.settings") }
+
+// Android Studio / Gradle daemon often lack Homebrew/nvm in PATH, so bare "npx" fails.
+// Resolve node via NODE_BINARY or a login shell, then call the local CLI directly.
+def nodeBinary = System.getenv("NODE_BINARY")
+if (nodeBinary == null || nodeBinary.isEmpty()) {
+    nodeBinary = ["bash", "-lc", "which node"].execute(null, rootDir).text.trim()
+}
+def cliFile = new File(rootDir, "../node_modules/@react-native-community/cli/build/bin.js").canonicalPath
+
+extensions.configure(com.facebook.react.ReactSettingsExtension){ ex ->
+    ex.autolinkLibrariesFromCommand([nodeBinary, cliFile, "config"])
+}
+rootProject.name = 'Example'
+include ':app'
+includeBuild('../node_modules/@react-native/gradle-plugin')
