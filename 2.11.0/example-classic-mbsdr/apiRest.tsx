@@ -12,7 +12,8 @@ export async function apiPost (method: string, bodyParams: any)
   return fetch(url + method, {
       method: 'POST',
       headers: headerParams,
-      body: JSON.stringify(bodyParams),
+      //body: JSON.stringify(bodyParams),
+      body: bodyParams,
     })
     .then((response) => { return response.json() });
 }
