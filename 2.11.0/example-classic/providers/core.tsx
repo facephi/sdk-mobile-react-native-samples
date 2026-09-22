@@ -1,7 +1,7 @@
 
 import { CUSTOMER_ID, LICENSE_APIKEY_ANDROID, LICENSE_APIKEY_IOS, LICENSE_URL } from "../constants";
 import { closeSession, CoreResult, FlowConfiguration, getExtraData, initFlow, initOperation, InitOperationConfiguration, initSession, InitSessionConfiguration, startFlow, getOperationId, getSessionId } from "@facephi/sdk-core-react-native/src";
-import { SdkErrorType, SdkFinishStatus, SdkOperationType } from "@facephi/sdk-core-react-native/src/SdkCoreEnums";
+import { SdkFinishStatus, SdkOperationType } from "@facephi/sdk-core-react-native/src/SdkCoreEnums";
 import { Platform } from "react-native";
 import { apiPost } from "../apiRest";
 import { SelphiResult, setSelphiFlow } from "@facephi/sdk-selphi-react-native/src";
