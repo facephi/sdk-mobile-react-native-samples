@@ -13,9 +13,8 @@ import { CUSTOMER_ID, LICENSE_URL, LICENSE_APIKEY_IOS, LICENSE_APIKEY_ANDROID, L
 import SdkTopBar from './components/commons/SdkTopBar';
 import ActionSheet from './components/commons/CustomActionSheet';
 import SdkButton from './components/commons/SdkButton';
-import { SdkFinishStatus, SdkOperationType } from '@facephi/sdk-core-react-native';
-import { closeSession, CoreResult, initOperation, InitOperationConfiguration, initSession, InitSessionConfiguration } from '@facephi/sdk-core-react-native/src';
-import { voice, VoiceConfiguration, VoiceResult } from '@facephi/sdk-voice-react-native/src';
+import { SdkFinishStatus, SdkOperationType, closeSession, CoreResult, initOperation, InitOperationConfiguration, initSession, InitSessionConfiguration } from '@facephi/sdk-core-react-native';
+import { voice, VoiceConfiguration, VoiceResult } from '@facephi/sdk-voice-react-native';
 import { LogBox } from 'react-native';
 import SdkWarning from './components/commons/SdkWarning';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
@@ -60,28 +59,22 @@ const App = () =>
 
   const launchVoice = async () => 
   { 
-    try 
+    console.log("Starting launchVoice...", getVoiceConfiguration());
+    return await voice(getVoiceConfiguration())
+    .then((result: VoiceResult) => 
     {
-      console.log("Starting launchVoice...", getVoiceConfiguration());
-      return await voice(getVoiceConfiguration())
-      .then((result: VoiceResult) => 
-      {
-        console.log("result", result);
-        if (result.finishStatus == SdkFinishStatus.Error) {
-          drawError(setMessage, setTextColorMessage, setShowError, result);
-        }
-      })
-      .catch((error: any) => 
-      {
-        console.log(error);
-      })
-      .finally(()=> {
-        console.log("End launchVoice...");
-      });
-    } 
-    catch (error) {
-      setMessage(JSON.stringify(error));
-    }
+      console.log("result", result);
+      if (result.finishStatus == SdkFinishStatus.Error) {
+        drawError(setMessage, setTextColorMessage, setShowError, result);
+      }
+    })
+    .catch((error: any) => 
+    {
+      console.log(error);
+    })
+    .finally(()=> {
+      console.log("End launchVoice...");
+    });
   };
 
   const getVoiceConfiguration = () => 
@@ -93,7 +86,6 @@ const App = () =>
       returnAudios: true,
       returnTokenizedAudios: true
     };
-
     return sdkConfiguration;
   };
 
@@ -103,93 +95,74 @@ const App = () =>
       customerId: CUSTOMER_ID,
       type: SdkOperationType.Onboarding,
     };
-
     return config;
   };
 
   const launchInitSession = async () => 
   { 
-    try 
-    {
-      console.log("Starting initSession...");
-      setShowError(false);
-      let config: InitSessionConfiguration = {
-        //license: Platform.OS === 'ios' ? JSON.stringify(LICENSE_IOS_NEW) : JSON.stringify(LICENSE_ANDROID_NEW),
-        licenseUrl: LICENSE_URL,
-        licenseApiKey: Platform.OS === 'ios' ? LICENSE_APIKEY_IOS : LICENSE_APIKEY_ANDROID,
-        enableTracking: true
-      };
+    console.log("Starting initSession...");
+    setShowError(false);
+    let config: InitSessionConfiguration = {
+      //license: Platform.OS === 'ios' ? JSON.stringify(LICENSE_IOS_NEW) : JSON.stringify(LICENSE_ANDROID_NEW),
+      licenseUrl: LICENSE_URL,
+      licenseApiKey: Platform.OS === 'ios' ? LICENSE_APIKEY_IOS : LICENSE_APIKEY_ANDROID,
+      enableTracking: true
+    };
 
-      return await initSession(config)
-      .then((result: CoreResult) => 
-      {
-        console.log("result", result);
-        if (result.finishStatus == SdkFinishStatus.Error) {
-          drawError(setMessage, setTextColorMessage, setShowError, result);
-        }
-      })
-      .catch((error: any) => 
-      {
-        console.log(error);
-      })
-      .finally(()=> {
-        console.log("End initSession...");
-      });
-    } 
-    catch (error) {
-      setMessage(JSON.stringify(error));
-    }
+    return await initSession(config)
+    .then((result: CoreResult) => 
+    {
+      console.log("result", result);
+      if (result.finishStatus == SdkFinishStatus.Error) {
+        drawError(setMessage, setTextColorMessage, setShowError, result);
+      }
+    })
+    .catch((error: any) => 
+    {
+      console.log(error);
+    })
+    .finally(()=> {
+      console.log("End initSession...");
+    });
   };
 
   const launchCloseSession = async () => 
   { 
-    try 
+    console.log("Starting closeSession...");
+    return await closeSession()
+    .then((result: CoreResult) => 
     {
-      console.log("Starting closeSession...");
-      return await closeSession()
-      .then((result: CoreResult) => 
-      {
-        console.log("result", result);
-      })
-      .catch((error: any) => 
-      {
-        console.log(error);
-      })
-      .finally(()=> {
-        trackingListener.remove();
-        console.log("End closeSession...");
-      });
-    } 
-    catch (error) {
-      setMessage(JSON.stringify(error));
-    }
+      console.log("result", result);
+    })
+    .catch((error: any) => 
+    {
+      console.log(error);
+    })
+    .finally(()=> {
+      trackingListener.remove();
+      console.log("End closeSession...");
+    });
   };
 
   const startInitOperation = async () => 
   { 
-    try 
+    console.log("Starting startInitOperation...");
+    setShowError(false);
+    return await initOperation(getInitOperationConfiguration())
+    .then((result: CoreResult) => 
     {
-      console.log("Starting startInitOperation...");
-      setShowError(false);
-      return await initOperation(getInitOperationConfiguration())
-      .then((result: CoreResult) => 
-      {
-        console.log("result", result);
-        if (result.finishStatus == SdkFinishStatus.Error) {
-          drawError(setMessage, setTextColorMessage, setShowError, result);
-        }
-      })
-      .catch((error: any) => 
-      {
-        console.log(error);
-      })
-      .finally(()=> {
-        console.log("End startInitOperation...");
-      });
-    } 
-    catch (error) {
-      setMessage(JSON.stringify(error));
-    }
+      console.log("result", result);
+      if (result.finishStatus == SdkFinishStatus.Error) {
+        drawError(setMessage, setTextColorMessage, setShowError, result);
+      }
+    })
+    .catch((error: any) => 
+    {
+      console.log(error);
+    })
+    .finally(()=> {
+      console.log("End startInitOperation...");
+    });
   };
 
   const bodyComponent = () => 
