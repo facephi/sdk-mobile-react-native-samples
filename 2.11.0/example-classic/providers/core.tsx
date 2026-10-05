@@ -1,42 +1,45 @@
 
 import { CUSTOMER_ID, LICENSE_APIKEY_ANDROID, LICENSE_APIKEY_IOS, LICENSE_URL } from "../constants";
-import { closeSession, CoreResult, FlowConfiguration, getExtraData, initFlow, initOperation, InitOperationConfiguration, initSession, InitSessionConfiguration, startFlow, getOperationId, getSessionId } from "@facephi/sdk-core-react-native/src";
-import { SdkFinishStatus, SdkOperationType } from "@facephi/sdk-core-react-native/src/SdkCoreEnums";
+import { closeSession, CoreResult, FlowConfiguration, getExtraData, initFlow, initOperation, InitOperationConfiguration, initSession, InitSessionConfiguration, startFlow, getOperationId, getSessionId, SdkFinishStatus, SdkOperationType } from "@facephi/sdk-core-react-native";
 import { Platform } from "react-native";
 import { apiPost } from "../apiRest";
-import { SelphiResult, setSelphiFlow } from "@facephi/sdk-selphi-react-native/src";
-import { SelphidResult, setSelphidFlow } from "@facephi/sdk-selphid-react-native/src";
+import { SelphiResult, setSelphiFlow } from "@facephi/sdk-selphi-react-native";
+import { SelphidResult, setSelphidFlow } from "@facephi/sdk-selphid-react-native";
 
 export const callGetExtraData = async (
     setMessage: React.Dispatch<React.SetStateAction<string>>,
+    setTextColorMessage: React.Dispatch<React.SetStateAction<string>>,
+    setShowError: React.Dispatch<React.SetStateAction<boolean>>,
     selphidResult: SelphidResult|null,
     selphiResult: SelphiResult|null
-) => { 
-    try 
+) => 
+{ 
+  console.log("Starting getExtraData...");
+  return await getExtraData()
+  .then(async (result: CoreResult) => 
+  {
+    console.log("result", result);
+    if (result.finishStatus == SdkFinishStatus.Error) 
     {
-      console.log("Starting getExtraData...");
-      return await getExtraData()
-      .then(async (result: CoreResult) => 
-      {
-        console.log("result", result);
-        if (result.finishStatus == SdkFinishStatus.Ok && selphiResult != null)
-        {
-          const params1 = {'extraData': result.data, 'image': selphiResult.bestImageTemplateRaw};
-          const params2 = {'documentTemplate': selphidResult?.tokenFaceImage, 'extraData': result.data, 'image1': selphiResult.bestImageTemplateRaw};
-          
-          let r1: any = await apiPost('/', params1);
-          console.log("r1", r1);
-          let r2: any = await apiPost('/', params2);
-          console.log("r2", r2);
-        }
-      })
-      .finally(()=> {
-        console.log("End getExtraData...");
-      });
-    } 
-    catch (error) {
-        console.log(error);
+      drawError(setMessage, setTextColorMessage, setShowError, result);
     }
+    if (result.finishStatus == SdkFinishStatus.Ok && selphiResult != null)
+    {
+      const params1 = {'extraData': result.data, 'image': selphiResult.bestImageTemplateRaw};
+      const params2 = {'documentTemplate': selphidResult?.tokenFaceImage, 'extraData': result.data, 'image1': selphiResult.bestImageTemplateRaw};
+      
+      let r1: any = await apiPost('/v5/api/v1/selphid/passive-liveness/evaluate', params1);
+      console.log("r1", r1);
+      let r2: any = await apiPost('/v5/api/v1/selphid/authenticate-facial/document/face-image', params2);
+      console.log("r2", r2);
+    }
+  })
+  .catch((error) => {
+    console.log("Error in getExtraData:", error);
+  })
+  .finally(()=> {
+    console.log("End getExtraData...");
+  });
 };
 
 export const launchCloseSession = async (
@@ -44,24 +47,21 @@ export const launchCloseSession = async (
     setSelphiResult: React.Dispatch<React.SetStateAction<SelphiResult|null>>,
     setSelphidResult: React.Dispatch<React.SetStateAction<SelphidResult|null>>) => 
 { 
-    try 
-    {
-      console.log("Starting closeSession...");
-      return await closeSession()
-      .then((result: CoreResult) => 
-      {
-        console.log("result", result);
-      })
-      .finally(()=> {
-        setOperationId("");
-        setSelphiResult(null);
-        setSelphidResult(null);
-        console.log("End closeSession...");
-      });
-    } 
-    catch (error) {
-        console.log(error);
-    }
+  console.log("Starting closeSession...");
+  return await closeSession()
+  .then((result: CoreResult) => 
+  {
+    console.log("result", result);
+  })
+  .catch((error) => {
+    console.log("Error in closeSession:", error);
+  })
+  .finally(()=> {
+    setOperationId("");
+    setSelphiResult(null);
+    setSelphidResult(null);
+    console.log("End closeSession...");
+  });
 };
 
 const getInitOperationConfiguration = () => 
@@ -79,34 +79,31 @@ export const getOperationIdInfo = async (
     setTextColorMessage: React.Dispatch<React.SetStateAction<string>>, 
     setShowError: React.Dispatch<React.SetStateAction<boolean>>,
     setOperationId: React.Dispatch<React.SetStateAction<string>>
-) => { 
-    try 
+) => 
+{ 
+  console.log("Starting getOperationIdInfo...");
+  return await getOperationId()
+  .then((result: CoreResult) => 
+  {
+    console.log("result", result);
+    switch (result.finishStatus) 
     {
-      console.log("Starting getOperationIdInfo...");
+      case SdkFinishStatus.Ok: // OK
+        setShowError(false);
+        setOperationId(result.data!);
+        break;
 
-      return await getOperationId()
-      .then((result: CoreResult) => 
-      {
-        console.log("result", result);
-        switch (result.finishStatus) 
-        {
-          case SdkFinishStatus.Ok: // OK
-            setShowError(false);
-            setOperationId(result.data!);
-            break;
-    
-          case SdkFinishStatus.Error: // Error
-            drawError(setMessage, setTextColorMessage, setShowError, result);
-            break;
-        }
-      })
-      .finally(()=> {
-        console.log("End getOperationIdInfo...");
-      });
-    } 
-    catch (error) {
-        console.log(error);
+      case SdkFinishStatus.Error: // Error
+        drawError(setMessage, setTextColorMessage, setShowError, result);
+        break;
     }
+  })
+  .catch((error) => {
+    console.log("Error in getOperationIdInfo:", error);
+  })
+  .finally(()=> {
+    console.log("End getOperationIdInfo...");
+  });
 };
 
 export const startInitOperation = async (
@@ -118,7 +115,6 @@ export const startInitOperation = async (
     try 
     {
       console.log("Starting startInitOperation...");
-
       return await initOperation(getInitOperationConfiguration())
       .then((result: CoreResult) => 
       {
@@ -149,32 +145,28 @@ export const getSessionIdInfo = async (
     setTextColorMessage: React.Dispatch<React.SetStateAction<string>>, 
     setShowError: React.Dispatch<React.SetStateAction<boolean>>) => 
 { 
-    try 
+  console.log("Starting getSessionIdInfo...");
+  return await getSessionId()
+  .then((result: CoreResult) => 
+  {
+    console.log("result", result);
+    switch (result.finishStatus) 
     {
-      console.log("Starting getSessionIdInfo...");
+      case SdkFinishStatus.Ok: // OK
+        setShowError(false);
+        break;
 
-      return await getSessionId()
-      .then((result: CoreResult) => 
-      {
-        console.log("result", result);
-        switch (result.finishStatus) 
-        {
-          case SdkFinishStatus.Ok: // OK
-            setShowError(false);
-            break;
-
-          case SdkFinishStatus.Error: // Error
-            drawError(setMessage, setTextColorMessage, setShowError, result);
-            break;
-        }
-      })
-      .finally(()=> {
-        console.log("End getSessionIdInfo...");
-      });
-    } 
-    catch (error) {
-        console.log(error);
+      case SdkFinishStatus.Error: // Error
+        drawError(setMessage, setTextColorMessage, setShowError, result);
+        break;
     }
+  })
+  .catch((error) => {
+    console.log("Error in getSessionIdInfo:", error);
+  })
+  .finally(()=> {
+    console.log("End getSessionIdInfo...");
+  });
 };
 
 export const launchInitSession = async (
@@ -225,7 +217,6 @@ const getFlowConfiguration = () =>
       flow: "FLOW_B",
       customerId: CUSTOMER_ID,
     };
-
     return sdkConfiguration;
 };
 

@@ -1,6 +1,5 @@
-import { SdkFinishStatus } from "@facephi/sdk-core-react-native/src/SdkCoreEnums";
-import { selphi, SelphiConfiguration, SelphiResult } from "@facephi/sdk-selphi-react-native/src";
-import { SdkCompressFormat, SdkLivenessMode } from "@facephi/sdk-selphi-react-native/src/SdkSelphiEnums";
+import { SdkFinishStatus } from "@facephi/sdk-core-react-native";
+import { SdkCompressFormat, SdkLivenessMode, selphi, SelphiConfiguration, SelphiResult } from "@facephi/sdk-selphi-react-native";
 import { drawError } from "./core";
 
   const getSelphiConfiguration = () => {
@@ -18,7 +17,6 @@ import { drawError } from "./core";
   };
 
 export const startSelphi = async (
-    operationId: string,
     setMessage: React.Dispatch<React.SetStateAction<string>>,
     setTextColorMessage: React.Dispatch<React.SetStateAction<string>>,
     setShowError: React.Dispatch<React.SetStateAction<boolean>>,
@@ -27,24 +25,13 @@ export const startSelphi = async (
 { 
     try 
     {
-      if (operationId == "") {
-        console.log("OPERATION ID MUST BE GENERATED FIRST")
-        return
-      }
-
       console.log("Starting startSelphi...");
-      
       return await selphi(getSelphiConfiguration())
       .then((result: SelphiResult) => 
       {
         console.log("SelphiResult", result)
         setSelphiResult(result);
-        processSelphiResult(
-            result, 
-            setMessage, 
-            setTextColorMessage, 
-            setShowError
-        );
+        processSelphiResult(result, setMessage, setTextColorMessage, setShowError);
       })
       .finally(()=> {
         console.log("End startSelphi...");

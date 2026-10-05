@@ -1,6 +1,5 @@
-import { SdkFinishStatus } from "@facephi/sdk-core-react-native/src/SdkCoreEnums";
-import { selphid, SelphidConfiguration, SelphidResult } from "@facephi/sdk-selphid-react-native/src";
-import { SdkDocumentType, SdkScanMode } from "@facephi/sdk-selphid-react-native/src/SdkSelphidEnums";
+import { SdkFinishStatus } from "@facephi/sdk-core-react-native";
+import { SdkDocumentType, SdkScanMode, selphid, SelphidConfiguration, SelphidResult } from "@facephi/sdk-selphid-react-native";
 import { drawError } from "./core";
 
 const getSelphidConfiguration = () => {
@@ -18,7 +17,6 @@ const getSelphidConfiguration = () => {
 };
 
 export const startSelphid = async (
-    operationId: string,
     setMessage: React.Dispatch<React.SetStateAction<string>>,
     setSelphidResult: React.Dispatch<React.SetStateAction<SelphidResult|null>>,
     setTextColorMessage: React.Dispatch<React.SetStateAction<string>>,
@@ -27,25 +25,14 @@ export const startSelphid = async (
 { 
     try 
     {
-      if (operationId == "") {
-        console.log("OPERATION ID MUST BE GENERATED FIRST")
-        return
-      }
-
       console.log("Starting startSelphid...");
       setSelphidResult(null);
-
       return await selphid(getSelphidConfiguration())
       .then((result: any) => 
       {
         console.log("SelphidResult", result as SelphidResult)
         setSelphidResult(result);
-        processSelphidResult(
-            result,
-            setMessage,
-            setTextColorMessage,
-            setShowError
-        );
+        processSelphidResult(result, setMessage, setTextColorMessage, setShowError);
       })
       .finally(()=> {
         console.log("End startSelphid...");

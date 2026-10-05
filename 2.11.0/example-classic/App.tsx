@@ -17,8 +17,8 @@ import SelphIDButtonAlert from './components/selphid/SelphIDButtonAlert';
 import SelphIDWarning from './components/selphid/SelphIDWarning';
 
 import SdkButton from './components/commons/SdkButton';
-import { SelphiResult } from '@facephi/sdk-selphi-react-native/src';
-import { SelphidResult } from '@facephi/sdk-selphid-react-native/src';
+import { SelphiResult } from '@facephi/sdk-selphi-react-native';
+import { SelphidResult } from '@facephi/sdk-selphid-react-native';
 import { callGetExtraData, getOperationIdInfo, getSessionIdInfo, launchCloseSession, launchFlow, launchInitSession, startInitOperation } from './providers/core'
 import { startSelphi } from './providers/selphi';
 import { startSelphid } from './providers/selphid';
@@ -91,10 +91,10 @@ const App = () =>
 
     const footerComponent = () => 
       <View style={{ alignItems: 'center', width: '100%' }}>
-        <SdkButton onPress={() => startSelphi(operationId, setMessage, setTextColorMessage, setShowError, setSelphiResult)} text="Start Selphi" testID={"selphiBtn"}/>
-        <SdkButton onPress={() => startSelphid(operationId, setMessage, setSelphidResult, setTextColorMessage, setShowError)} text="Start SelphID" />
+        <SdkButton onPress={() => startSelphi(setMessage, setTextColorMessage, setShowError, setSelphiResult)} text="Start Selphi" testID={"selphiBtn"}/>
+        <SdkButton onPress={() => startSelphid(setMessage, setSelphidResult, setTextColorMessage, setShowError)} text="Start SelphID" />
         <SdkButton onPress={() => startInitOperation(setMessage, setTextColorMessage, setShowError, setOperationId)} text="Init Operation" />
-        <SdkButton onPress={() => callGetExtraData(setMessage, selphidResult, selphiResult)} text="ExtraData" />
+        <SdkButton onPress={() => callGetExtraData(setMessage, setTextColorMessage, setShowError, selphidResult, selphiResult)} text="ExtraData" />
         <SdkButton onPress={() => launchInitSession(setMessage, setTextColorMessage, setShowError)} text="Init Session" />
         <SdkButton onPress={() => launchCloseSession(setOperationId, setSelphiResult, setSelphidResult)} text="Close Session" />
         {operationId !== "" && (
