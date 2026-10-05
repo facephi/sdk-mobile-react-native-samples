@@ -73,7 +73,7 @@ const App = () =>
 
   const footerComponent = () => 
     <View style={{ alignItems: 'center' }}>
-      <SdkButton onPress={() => startSelphi(operationId, setMessage, setTextColorMessage, setShowError, setSelphiResult)} text="Start Selphi" testID={"selphiBtn"}/>
+      <SdkButton onPress={() => startSelphi(setMessage, setTextColorMessage, setShowError, setSelphiResult)} text="Start Selphi" testID={"selphiBtn"}/>
       <SdkButton onPress={() => callGetExtraData(setMessage, selphiResult)} text="Get Extra Data" />
       <SdkButton onPress={() => startInitOperation(setMessage, setTextColorMessage, setShowError, setOperationId)} text="Init Operation" />
       <SdkButton onPress={() => launchInitSession(setMessage, setTextColorMessage, setShowError)} text="Init Session" />

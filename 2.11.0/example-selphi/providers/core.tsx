@@ -1,60 +1,54 @@
 
 import { CUSTOMER_ID, LICENSE_APIKEY_ANDROID, LICENSE_APIKEY_IOS, LICENSE_URL } from "../constants";
-import { closeSession, CoreResult, getExtraData, initOperation, InitOperationConfiguration, initSession, InitSessionConfiguration } from "@facephi/sdk-core-react-native/src";
+import { closeSession, CoreResult, getExtraData, initOperation, InitOperationConfiguration, initSession, InitSessionConfiguration } from "@facephi/sdk-core-react-native";
 import { Platform } from "react-native";
 import { apiPost } from "../apiRest";
-import { SelphiResult } from "@facephi/sdk-selphi-react-native/src";
-import { SdkFinishStatus, SdkOperationType } from "@facephi/sdk-core-react-native/src/SdkCoreEnums";
+import { SelphiResult } from "@facephi/sdk-selphi-react-native";
+import { SdkFinishStatus, SdkOperationType } from "@facephi/sdk-core-react-native";
 
 export const callGetExtraData = async (
     setMessage: React.Dispatch<React.SetStateAction<string>>,
     selphiResult: SelphiResult|null
 ) => { 
-    try 
+  console.log("Starting getExtraData...");
+  return await getExtraData()
+  .then(async (result: CoreResult) => 
+  {
+    console.log("result", result);
+    if (result.finishStatus == SdkFinishStatus.Ok && selphiResult != null)
     {
-      console.log("Starting getExtraData...");
-      return await getExtraData()
-      .then(async (result: CoreResult) => 
-      {
-        console.log("result", result);
-        if (result.finishStatus == SdkFinishStatus.Ok && selphiResult != null)
-        {
-          const params = {'extraData': result.data, 'image': selphiResult.bestImageTemplateRaw};
-          
-          let r: any = await apiPost('/**/**', params);
-          console.log("r", r);
-        }
-      })
-      .finally(()=> {
-        console.log("End getExtraData...");
-      });
-    } 
-    catch (error) {
-        console.log(error);
+      const params = {'extraData': result.data, 'image': selphiResult.bestImageTemplateRaw};
+      
+      let r: any = await apiPost('/', params);
+      console.log("r", r);
     }
+  })
+  .catch((error) => {
+    console.log(error);
+  })
+  .finally(()=> {
+    console.log("End getExtraData...");
+  });
 };
 
 export const launchCloseSession = async (
     setOperationId: React.Dispatch<React.SetStateAction<string>>,
     setSelphiResult: React.Dispatch<React.SetStateAction<SelphiResult|null>>) => 
 { 
-    try 
-    {
-      console.log("Starting closeSession...");
-      return await closeSession()
-      .then((result: CoreResult) => 
-      {
-        console.log("result", result);
-      })
-      .finally(()=> {
-        setOperationId("");
-        setSelphiResult(null);
-        console.log("End closeSession...");
-      });
-    } 
-    catch (error) {
-        console.log(error);
-    }
+  console.log("Starting closeSession...");
+  return await closeSession()
+  .then((result: CoreResult) => 
+  {
+    console.log("result", result);
+  })
+  .catch((error) => {
+    console.log(error);
+  })
+  .finally(()=> {
+    setOperationId("");
+    setSelphiResult(null);
+    console.log("End closeSession...");
+  });  
 };
 
 const getInitOperationConfiguration = () => 
@@ -63,7 +57,6 @@ const getInitOperationConfiguration = () =>
       customerId: CUSTOMER_ID,
       type: SdkOperationType.Onboarding,
     };
-
     return config;
 };
 
@@ -73,33 +66,29 @@ export const startInitOperation = async (
     setShowError: React.Dispatch<React.SetStateAction<boolean>>,
     setOperationId: React.Dispatch<React.SetStateAction<string>>
 ) => { 
-    try 
+  console.log("Starting startInitOperation...");
+  return await initOperation(getInitOperationConfiguration())
+  .then((result: CoreResult) => 
+  {
+    console.log("result", result);
+    switch (result.finishStatus) 
     {
-      console.log("Starting startInitOperation...");
+      case SdkFinishStatus.Ok: // OK
+        setShowError(false);
+        setOperationId(result.data!);
+        break;
 
-      return await initOperation(getInitOperationConfiguration())
-      .then((result: CoreResult) => 
-      {
-        console.log("result", result);
-        switch (result.finishStatus) 
-        {
-          case SdkFinishStatus.Ok: // OK
-            setShowError(false);
-            setOperationId(result.data!);
-            break;
-    
-          case SdkFinishStatus.Error: // Error
-            drawError(setMessage, setTextColorMessage, setShowError, result);
-            break;
-        }
-      })
-      .finally(()=> {
-        console.log("End startInitOperation...");
-      });
-    } 
-    catch (error) {
-        console.log(error);
+      case SdkFinishStatus.Error: // Error
+        drawError(setMessage, setTextColorMessage, setShowError, result);
+        break;
     }
+  })
+  .catch((error) => {
+    console.log(error);
+  })
+  .finally(()=> {
+    console.log("End startInitOperation...");
+  });
 };
 
 export const launchInitSession = async (
@@ -107,39 +96,36 @@ export const launchInitSession = async (
     setTextColorMessage: React.Dispatch<React.SetStateAction<string>>, 
     setShowError: React.Dispatch<React.SetStateAction<boolean>>) => 
 { 
-    try 
+  console.log("Starting initSession...");
+  setShowError(false);
+  let config: InitSessionConfiguration = {
+    //license: Platform.OS === 'ios' ? LICENSE_IOS_NEW : LICENSE_ANDROID_NEW,
+    licenseUrl: LICENSE_URL,
+    licenseApiKey: Platform.OS === 'ios' ? LICENSE_APIKEY_IOS : LICENSE_APIKEY_ANDROID,
+    enableTracking: true,
+  };
+
+  return await initSession(config)
+  .then((result: CoreResult) => 
+  {
+    console.log("result", result);
+    switch (result.finishStatus) 
     {
-      console.log("Starting initSession...");
-      setShowError(false);
-      let config: InitSessionConfiguration = {
-        //license: Platform.OS === 'ios' ? LICENSE_IOS_NEW : LICENSE_ANDROID_NEW,
-        licenseUrl: LICENSE_URL,
-        licenseApiKey: Platform.OS === 'ios' ? LICENSE_APIKEY_IOS : LICENSE_APIKEY_ANDROID,
-        enableTracking: true,
-      };
+      case SdkFinishStatus.Ok: // OK
+        setShowError(false);
+        break;
 
-      return await initSession(config)
-      .then((result: CoreResult) => 
-      {
-        console.log("result", result);
-        switch (result.finishStatus) 
-        {
-          case SdkFinishStatus.Ok: // OK
-            setShowError(false);
-            break;
-
-          case SdkFinishStatus.Error: // Error
-            drawError(setMessage, setTextColorMessage, setShowError, result);
-            break;
-        }
-      })
-      .finally(()=> {
-        console.log("End initSession...");
-      });
-    } 
-    catch (error) {
-        console.log(error);
+      case SdkFinishStatus.Error: // Error
+        drawError(setMessage, setTextColorMessage, setShowError, result);
+        break;
     }
+  })
+  .catch((error) => {
+    console.log(error);
+  })
+  .finally(()=> {
+    console.log("End initSession...");
+  });
 };
 
 export const drawError = (
