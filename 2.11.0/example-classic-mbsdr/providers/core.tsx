@@ -1,7 +1,6 @@
 
 import { CUSTOMER_ID, LICENSE_APIKEY_ANDROID, LICENSE_APIKEY_IOS, LICENSE_URL } from "../constants";
-import { closeSession, CoreResult, FlowConfiguration, getExtraData, initFlow, initOperation, InitOperationConfiguration, initSession, InitSessionConfiguration, startFlow, getOperationId, getSessionId } from "@facephi/sdk-core-react-native";
-import { SdkFinishStatus, SdkOperationType } from "@facephi/sdk-core-react-native";
+import { SdkFinishStatus, SdkOperationType, closeSession, CoreResult, FlowConfiguration, getExtraData, initFlow, initOperation, InitOperationConfiguration, initSession, InitSessionConfiguration, startFlow, getOperationId, getSessionId } from "@facephi/sdk-core-react-native";
 import { Platform } from "react-native";
 import { apiPost } from "../apiRest";
 import { SelphiResult, setSelphiFlow } from "@facephi/sdk-selphi-iad-react-native";
@@ -24,9 +23,9 @@ export const callGetExtraData = async (
           const params1 = {'extraData': result.data, 'image': selphiResult.bestImageTemplateRaw};
           const params2 = {'documentTemplate': selphidResult?.tokenFaceImage, 'extraData': result.data, 'image1': selphiResult.bestImageTemplateRaw};
           
-          let r1: any = await apiPost('/', params1);
+          let r1: any = await apiPost('/v5/api/v1/selphid/passive-liveness/evaluate', params1);
           console.log("r1", r1);
-          let r2: any = await apiPost('/', params2);
+          let r2: any = await apiPost('/v5/api/v1/selphid/authenticate-facial/document/face-image', params2);
           console.log("r2", r2);
         }
       })
@@ -114,34 +113,30 @@ export const startInitOperation = async (
     setTextColorMessage: React.Dispatch<React.SetStateAction<string>>, 
     setShowError: React.Dispatch<React.SetStateAction<boolean>>,
     setOperationId: React.Dispatch<React.SetStateAction<string>>
-) => { 
-    try 
+) => 
+{ 
+  return await initOperation(getInitOperationConfiguration())
+  .then((result: CoreResult) => 
+  {
+    console.log("result", result);
+    switch (result.finishStatus) 
     {
-      console.log("Starting startInitOperation...");
+      case SdkFinishStatus.Ok: // OK
+        setShowError(false);
+        setOperationId(result.data!);
+        break;
 
-      return await initOperation(getInitOperationConfiguration())
-      .then((result: CoreResult) => 
-      {
-        console.log("result", result);
-        switch (result.finishStatus) 
-        {
-          case SdkFinishStatus.Ok: // OK
-            setShowError(false);
-            setOperationId(result.data!);
-            break;
-    
-          case SdkFinishStatus.Error: // Error
-            drawError(setMessage, setTextColorMessage, setShowError, result);
-            break;
-        }
-      })
-      .finally(()=> {
-        console.log("End startInitOperation...");
-      });
-    } 
-    catch (error) {
-        console.log(error);
+      case SdkFinishStatus.Error: // Error
+        drawError(setMessage, setTextColorMessage, setShowError, result);
+        break;
     }
+  })
+  .catch((error) => {
+    console.log("Error in startInitOperation:", error);
+  })
+  .finally(()=> {
+    console.log("End startInitOperation...");
+  });
 };
 
 export const getSessionIdInfo = async (
@@ -149,32 +144,26 @@ export const getSessionIdInfo = async (
     setTextColorMessage: React.Dispatch<React.SetStateAction<string>>, 
     setShowError: React.Dispatch<React.SetStateAction<boolean>>) => 
 { 
-    try 
+  return await getSessionId()
+  .then((result: CoreResult) => 
+  {
+    console.log("result", result);
+    switch (result.finishStatus) 
     {
-      console.log("Starting getSessionIdInfo...");
+      case SdkFinishStatus.Ok: // OK
+        setShowError(false);
+        break;
 
-      return await getSessionId()
-      .then((result: CoreResult) => 
-      {
-        console.log("result", result);
-        switch (result.finishStatus) 
-        {
-          case SdkFinishStatus.Ok: // OK
-            setShowError(false);
-            break;
-
-          case SdkFinishStatus.Error: // Error
-            drawError(setMessage, setTextColorMessage, setShowError, result);
-            break;
-        }
-      })
-      .finally(()=> {
-        console.log("End getSessionIdInfo...");
-      });
-    } 
-    catch (error) {
-        console.log(error);
+      case SdkFinishStatus.Error: // Error
+        drawError(setMessage, setTextColorMessage, setShowError, result);
+        break;
     }
+  }).catch((error) => {
+    console.log("Error in getSessionIdInfo:", error);
+  })
+  .finally(()=> {
+    console.log("End getSessionIdInfo...");
+  });
 };
 
 export const launchInitSession = async (
@@ -215,7 +204,7 @@ export const launchInitSession = async (
       });
     } 
     catch (error) {
-        console.log(error);
+      console.log(error);
     }
 };
 
@@ -225,7 +214,6 @@ const getFlowConfiguration = () =>
       flow: "FLOW_B",
       customerId: CUSTOMER_ID,
     };
-
     return sdkConfiguration;
 };
 
@@ -275,7 +263,7 @@ export const drawError = (
     setShowError: React.Dispatch<React.SetStateAction<boolean>>, 
     result: any) =>
 {
-    setTextColorMessage('#DE2222');
-    setShowError(true);
-    setMessage(result['errorType'].replace(/_/g, ' '));
+  setTextColorMessage('#DE2222');
+  setShowError(true);
+  setMessage(result['errorType'].replace(/_/g, ' '));
 }

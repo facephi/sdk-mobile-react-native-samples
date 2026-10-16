@@ -1,52 +1,37 @@
 import { SdkFinishStatus } from "@facephi/sdk-core-react-native";
-import { selphid, SelphidConfiguration, SelphidResult } from "@facephi/sdk-selphid-mbsdr-react-native";
-import { SdkDocumentType, SdkScanMode } from "@facephi/sdk-selphid-mbsdr-react-native";
+import { selphid, SelphidConfiguration, SelphidResult, SdkScanMode, SdkDocumentType, SdkCompressFormat } from "@facephi/sdk-selphid-mbsdr-react-native";
 import { drawError } from "./core";
 
-const getSelphidConfiguration = () => {
-    let config: SelphidConfiguration = {
-      showResultAfterCapture: true,
-      showTutorial: false,
-      scanMode: SdkScanMode.Search,
-      specificData: 'AR|<ALL>',
-      documentType: SdkDocumentType.IdCard,
-      fullscreen: true,
-      resourcesPath: "fphi-selphid-widget-resources-sdk.zip",
-      wizardMode: true,
-      encodedDataFocusEnabled: true
-    };
-    return config;
-};
+export const defaultSelphidConfiguration = (): SelphidConfiguration => ({
+  showResultAfterCapture: true,
+  showTutorial: false,
+  showPreviousTip: true,
+  showDiagnostic: true,
+  compressFormat: SdkCompressFormat.JPEG,
+  jpgQuality: 95,
+  scanMode: SdkScanMode.Search,
+  documentType: SdkDocumentType.IdCard,
+});
 
 export const startSelphid = async (
-    operationId: string,
     setMessage: React.Dispatch<React.SetStateAction<string>>,
     setSelphidResult: React.Dispatch<React.SetStateAction<SelphidResult|null>>,
     setTextColorMessage: React.Dispatch<React.SetStateAction<string>>,
-    setShowError: React.Dispatch<React.SetStateAction<boolean>>
+    setShowError: React.Dispatch<React.SetStateAction<boolean>>,
+    config: SelphidConfiguration,
 ) => 
 { 
     try 
     {
-      if (operationId == "") {
-        console.log("OPERATION ID MUST BE GENERATED FIRST")
-        return
-      }
-
-      console.log("Starting startSelphid...");
+      console.log("Starting startSelphid...", config);
       setSelphidResult(null);
 
-      return await selphid(getSelphidConfiguration())
-      .then((result: any) => 
+      return await selphid(config)
+      .then((result: SelphidResult) => 
       {
-        console.log("SelphidResult", result as SelphidResult)
+        console.log("SelphidResult", result)
         setSelphidResult(result);
-        processSelphidResult(
-            result,
-            setMessage,
-            setTextColorMessage,
-            setShowError
-        );
+        processSelphidResult(result, setMessage, setTextColorMessage, setShowError);
       })
       .finally(()=> {
         console.log("End startSelphid...");

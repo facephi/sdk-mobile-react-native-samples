@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
   sdkButtonTouchable: {
     width: '70%',          // 👈 70% del ancho de pantalla
     height: 45,            // 👈 todos iguales
-    borderRadius: 5,
+    borderRadius: 10,
     backgroundColor: '#0099af',
     justifyContent: 'center',
     alignItems: 'center',
