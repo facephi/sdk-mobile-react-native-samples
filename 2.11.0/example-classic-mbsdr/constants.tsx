@@ -7,5 +7,5 @@ export const LICENSE_APIKEY_IOS         = "";
 
 export const LICENSE_URL                = "https://xxx.xxx-platform.xxx";
 
-export const LICENSE_IOS_NEW        = "{}";
-export const LICENSE_ANDROID_NEW    = "{}";
+export const LICENSE_IOS_NEW            = "{}";
+export const LICENSE_ANDROID_NEW        = "{}";

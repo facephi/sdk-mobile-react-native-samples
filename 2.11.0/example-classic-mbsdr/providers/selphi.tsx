@@ -9,7 +9,7 @@ export const defaultSelphiConfiguration = (): SelphiConfiguration => ({
   showTutorial: true,
   showPreviousTip: true,
   showDiagnostic: true,
-  jpgQuality: 95,
+  jpgQuality: 0.95,
 });
 
 export const startSelphi = async (

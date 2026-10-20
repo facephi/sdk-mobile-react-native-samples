@@ -8,9 +8,11 @@ export const defaultSelphidConfiguration = (): SelphidConfiguration => ({
   showPreviousTip: true,
   showDiagnostic: true,
   compressFormat: SdkCompressFormat.JPEG,
-  jpgQuality: 95,
+  jpgQuality: 0.95,
   scanMode: SdkScanMode.Search,
   documentType: SdkDocumentType.IdCard,
+  specificData: 'AR|<ALL>',
+  params: { 'PromiscuousMode': 'Half' },
 });
 
 export const startSelphid = async (

@@ -31,6 +31,9 @@ const nextValue = <T,>(values: T[], current: T | undefined) => {
   return values[(index + 1) % values.length];
 };
 
+const clampJpgQuality = (value: number) =>
+  Math.round(Math.min(1, Math.max(0.1, value)) * 100) / 100;
+
 const SelphiConfigSheet = ({
   colors,
   config,
@@ -40,6 +43,15 @@ const SelphiConfigSheet = ({
 }: SelphiConfigSheetProps) => {
   const insets = useSafeAreaInsets();
   const rowBorder = {borderBottomColor: colors.divider};
+  const [jpgQualityText, setJpgQualityText] = React.useState(String(config.jpgQuality ?? ''));
+
+  React.useEffect(() => {
+    if (visible) {
+      setJpgQualityText(String(config.jpgQuality ?? ''));
+    }
+    // Solo al abrir: mientras se escribe, el texto local manda.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [visible]);
 
   return (
     <Modal animationType="slide" onRequestClose={onClose} transparent visible={visible}>
@@ -87,17 +99,29 @@ const SelphiConfigSheet = ({
             <View style={[styles.sheetRow, styles.configRow, rowBorder]}>
               <Text style={[styles.configLabel, {color: colors.onSurface}]}>jpgQuality</Text>
               <TextInput
-                keyboardType="number-pad"
-                maxLength={3}
+                keyboardType="decimal-pad"
+                maxLength={4}
                 onChangeText={text => {
-                  const digits = text.replace(/[^0-9]/g, '');
-                  if (!digits) {
+                  const normalized = text.replace(',', '.').replace(/[^0-9.]/g, '');
+                  const singleDot = normalized.replace(/^(\d*\.?\d*).*$/, '$1');
+                  setJpgQualityText(singleDot);
+                  const value = Number(singleDot);
+                  if (singleDot !== '' && !singleDot.endsWith('.') && value >= 0.1 && value <= 1) {
+                    onChange({...config, jpgQuality: value});
+                  }
+                }}
+                onEndEditing={() => {
+                  const value = Number(jpgQualityText);
+                  if (!jpgQualityText || Number.isNaN(value)) {
+                    setJpgQualityText(String(config.jpgQuality ?? ''));
                     return;
                   }
-                  onChange({...config, jpgQuality: Math.min(100, Math.max(1, Number(digits)))});
+                  const clamped = clampJpgQuality(value);
+                  setJpgQualityText(String(clamped));
+                  onChange({...config, jpgQuality: clamped});
                 }}
                 style={[styles.configInput, {borderColor: colors.outline, color: colors.onSurface}]}
-                value={String(config.jpgQuality ?? '')}
+                value={jpgQualityText}
               />
             </View>
             <ConfigSwitch
