@@ -3,8 +3,8 @@ import { CUSTOMER_ID, LICENSE_APIKEY_ANDROID, LICENSE_APIKEY_IOS, LICENSE_URL } 
 import { closeSession, CoreResult, FlowConfiguration, getExtraData, initFlow, initOperation, InitOperationConfiguration, initSession, InitSessionConfiguration, startFlow, getOperationId, getSessionId, SdkFinishStatus, SdkOperationType } from "@facephi/sdk-core-react-native";
 import { Platform } from "react-native";
 import { apiPost } from "../apiRest";
-import { SelphiResult, setSelphiFlow } from "@facephi/sdk-selphi-react-native";
-import { SelphidResult, setSelphidFlow } from "@facephi/sdk-selphid-react-native";
+import { SelphiResult, setSelphiFlow } from "@facephi/sdk-selphi-classic-react-native";
+import { SelphidResult, setSelphidFlow } from "@facephi/sdk-selphid-classic-react-native";
 
 export const callGetExtraData = async (
     setMessage: React.Dispatch<React.SetStateAction<string>>,

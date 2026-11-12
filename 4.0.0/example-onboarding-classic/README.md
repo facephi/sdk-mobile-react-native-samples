@@ -7,8 +7,8 @@ Los plugins se enlazan en local desde `../4.0.0/`:
 | Plugin | Paquete | Qué hace en esta app |
 |--------|---------|----------------------|
 | Core | `@facephi/sdk-core-react-native` | Sesión, licencia, operación, extra data y flujo unificado |
-| Selphi | `@facephi/sdk-selphi-react-native` | Captura facial (selfie) con liveness pasivo |
-| SelphID | `@facephi/sdk-selphid-react-native` | Captura de documento de identidad |
+| Selphi | `@facephi/sdk-selphi-classic-react-native` | Captura facial (selfie) con liveness pasivo |
+| SelphID | `@facephi/sdk-selphid-classic-react-native` | Captura de documento de identidad |
 
 La UI vive en `App.tsx`. Cada botón llama a un provider:
 
@@ -154,7 +154,7 @@ await closeSession();
 
 ## Selphi
 
-Import desde `@facephi/sdk-selphi-react-native`. `startSelphi` abre el widget con esta configuración (`providers/selphi.tsx`):
+Import desde `@facephi/sdk-selphi-classic-react-native`. `startSelphi` abre el widget con esta configuración (`providers/selphi.tsx`):
 
 ```ts
 import {
@@ -163,7 +163,7 @@ import {
   SdkLivenessMode,
   type SelphiConfiguration,
   type SelphiResult,
-} from '@facephi/sdk-selphi-react-native';
+} from '@facephi/sdk-selphi-classic-react-native';
 
 const config: SelphiConfiguration = {
   fullscreen: true,
@@ -185,7 +185,7 @@ Para el flujo unificado, Core llama a `setSelphiFlow()` antes de `startFlow()`.
 
 ## SelphID
 
-Import desde `@facephi/sdk-selphid-react-native`. `startSelphid` abre el widget con esta configuración (`providers/selphid.tsx`):
+Import desde `@facephi/sdk-selphid-classic-react-native`. `startSelphid` abre el widget con esta configuración (`providers/selphid.tsx`):
 
 ```ts
 import {
@@ -194,7 +194,7 @@ import {
   SdkScanMode,
   type SelphidConfiguration,
   type SelphidResult,
-} from '@facephi/sdk-selphid-react-native';
+} from '@facephi/sdk-selphid-classic-react-native';
 
 const config: SelphidConfiguration = {
   showResultAfterCapture: true,
@@ -238,8 +238,8 @@ Para el flujo unificado, Core llama a `setSelphidFlow()` antes de `startFlow()`.
 `errorType` es un string del nativo (`NO_ERROR`, `CANCEL_BY_USER`, `CAMERA_PERMISSION_DENIED`, `NETWORK_CONNECTION`, `TIMEOUT`, …). Compáralo como texto, no como número. El detalle de cada plugin está en:
 
 - `../4.0.0/sdk-core/README.md`
-- `../4.0.0/sdk-selphi/README.md`
-- `../4.0.0/sdk-selphid/README.md`
+- `../4.0.0/sdk-selphi-classic/README.md`
+- `../4.0.0/sdk-selphid-classic/README.md`
 
 ## Problemas frecuentes
 
